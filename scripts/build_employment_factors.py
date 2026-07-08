@@ -248,7 +248,7 @@ def main() -> None:
     output = project_employment_factors(source)
 
     PROCESSED_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    output.to_csv(PROCESSED_OUTPUT, index=False)
+    output.to_csv(PROCESSED_OUTPUT, index=False, float_format="%.12g")
 
     PACKAGE_DATA_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(PROCESSED_OUTPUT, PACKAGE_DATA_OUTPUT)

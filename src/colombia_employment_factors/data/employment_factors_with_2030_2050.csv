@@ -1,29 +1,29 @@
 Source,Technology,Factor_Type,Job_Type,Unit,Year,Value,Value_Numeric,Method_Applied,Mapped_Rutovitz_Tech,Rutovitz_2030_Factor,Mapped_Catalogue_Tech,Learning_Rate,Projection_Input,Base_Year,Projected_Year,Projected_Value
 Rutovitz 2025,Battery storage (distributed),Construction,Direct,job-yr/MW,2024,4.44,4.44,Original,,,,,,2024,2024,4.44
-Rutovitz 2025,Battery storage (distributed),Construction,Direct,job-yr/MW,2030,3.340547298,3.340547298,Learning curve from cumulative capacity ratio,,,Battery storage,0.1,STEPS capacity ratio=6.5,2024,2030,3.340547298
-Rutovitz 2025,Battery storage (distributed),Construction,Direct,job-yr/MW,2050,2.679918477,2.679918477,Learning curve from cumulative capacity ratio,,,Battery storage,0.1,STEPS capacity ratio=27.7,2024,2050,2.679918477
+Rutovitz 2025,Battery storage (distributed),Construction,Direct,job-yr/MW,2030,3.3405472979883593,3.34054729799,Learning curve from cumulative capacity ratio,,,Battery storage,0.1,STEPS capacity ratio=6.5,2024,2030,3.34054729799
+Rutovitz 2025,Battery storage (distributed),Construction,Direct,job-yr/MW,2050,2.6799184768388007,2.67991847684,Learning curve from cumulative capacity ratio,,,Battery storage,0.1,STEPS capacity ratio=27.7,2024,2050,2.67991847684
 Rutovitz 2025,Battery storage (distributed),Manufacturing,Direct,job-yr/MW,2024,0.31,0.31,Original,,,,,,2024,2024,0.31
-Rutovitz 2025,Battery storage (distributed),Manufacturing,Direct,job-yr/MW,2030,0.23323641,0.23323641,Learning curve from cumulative capacity ratio,,,Battery storage,0.1,STEPS capacity ratio=6.5,2024,2030,0.23323641
-Rutovitz 2025,Battery storage (distributed),Manufacturing,Direct,job-yr/MW,2050,0.187111425,0.187111425,Learning curve from cumulative capacity ratio,,,Battery storage,0.1,STEPS capacity ratio=27.7,2024,2050,0.187111425
+Rutovitz 2025,Battery storage (distributed),Manufacturing,Direct,job-yr/MW,2030,0.23323641044513316,0.233236410445,Learning curve from cumulative capacity ratio,,,Battery storage,0.1,STEPS capacity ratio=6.5,2024,2030,0.233236410445
+Rutovitz 2025,Battery storage (distributed),Manufacturing,Direct,job-yr/MW,2050,0.187111425184691,0.187111425185,Learning curve from cumulative capacity ratio,,,Battery storage,0.1,STEPS capacity ratio=27.7,2024,2050,0.187111425185
 Rutovitz 2025,Battery storage (distributed),O&M,Direct,job/MW,2024,0.23,0.23,Original,,,,,,2024,2024,0.23
 Rutovitz 2025,Battery storage (grid),Construction,Direct,job-yr/MW,2024,0.53,0.53,Original,,,,,,2024,2024,0.53
-Rutovitz 2025,Battery storage (grid),Construction,Direct,job-yr/MW,2030,0.398759024,0.398759024,Learning curve from cumulative capacity ratio,,,Battery storage,0.1,STEPS capacity ratio=6.5,2024,2030,0.398759024
-Rutovitz 2025,Battery storage (grid),Construction,Direct,job-yr/MW,2050,0.319900179,0.319900179,Learning curve from cumulative capacity ratio,,,Battery storage,0.1,STEPS capacity ratio=27.7,2024,2050,0.319900179
+Rutovitz 2025,Battery storage (grid),Construction,Direct,job-yr/MW,2030,0.39875902430942123,0.398759024309,Learning curve from cumulative capacity ratio,,,Battery storage,0.1,STEPS capacity ratio=6.5,2024,2030,0.398759024309
+Rutovitz 2025,Battery storage (grid),Construction,Direct,job-yr/MW,2050,0.31990017854156855,0.319900178542,Learning curve from cumulative capacity ratio,,,Battery storage,0.1,STEPS capacity ratio=27.7,2024,2050,0.319900178542
 Rutovitz 2025,Battery storage (grid),Manufacturing,Direct,job-yr/MW,2024,0.31,0.31,Original,,,,,,2024,2024,0.31
-Rutovitz 2025,Battery storage (grid),Manufacturing,Direct,job-yr/MW,2030,0.23323641,0.23323641,Learning curve from cumulative capacity ratio,,,Battery storage,0.1,STEPS capacity ratio=6.5,2024,2030,0.23323641
-Rutovitz 2025,Battery storage (grid),Manufacturing,Direct,job-yr/MW,2050,0.187111425,0.187111425,Learning curve from cumulative capacity ratio,,,Battery storage,0.1,STEPS capacity ratio=27.7,2024,2050,0.187111425
+Rutovitz 2025,Battery storage (grid),Manufacturing,Direct,job-yr/MW,2030,0.23323641044513316,0.233236410445,Learning curve from cumulative capacity ratio,,,Battery storage,0.1,STEPS capacity ratio=6.5,2024,2030,0.233236410445
+Rutovitz 2025,Battery storage (grid),Manufacturing,Direct,job-yr/MW,2050,0.187111425184691,0.187111425185,Learning curve from cumulative capacity ratio,,,Battery storage,0.1,STEPS capacity ratio=27.7,2024,2050,0.187111425185
 Rutovitz 2025,Battery storage (grid),O&M,Direct,job/MW,2024,0.03,0.03,Original,,,,,,2024,2024,0.03
 Rutovitz 2015,Biomass power,Construction,Direct,job-yr/MW,2015,14,14,Original,,,,,,2015,2015,14
 Rutovitz 2015,Biomass power,Construction,Direct,job-yr/MW,2030,14.42,14.42,Rutovitz Table 9 decline to 2030,Biomass,1.03,,,Rutovitz Table 9 Latin America 2030,2015,2030,14.42
 I-JEDI,Biomass power,Construction&Manufacturing,Direct,job-yr/MW,2024,22.523,22.523,Original,,,,,,2024,2024,22.523
-I-JEDI,Biomass power,Construction&Manufacturing,Direct,job-yr/MW,2030,22.08993116,22.08993116,Learning curve from cumulative capacity ratio,,,Bioenergy,0.05,STEPS capacity ratio=1.3,2024,2030,22.08993116
-I-JEDI,Biomass power,Construction&Manufacturing,Direct,job-yr/MW,2050,21.24646877,21.24646877,Learning curve from cumulative capacity ratio,,,Bioenergy,0.05,STEPS capacity ratio=2.2,2024,2050,21.24646877
+I-JEDI,Biomass power,Construction&Manufacturing,Direct,job-yr/MW,2030,22.089931162510393,22.0899311625,Learning curve from cumulative capacity ratio,,,Bioenergy,0.05,STEPS capacity ratio=1.3,2024,2030,22.0899311625
+I-JEDI,Biomass power,Construction&Manufacturing,Direct,job-yr/MW,2050,21.246468773746358,21.2464687737,Learning curve from cumulative capacity ratio,,,Bioenergy,0.05,STEPS capacity ratio=2.2,2024,2050,21.2464687737
 I-JEDI,Biomass power,Construction&Manufacturing,Indirect,job-yr/MW,2024,12.506,12.506,Original,,,,,,2024,2024,12.506
-I-JEDI,Biomass power,Construction&Manufacturing,Indirect,job-yr/MW,2030,12.26553652,12.26553652,Learning curve from cumulative capacity ratio,,,Bioenergy,0.05,STEPS capacity ratio=1.3,2024,2030,12.26553652
-I-JEDI,Biomass power,Construction&Manufacturing,Indirect,job-yr/MW,2050,11.79720013,11.79720013,Learning curve from cumulative capacity ratio,,,Bioenergy,0.05,STEPS capacity ratio=2.2,2024,2050,11.79720013
+I-JEDI,Biomass power,Construction&Manufacturing,Indirect,job-yr/MW,2030,12.265536523480664,12.2655365235,Learning curve from cumulative capacity ratio,,,Bioenergy,0.05,STEPS capacity ratio=1.3,2024,2030,12.2655365235
+I-JEDI,Biomass power,Construction&Manufacturing,Indirect,job-yr/MW,2050,11.797200128067841,11.7972001281,Learning curve from cumulative capacity ratio,,,Bioenergy,0.05,STEPS capacity ratio=2.2,2024,2050,11.7972001281
 I-JEDI,Biomass power,Construction&Manufacturing,Induced,job-yr/MW,2024,16.497,16.497,Original,,,,,,2024,2024,16.497
-I-JEDI,Biomass power,Construction&Manufacturing,Induced,job-yr/MW,2030,16.17979818,16.17979818,Learning curve from cumulative capacity ratio,,,Bioenergy,0.05,STEPS capacity ratio=1.3,2024,2030,16.17979818
-I-JEDI,Biomass power,Construction&Manufacturing,Induced,job-yr/MW,2050,15.56200308,15.56200308,Learning curve from cumulative capacity ratio,,,Bioenergy,0.05,STEPS capacity ratio=2.2,2024,2050,15.56200308
+I-JEDI,Biomass power,Construction&Manufacturing,Induced,job-yr/MW,2030,16.17979817910287,16.1797981791,Learning curve from cumulative capacity ratio,,,Bioenergy,0.05,STEPS capacity ratio=1.3,2024,2030,16.1797981791
+I-JEDI,Biomass power,Construction&Manufacturing,Induced,job-yr/MW,2050,15.562003079540634,15.5620030795,Learning curve from cumulative capacity ratio,,,Bioenergy,0.05,STEPS capacity ratio=2.2,2024,2050,15.5620030795
 Rutovitz 2015,Biomass power,Fuel,Fuel,job/PJ,2015,81.1 jobs/PJ,81.1,Original,,,,,,2015,2015,81.1
 Rutovitz 2015,Biomass power,Manufacturing,Direct,job-yr/MW,2015,2.9,2.9,Original,,,,,,2015,2015,2.9
 Rutovitz 2015,Biomass power,Manufacturing,Direct,job-yr/MW,2030,2.987,2.987,Rutovitz Table 9 decline to 2030,Biomass,1.03,,,Rutovitz Table 9 Latin America 2030,2015,2030,2.987
@@ -32,41 +32,41 @@ Rutovitz 2015,Biomass power,O&M,Direct,job/MW,2015,1.5,1.5,Original,,,,,,2015,20
 I-JEDI,Biomass power,O&M,Indirect,job/MW,2024,1.477,1.477,Original,,,,,,2024,2024,1.477
 I-JEDI,Biomass power,O&M,Induced,job/MW,2024,1.672,1.672,Original,,,,,,2024,2024,1.672
 Rutovitz 2015,Coal power,Construction,Direct,job-yr/MW,2015,11.2,11.2,Original,,,,,,2015,2015,11.2
-Rutovitz 2015,Coal power,Construction,Direct,job-yr/MW,2030,8.4,8.4,Rutovitz Table 9 decline to 2030,Coal,0.75,,,Rutovitz Table 9 Latin America 2030,2015,2030,8.4
+Rutovitz 2015,Coal power,Construction,Direct,job-yr/MW,2030,8.399999999999999,8.4,Rutovitz Table 9 decline to 2030,Coal,0.75,,,Rutovitz Table 9 Latin America 2030,2015,2030,8.4
 Rutovitz 2025,Coal power,Construction,Direct,job-yr/MW,2024,11.08,11.08,Original,,,,,,2024,2024,11.08
 Rutovitz 2025,Coal power,Construction,Direct,job-yr/MW,2030,10.526,10.526,CAPEX ratio fallback,,,Coal,,CAPEX 2030/2024=0.95,2024,2030,10.526
 Rutovitz 2025,Coal power,Construction,Direct,job-yr/MW,2050,9.972,9.972,CAPEX ratio fallback,,,Coal,,CAPEX 2050/2024=0.9,2024,2050,9.972
 I-JEDI,Coal power,Construction&Manufacturing,Direct,job-yr/MW,2024,9.61,9.61,Original,,,,,,2024,2024,9.61
-I-JEDI,Coal power,Construction&Manufacturing,Direct,job-yr/MW,2030,9.1295,9.1295,CAPEX ratio fallback,,,Coal,,CAPEX 2030/2024=0.95,2024,2030,9.1295
+I-JEDI,Coal power,Construction&Manufacturing,Direct,job-yr/MW,2030,9.129499999999998,9.1295,CAPEX ratio fallback,,,Coal,,CAPEX 2030/2024=0.95,2024,2030,9.1295
 I-JEDI,Coal power,Construction&Manufacturing,Direct,job-yr/MW,2050,8.649,8.649,CAPEX ratio fallback,,,Coal,,CAPEX 2050/2024=0.9,2024,2050,8.649
 I-JEDI,Coal power,Construction&Manufacturing,Indirect,job-yr/MW,2024,12.232,12.232,Original,,,,,,2024,2024,12.232
-I-JEDI,Coal power,Construction&Manufacturing,Indirect,job-yr/MW,2030,11.6204,11.6204,CAPEX ratio fallback,,,Coal,,CAPEX 2030/2024=0.95,2024,2030,11.6204
-I-JEDI,Coal power,Construction&Manufacturing,Indirect,job-yr/MW,2050,11.0088,11.0088,CAPEX ratio fallback,,,Coal,,CAPEX 2050/2024=0.9,2024,2050,11.0088
+I-JEDI,Coal power,Construction&Manufacturing,Indirect,job-yr/MW,2030,11.620399999999998,11.6204,CAPEX ratio fallback,,,Coal,,CAPEX 2030/2024=0.95,2024,2030,11.6204
+I-JEDI,Coal power,Construction&Manufacturing,Indirect,job-yr/MW,2050,11.008799999999999,11.0088,CAPEX ratio fallback,,,Coal,,CAPEX 2050/2024=0.9,2024,2050,11.0088
 I-JEDI,Coal power,Construction&Manufacturing,Induced,job-yr/MW,2024,11.301,11.301,Original,,,,,,2024,2024,11.301
-I-JEDI,Coal power,Construction&Manufacturing,Induced,job-yr/MW,2030,10.73595,10.73595,CAPEX ratio fallback,,,Coal,,CAPEX 2030/2024=0.95,2024,2030,10.73595
+I-JEDI,Coal power,Construction&Manufacturing,Induced,job-yr/MW,2030,10.735949999999999,10.73595,CAPEX ratio fallback,,,Coal,,CAPEX 2030/2024=0.95,2024,2030,10.73595
 I-JEDI,Coal power,Construction&Manufacturing,Induced,job-yr/MW,2050,10.1709,10.1709,CAPEX ratio fallback,,,Coal,,CAPEX 2050/2024=0.9,2024,2050,10.1709
 Rutovitz 2015,Coal power,Fuel,Fuel,job/PJ,2015,15.4 jobs/PJ,15.4,Original,,,,,,2015,2015,15.4
 Rutovitz 2015,Coal power,Manufacturing,Direct,job-yr/MW,2015,5.4,5.4,Original,,,,,,2015,2015,5.4
-Rutovitz 2015,Coal power,Manufacturing,Direct,job-yr/MW,2030,4.05,4.05,Rutovitz Table 9 decline to 2030,Coal,0.75,,,Rutovitz Table 9 Latin America 2030,2015,2030,4.05
+Rutovitz 2015,Coal power,Manufacturing,Direct,job-yr/MW,2030,4.050000000000001,4.05,Rutovitz Table 9 decline to 2030,Coal,0.75,,,Rutovitz Table 9 Latin America 2030,2015,2030,4.05
 Rutovitz 2025,Coal power,Manufacturing,Direct,job-yr/MW,2024,5.41,5.41,Original,,,,,,2024,2024,5.41
 Rutovitz 2025,Coal power,Manufacturing,Direct,job-yr/MW,2030,5.1395,5.1395,CAPEX ratio fallback,,,Coal,,CAPEX 2030/2024=0.95,2024,2030,5.1395
-Rutovitz 2025,Coal power,Manufacturing,Direct,job-yr/MW,2050,4.869,4.869,CAPEX ratio fallback,,,Coal,,CAPEX 2050/2024=0.9,2024,2050,4.869
+Rutovitz 2025,Coal power,Manufacturing,Direct,job-yr/MW,2050,4.869000000000001,4.869,CAPEX ratio fallback,,,Coal,,CAPEX 2050/2024=0.9,2024,2050,4.869
 I-JEDI,Coal power,O&M,Direct,job/MW,2024,0.143,0.143,Original,,,,,,2024,2024,0.143
 Rutovitz 2015,Coal power,O&M,Direct,job/MW,2015,0.14,0.14,Original,,,,,,2015,2015,0.14
 Rutovitz 2025,Coal power,O&M,Direct,job/MW,2024,0.22,0.22,Original,,,,,,2024,2024,0.22
 I-JEDI,Coal power,O&M,Indirect,job/MW,2024,0.789,0.789,Original,,,,,,2024,2024,0.789
 I-JEDI,Coal power,O&M,Induced,job/MW,2024,0.561,0.561,Original,,,,,,2024,2024,0.561
 Rutovitz 2015,Gas CCGT/OCGT,Construction,Direct,job-yr/MW,2015,1.3,1.3,Original,,,,,,2015,2015,1.3
-Rutovitz 2015,Gas CCGT/OCGT,Construction,Direct,job-yr/MW,2030,1.365,1.365,Rutovitz Table 9 decline to 2030,Gas,1.05,,,Rutovitz Table 9 Latin America 2030,2015,2030,1.365
+Rutovitz 2015,Gas CCGT/OCGT,Construction,Direct,job-yr/MW,2030,1.3650000000000002,1.365,Rutovitz Table 9 decline to 2030,Gas,1.05,,,Rutovitz Table 9 Latin America 2030,2015,2030,1.365
 Rutovitz 2025,Gas CCGT/OCGT,Construction,Direct,job-yr/MW,2024,7.36,7.36,Original,,,,,,2024,2024,7.36
 Rutovitz 2025,Gas CCGT/OCGT,Construction,Direct,job-yr/MW,2030,6.9184,6.9184,CAPEX ratio fallback,,,Natural Gas,,CAPEX 2030/2024=0.94,2024,2030,6.9184
 Rutovitz 2025,Gas CCGT/OCGT,Construction,Direct,job-yr/MW,2050,6.4768,6.4768,CAPEX ratio fallback,,,Natural Gas,,CAPEX 2050/2024=0.88,2024,2050,6.4768
 JEDI-US,Gas CCGT/OCGT,Construction&Manufacturing,Direct,job-yr/MW,2024,2.528,2.528,Original,,,,,,2024,2024,2.528
-JEDI-US,Gas CCGT/OCGT,Construction&Manufacturing,Direct,job-yr/MW,2030,2.37632,2.37632,CAPEX ratio fallback,,,Natural Gas,,CAPEX 2030/2024=0.94,2024,2030,2.37632
+JEDI-US,Gas CCGT/OCGT,Construction&Manufacturing,Direct,job-yr/MW,2030,2.3763199999999998,2.37632,CAPEX ratio fallback,,,Natural Gas,,CAPEX 2030/2024=0.94,2024,2030,2.37632
 JEDI-US,Gas CCGT/OCGT,Construction&Manufacturing,Direct,job-yr/MW,2050,2.22464,2.22464,CAPEX ratio fallback,,,Natural Gas,,CAPEX 2050/2024=0.88,2024,2050,2.22464
 Rutovitz 2015,Gas CCGT/OCGT,Fuel,Fuel,job/PJ,2015,World avg 15.1 jobs/PJ,15.1,Original,,,,,,2015,2015,15.1
 Rutovitz 2015,Gas CCGT/OCGT,Manufacturing,Direct,job-yr/MW,2015,0.93,0.93,Original,,,,,,2015,2015,0.93
-Rutovitz 2015,Gas CCGT/OCGT,Manufacturing,Direct,job-yr/MW,2030,0.9765,0.9765,Rutovitz Table 9 decline to 2030,Gas,1.05,,,Rutovitz Table 9 Latin America 2030,2015,2030,0.9765
+Rutovitz 2015,Gas CCGT/OCGT,Manufacturing,Direct,job-yr/MW,2030,0.9765000000000001,0.9765,Rutovitz Table 9 decline to 2030,Gas,1.05,,,Rutovitz Table 9 Latin America 2030,2015,2030,0.9765
 Rutovitz 2025,Gas CCGT/OCGT,Manufacturing,Direct,job-yr/MW,2024,2.3,2.3,Original,,,,,,2024,2024,2.3
 Rutovitz 2025,Gas CCGT/OCGT,Manufacturing,Direct,job-yr/MW,2030,2.162,2.162,CAPEX ratio fallback,,,Natural Gas,,CAPEX 2030/2024=0.94,2024,2030,2.162
 Rutovitz 2025,Gas CCGT/OCGT,Manufacturing,Direct,job-yr/MW,2050,2.024,2.024,CAPEX ratio fallback,,,Natural Gas,,CAPEX 2050/2024=0.88,2024,2050,2.024
@@ -83,7 +83,7 @@ Rutovitz 2015,Geothermal,O&M,Direct,job/MW,2015,0.4,0.4,Original,,,,,,2015,2015,
 I-JEDI,Geothermal,O&M,Indirect,job/MW,2024,0.01,0.01,Original,,,,,,2024,2024,0.01
 I-JEDI,Geothermal,O&M,Induced,job/MW,2024,0.029,0.029,Original,,,,,,2024,2024,0.029
 Rutovitz 2015,Hydro (large),Construction,Direct,job-yr/MW,2015,7.4,7.4,Original,,,,,,2015,2015,7.4
-Rutovitz 2015,Hydro (large),Construction,Direct,job-yr/MW,2030,6.956,6.956,Rutovitz Table 9 decline to 2030,Hydro-large,0.94,,,Rutovitz Table 9 Latin America 2030,2015,2030,6.956
+Rutovitz 2015,Hydro (large),Construction,Direct,job-yr/MW,2030,6.9559999999999995,6.956,Rutovitz Table 9 decline to 2030,Hydro-large,0.94,,,Rutovitz Table 9 Latin America 2030,2015,2030,6.956
 Rutovitz 2015,Hydro (large),Manufacturing,Direct,job-yr/MW,2015,3.5,3.5,Original,,,,,,2015,2015,3.5
 Rutovitz 2015,Hydro (large),Manufacturing,Direct,job-yr/MW,2030,3.29,3.29,Rutovitz Table 9 decline to 2030,Hydro-large,0.94,,,Rutovitz Table 9 Latin America 2030,2015,2030,3.29
 Rutovitz 2015,Hydro (large),O&M,Direct,job/MW,2015,0.6,0.6,Original,,,,,,2015,2015,0.6
@@ -105,16 +105,16 @@ Rutovitz 2015,Ocean,O&M,Direct,job/MW,2015,0.6,0.6,Original,,,,,,2015,2015,0.6
 Rutovitz 2015,Offshore wind,Construction,Direct,job-yr/MW,2015,8,8,Original,,,,,,2015,2015,8
 Rutovitz 2015,Offshore wind,Construction,Direct,job-yr/MW,2030,9.84,9.84,Rutovitz Table 9 decline to 2030,Wind offshore,1.23,,,Rutovitz Table 9 Latin America 2030,2015,2030,9.84
 Rutovitz 2025,Offshore wind,Construction,Direct,job-yr/MW,2024,1.5,1.5,Original,,,,,,2024,2024,1.5
-Rutovitz 2025,Offshore wind,Construction,Direct,job-yr/MW,2030,1.159372255,1.159372255,Learning curve from cumulative capacity ratio,,,Wind offshore,0.15,STEPS capacity ratio=3.0,2024,2030,1.159372255
-Rutovitz 2025,Offshore wind,Construction,Direct,job-yr/MW,2050,0.900830101,0.900830101,Learning curve from cumulative capacity ratio,,,Wind offshore,0.15,STEPS capacity ratio=8.8,2024,2050,0.900830101
+Rutovitz 2025,Offshore wind,Construction,Direct,job-yr/MW,2030,1.159372255047502,1.15937225505,Learning curve from cumulative capacity ratio,,,Wind offshore,0.15,STEPS capacity ratio=3.0,2024,2030,1.15937225505
+Rutovitz 2025,Offshore wind,Construction,Direct,job-yr/MW,2050,0.9008301013920963,0.900830101392,Learning curve from cumulative capacity ratio,,,Wind offshore,0.15,STEPS capacity ratio=8.8,2024,2050,0.900830101392
 Danish QBIS 2020,Offshore wind,Construction&Manufacturing,Direct,job-yr/MW,2024,7544,7.544,Original,,,,,,2024,2024,7.544
-Danish QBIS 2020,Offshore wind,Construction&Manufacturing,Direct,job-yr/MW,2030,5.830869528,5.830869528,Learning curve from cumulative capacity ratio,,,Wind offshore,0.15,STEPS capacity ratio=3.0,2024,2030,5.830869528
-Danish QBIS 2020,Offshore wind,Construction&Manufacturing,Direct,job-yr/MW,2050,4.530574857,4.530574857,Learning curve from cumulative capacity ratio,,,Wind offshore,0.15,STEPS capacity ratio=8.8,2024,2050,4.530574857
+Danish QBIS 2020,Offshore wind,Construction&Manufacturing,Direct,job-yr/MW,2030,5.8308695280522365,5.83086952805,Learning curve from cumulative capacity ratio,,,Wind offshore,0.15,STEPS capacity ratio=3.0,2024,2030,5.83086952805
+Danish QBIS 2020,Offshore wind,Construction&Manufacturing,Direct,job-yr/MW,2050,4.530574856601316,4.5305748566,Learning curve from cumulative capacity ratio,,,Wind offshore,0.15,STEPS capacity ratio=8.8,2024,2050,4.5305748566
 Rutovitz 2015,Offshore wind,Manufacturing,Direct,job-yr/MW,2015,15.6,15.6,Original,,,,,,2015,2015,15.6
 Rutovitz 2015,Offshore wind,Manufacturing,Direct,job-yr/MW,2030,19.188,19.188,Rutovitz Table 9 decline to 2030,Wind offshore,1.23,,,Rutovitz Table 9 Latin America 2030,2015,2030,19.188
 Rutovitz 2025,Offshore wind,Manufacturing,Direct,job-yr/MW,2024,13.68,13.68,Original,,,,,,2024,2024,13.68
-Rutovitz 2025,Offshore wind,Manufacturing,Direct,job-yr/MW,2030,10.57347497,10.57347497,Learning curve from cumulative capacity ratio,,,Wind offshore,0.15,STEPS capacity ratio=3.0,2024,2030,10.57347497
-Rutovitz 2025,Offshore wind,Manufacturing,Direct,job-yr/MW,2050,8.215570525,8.215570525,Learning curve from cumulative capacity ratio,,,Wind offshore,0.15,STEPS capacity ratio=8.8,2024,2050,8.215570525
+Rutovitz 2025,Offshore wind,Manufacturing,Direct,job-yr/MW,2030,10.573474966033219,10.573474966,Learning curve from cumulative capacity ratio,,,Wind offshore,0.15,STEPS capacity ratio=3.0,2024,2030,10.573474966
+Rutovitz 2025,Offshore wind,Manufacturing,Direct,job-yr/MW,2050,8.215570524695918,8.2155705247,Learning curve from cumulative capacity ratio,,,Wind offshore,0.15,STEPS capacity ratio=8.8,2024,2050,8.2155705247
 Danish QBIS 2020,Offshore wind,O&M,Direct,job/MW,2024,1907,1.907,Original,,,,,,2024,2024,1.907
 Rutovitz 2015,Offshore wind,O&M,Direct,job/MW,2015,0.2,0.2,Original,,,,,,2015,2015,0.2
 Rutovitz 2025,Offshore wind,O&M,Direct,job/MW,2024,0.28,0.28,Original,,,,,,2024,2024,0.28
@@ -123,50 +123,51 @@ French QBIS 2023,Offshore wind (fixed),O&M,Direct,job/MW,2024,1907,1.907,Origina
 French QBIS 2023,Offshore wind (floating),Construction&Manufacturing,Direct,job-yr/MW,2024,14.71,14.71,Original,,,,,,2024,2024,14.71
 French QBIS 2023,Offshore wind (floating),O&M,Direct,job/MW,2024,6040,6.04,Original,,,,,,2024,2024,6.04
 Rutovitz 2015,Oil and diesel,Construction,Direct,job-yr/MW,2015,1.3,1.3,Original,,,,,,2015,2015,1.3
-Rutovitz 2015,Oil and diesel,Construction,Direct,job-yr/MW,2030,1.378,1.378,Rutovitz Table 9 decline to 2030,Oil,1.06,,,Rutovitz Table 9 Latin America 2030,2015,2030,1.378
+Rutovitz 2015,Oil and diesel,Construction,Direct,job-yr/MW,2030,1.3780000000000001,1.378,Rutovitz Table 9 decline to 2030,Oil,1.06,,,Rutovitz Table 9 Latin America 2030,2015,2030,1.378
 Rutovitz 2015,Oil and diesel,Fuel,Fuel,job/PJ,2015,World avg 15.1 jobs/PJ,15.1,Original,,,,,,2015,2015,15.1
 Rutovitz 2015,Oil and diesel,Manufacturing,Direct,job-yr/MW,2015,0.93,0.93,Original,,,,,,2015,2015,0.93
-Rutovitz 2015,Oil and diesel,Manufacturing,Direct,job-yr/MW,2030,0.9858,0.9858,Rutovitz Table 9 decline to 2030,Oil,1.06,,,Rutovitz Table 9 Latin America 2030,2015,2030,0.9858
+Rutovitz 2015,Oil and diesel,Manufacturing,Direct,job-yr/MW,2030,0.9858000000000001,0.9858,Rutovitz Table 9 decline to 2030,Oil,1.06,,,Rutovitz Table 9 Latin America 2030,2015,2030,0.9858
 Rutovitz 2015,Oil and diesel,O&M,Direct,job/MW,2015,0.14,0.14,Original,,,,,,2015,2015,0.14
 Rutovitz 2015,Onshore wind,Construction,Direct,job-yr/MW,2015,6.7,6.7,Original,,,,,,2015,2015,6.7
-Rutovitz 2015,Onshore wind,Construction,Direct,job-yr/MW,2030,6.901,6.901,Rutovitz Table 9 decline to 2030,Wind onshore,1.03,,,Rutovitz Table 9 Latin America 2030,2015,2030,6.901
+Rutovitz 2015,Onshore wind,Construction,Direct,job-yr/MW,2030,6.901000000000001,6.901,Rutovitz Table 9 decline to 2030,Wind onshore,1.03,,,Rutovitz Table 9 Latin America 2030,2015,2030,6.901
 Rutovitz 2025,Onshore wind,Construction,Direct,job-yr/MW,2024,2.65,2.65,Original,,,,,,2024,2024,2.65
-Rutovitz 2025,Onshore wind,Construction,Direct,job-yr/MW,2030,2.547959495,2.547959495,Learning curve from cumulative capacity ratio,,,Wind onshore,0.05,STEPS capacity ratio=1.7,2024,2030,2.547959495
-Rutovitz 2025,Onshore wind,Construction,Direct,job-yr/MW,2050,2.449222008,2.449222008,Learning curve from cumulative capacity ratio,,,Wind onshore,0.05,STEPS capacity ratio=2.9,2024,2050,2.449222008
+Rutovitz 2025,Onshore wind,Construction,Direct,job-yr/MW,2030,2.5479594952223446,2.54795949522,Learning curve from cumulative capacity ratio,,,Wind onshore,0.05,STEPS capacity ratio=1.7,2024,2030,2.54795949522
+Rutovitz 2025,Onshore wind,Construction,Direct,job-yr/MW,2050,2.4492220080457754,2.44922200805,Learning curve from cumulative capacity ratio,,,Wind onshore,0.05,STEPS capacity ratio=2.9,2024,2050,2.44922200805
 I-JEDI,Onshore wind,Construction&Manufacturing,Direct,job-yr/MW,2024,7.247,7.247,Original,,,,,,2024,2024,7.247
-I-JEDI,Onshore wind,Construction&Manufacturing,Direct,job-yr/MW,2030,6.967948099,6.967948099,Learning curve from cumulative capacity ratio,,,Wind onshore,0.05,STEPS capacity ratio=1.7,2024,2030,6.967948099
-I-JEDI,Onshore wind,Construction&Manufacturing,Direct,job-yr/MW,2050,6.697929016,6.697929016,Learning curve from cumulative capacity ratio,,,Wind onshore,0.05,STEPS capacity ratio=2.9,2024,2050,6.697929016
+I-JEDI,Onshore wind,Construction&Manufacturing,Direct,job-yr/MW,2030,6.967948098821257,6.96794809882,Learning curve from cumulative capacity ratio,,,Wind onshore,0.05,STEPS capacity ratio=1.7,2024,2030,6.96794809882
+I-JEDI,Onshore wind,Construction&Manufacturing,Direct,job-yr/MW,2050,6.697929015965182,6.69792901597,Learning curve from cumulative capacity ratio,,,Wind onshore,0.05,STEPS capacity ratio=2.9,2024,2050,6.69792901597
 I-JEDI,Onshore wind,Construction&Manufacturing,Indirect,job-yr/MW,2024,5.22,5.22,Original,,,,,,2024,2024,5.22
-I-JEDI,Onshore wind,Construction&Manufacturing,Indirect,job-yr/MW,2030,5.018999459,5.018999459,Learning curve from cumulative capacity ratio,,,Wind onshore,0.05,STEPS capacity ratio=1.7,2024,2030,5.018999459
-I-JEDI,Onshore wind,Construction&Manufacturing,Indirect,job-yr/MW,2050,4.824505238,4.824505238,Learning curve from cumulative capacity ratio,,,Wind onshore,0.05,STEPS capacity ratio=2.9,2024,2050,4.824505238
+I-JEDI,Onshore wind,Construction&Manufacturing,Indirect,job-yr/MW,2030,5.0189994585134485,5.01899945851,Learning curve from cumulative capacity ratio,,,Wind onshore,0.05,STEPS capacity ratio=1.7,2024,2030,5.01899945851
+I-JEDI,Onshore wind,Construction&Manufacturing,Indirect,job-yr/MW,2050,4.824505238490168,4.82450523849,Learning curve from cumulative capacity ratio,,,Wind onshore,0.05,STEPS capacity ratio=2.9,2024,2050,4.82450523849
 I-JEDI,Onshore wind,Construction&Manufacturing,Induced,job-yr/MW,2024,4.044,4.044,Original,,,,,,2024,2024,4.044
-I-JEDI,Onshore wind,Construction&Manufacturing,Induced,job-yr/MW,2030,3.888282339,3.888282339,Learning curve from cumulative capacity ratio,,,Wind onshore,0.05,STEPS capacity ratio=1.7,2024,2030,3.888282339
-I-JEDI,Onshore wind,Construction&Manufacturing,Induced,job-yr/MW,2050,3.737605208,3.737605208,Learning curve from cumulative capacity ratio,,,Wind onshore,0.05,STEPS capacity ratio=2.9,2024,2050,3.737605208
+I-JEDI,Onshore wind,Construction&Manufacturing,Induced,job-yr/MW,2030,3.888282339124211,3.88828233912,Learning curve from cumulative capacity ratio,,,Wind onshore,0.05,STEPS capacity ratio=1.7,2024,2030,3.88828233912
+I-JEDI,Onshore wind,Construction&Manufacturing,Induced,job-yr/MW,2050,3.7376052077498545,3.73760520775,Learning curve from cumulative capacity ratio,,,Wind onshore,0.05,STEPS capacity ratio=2.9,2024,2050,3.73760520775
 Rutovitz 2015,Onshore wind,Manufacturing,Direct,job-yr/MW,2015,3.4,3.4,Original,,,,,,2015,2015,3.4
 Rutovitz 2015,Onshore wind,Manufacturing,Direct,job-yr/MW,2030,3.502,3.502,Rutovitz Table 9 decline to 2030,Wind onshore,1.03,,,Rutovitz Table 9 Latin America 2030,2015,2030,3.502
 Rutovitz 2025,Onshore wind,Manufacturing,Direct,job-yr/MW,2024,1.54,1.54,Original,,,,,,2024,2024,1.54
-Rutovitz 2025,Onshore wind,Manufacturing,Direct,job-yr/MW,2030,1.48070099,1.48070099,Learning curve from cumulative capacity ratio,,,Wind onshore,0.05,STEPS capacity ratio=1.7,2024,2030,1.48070099
-Rutovitz 2025,Onshore wind,Manufacturing,Direct,job-yr/MW,2050,1.423321469,1.423321469,Learning curve from cumulative capacity ratio,,,Wind onshore,0.05,STEPS capacity ratio=2.9,2024,2050,1.423321469
+Rutovitz 2025,Onshore wind,Manufacturing,Direct,job-yr/MW,2030,1.4807009896763814,1.48070098968,Learning curve from cumulative capacity ratio,,,Wind onshore,0.05,STEPS capacity ratio=1.7,2024,2030,1.48070098968
+Rutovitz 2025,Onshore wind,Manufacturing,Direct,job-yr/MW,2050,1.4233214688266016,1.42332146883,Learning curve from cumulative capacity ratio,,,Wind onshore,0.05,STEPS capacity ratio=2.9,2024,2050,1.42332146883
 I-JEDI,Onshore wind,O&M,Direct,job/MW,2024,0.03,0.03,Original,,,,,,2024,2024,0.03
 Rutovitz 2015,Onshore wind,O&M,Direct,job/MW,2015,0.6,0.6,Original,,,,,,2015,2015,0.6
 Rutovitz 2025,Onshore wind,O&M,Direct,job/MW,2024,0.21,0.21,Original,,,,,,2024,2024,0.21
 I-JEDI,Onshore wind,O&M,Indirect,job/MW,2024,0.043,0.043,Original,,,,,,2024,2024,0.043
 I-JEDI,Onshore wind,O&M,Induced,job/MW,2024,0.0448,0.0448,Original,,,,,,2024,2024,0.0448
 Rutovitz 2025,Pumped hydro storage,Construction,Direct,job-yr/MW,2024,7.18,7.18,Original,,,,,,2024,2024,7.18
-Rutovitz 2025,Pumped hydro storage,Construction,Direct,job-yr/MW,2030,7.170084405,7.170084405,Learning curve from cumulative capacity ratio,,,Hydro,0.01,STEPS capacity ratio=1.1,2024,2030,7.170084405
-Rutovitz 2025,Pumped hydro storage,Construction,Direct,job-yr/MW,2050,7.145056224,7.145056224,Learning curve from cumulative capacity ratio,,,Hydro,0.01,STEPS capacity ratio=1.4,2024,2050,7.145056224
+Rutovitz 2025,Pumped hydro storage,Construction,Direct,job-yr/MW,2030,7.1700844046890975,7.17008440469,Learning curve from cumulative capacity ratio,,,Hydro,0.01,STEPS capacity ratio=1.1,2024,2030,7.17008440469
+Rutovitz 2025,Pumped hydro storage,Construction,Direct,job-yr/MW,2050,7.145056224461583,7.14505622446,Learning curve from cumulative capacity ratio,,,Hydro,0.01,STEPS capacity ratio=1.4,2024,2050,7.14505622446
 Rutovitz 2025,Pumped hydro storage,Manufacturing,Direct,job-yr/MW,2024,6.4,6.4,Original,,,,,,2024,2024,6.4
-Rutovitz 2025,Pumped hydro storage,Manufacturing,Direct,job-yr/MW,2030,6.391161586,6.391161586,Learning curve from cumulative capacity ratio,,,Hydro,0.01,STEPS capacity ratio=1.1,2024,2030,6.391161586
-Rutovitz 2025,Pumped hydro storage,Manufacturing,Direct,job-yr/MW,2050,6.368852345,6.368852345,Learning curve from cumulative capacity ratio,,,Hydro,0.01,STEPS capacity ratio=1.4,2024,2050,6.368852345
+Rutovitz 2025,Pumped hydro storage,Manufacturing,Direct,job-yr/MW,2030,6.3911615863524,6.39116158635,Learning curve from cumulative capacity ratio,,,Hydro,0.01,STEPS capacity ratio=1.1,2024,2030,6.39116158635
+Rutovitz 2025,Pumped hydro storage,Manufacturing,Direct,job-yr/MW,2050,6.368852344923974,6.36885234492,Learning curve from cumulative capacity ratio,,,Hydro,0.01,STEPS capacity ratio=1.4,2024,2050,6.36885234492
 Rutovitz 2025,Pumped hydro storage,O&M,Direct,job/MW,2024,0.08,0.08,Original,,,,,,2024,2024,0.08
 Rutovitz 2025,Rooftop solar PV,Construction,Direct,job-yr/MW,2024,4.19,4.19,Original,,,,,,2024,2024,4.19
-I-JEDI,Rooftop solar PV,Construction&Manufacturing,Indirect,job-yr/MW,2024,10.8,10.8,Original,,,,,,2024,2024,10.8
-I-JEDI,Rooftop solar PV,Construction&Manufacturing,Induced,job-yr/MW,2024,10,10,Original,,,,,,2024,2024,10
+JEDI-US,Rooftop solar PV,Construction&Manufacturing,Direct,job-yr/MW,2024,9328,9.328,Original,,,,,,2024,2024,9.328
+JEDI-US,Rooftop solar PV,Construction&Manufacturing,Indirect,job-yr/MW,2024,10.8,10.8,Original,,,,,,2024,2024,10.8
+JEDI-US,Rooftop solar PV,Construction&Manufacturing,Induced,job-yr/MW,2024,10,10,Original,,,,,,2024,2024,10
 Rutovitz 2025,Rooftop solar PV,Manufacturing,Direct,job-yr/MW,2024,2.86,2.86,Original,,,,,,2024,2024,2.86
-I-JEDI,Rooftop solar PV,O&M,Direct,job/MW,2024,0.3,0.3,Original,,,,,,2024,2024,0.3
+JEDI-US,Rooftop solar PV,O&M,Direct,job/MW,2024,0.3,0.3,Original,,,,,,2024,2024,0.3
 Rutovitz 2025,Rooftop solar PV,O&M,Direct,job/MW,2024,0.13,0.13,Original,,,,,,2024,2024,0.13
-I-JEDI,Rooftop solar PV,O&M,Indirect,job/MW,2024,0.105,0.105,Original,,,,,,2024,2024,0.105
-I-JEDI,Rooftop solar PV,O&M,Induced,job/MW,2024,0.101,0.101,Original,,,,,,2024,2024,0.101
+JEDI-US,Rooftop solar PV,O&M,Indirect,job/MW,2024,0.105,0.105,Original,,,,,,2024,2024,0.105
+JEDI-US,Rooftop solar PV,O&M,Induced,job/MW,2024,0.101,0.101,Original,,,,,,2024,2024,0.101
 Rutovitz 2015,Solar thermal (CSP),Construction,Direct,job-yr/MW,2015,8,8,Original,,,,,,2015,2015,8
 Rutovitz 2015,Solar thermal (CSP),Manufacturing,Direct,job-yr/MW,2015,4,4,Original,,,,,,2015,2015,4
 Rutovitz 2015,Solar thermal (CSP),O&M,Direct,job/MW,2015,0.6,0.6,Original,,,,,,2015,2015,0.6
