@@ -1,0 +1,143 @@
+﻿Source,Technology,Factor_Type,Job_Type,Unit,Year,Value,Value_Numeric
+Rutovitz 2015,Coal power,Construction,Direct,job-yr/MW,2015,11.2,11.2
+Rutovitz 2015,Coal power,Manufacturing,Direct,job-yr/MW,2015,5.4,5.4
+Rutovitz 2015,Coal power,O&M,Direct,job/MW,2015,0.14,0.14
+Rutovitz 2015,Coal power,Fuel,Fuel,job/PJ,2015,15.4 jobs/PJ,15.4
+Rutovitz 2025,Coal power,Construction,Direct,job-yr/MW,2024,11.08,11.08
+Rutovitz 2025,Coal power,Manufacturing,Direct,job-yr/MW,2024,5.41,5.41
+Rutovitz 2025,Coal power,O&M,Direct,job/MW,2024,0.22,0.22
+I-JEDI,Coal power,Construction&Manufacturing,Direct,job-yr/MW,2024,9.61,9.61
+I-JEDI,Coal power,O&M,Direct,job/MW,2024,0.143,0.143
+I-JEDI,Coal power,Construction&Manufacturing,Indirect,job-yr/MW,2024,12.232,12.232
+I-JEDI,Coal power,O&M,Indirect,job/MW,2024,0.789,0.789
+I-JEDI,Coal power,Construction&Manufacturing,Induced,job-yr/MW,2024,11.301,11.301
+I-JEDI,Coal power,O&M,Induced,job/MW,2024,0.561,0.561
+Notes,Coal power,,,,2024,"Coal construction & manufacturing from OECD JEDI model (Rutov 2015, Note 1). Fuel supply from Colombia data (15.4 jobs/PJ, 2,200 tonnes/worker-year). For LA adjustment: multiply OECD factors by 3.3 (2020 multiplier) if needed; these Rut 2015 LA factors already regional.",
+Rutovitz 2015,Gas CCGT/OCGT,Construction,Direct,job-yr/MW,2015,1.3,1.3
+Rutovitz 2015,Gas CCGT/OCGT,Manufacturing,Direct,job-yr/MW,2015,0.93,0.93
+Rutovitz 2015,Gas CCGT/OCGT,O&M,Direct,job/MW,2015,0.14,0.14
+Rutovitz 2015,Gas CCGT/OCGT,Fuel,Fuel,job/PJ,2015,World avg 15.1 jobs/PJ,15.1
+Rutovitz 2025,Gas CCGT/OCGT,Construction,Direct,job-yr/MW,2024,7.36,7.36
+Rutovitz 2025,Gas CCGT/OCGT,Manufacturing,Direct,job-yr/MW,2024,2.3,2.3
+Rutovitz 2025,Gas CCGT/OCGT,O&M,Direct,job/MW,2024,0.14,0.14
+JEDI-US,Gas CCGT/OCGT,Construction&Manufacturing,Direct,job-yr/MW,2024,2.528,2.528
+JEDI-US,Gas CCGT/OCGT,O&M,Direct,job/MW,2024,0.051,0.051
+Notes,Gas CCGT/OCGT,,,,2024,Gas construction & manufacturing from OECD. Fuel supply: world average 15.1 jobs/PJ used (no LA-specific). For LA multiplier: apply 3.3Ã— to OECD if needed.,
+Rutovitz 2015,Oil and diesel,Construction,Direct,job-yr/MW,2015,1.3,1.3
+Rutovitz 2015,Oil and diesel,Manufacturing,Direct,job-yr/MW,2015,0.93,0.93
+Rutovitz 2015,Oil and diesel,O&M,Direct,job/MW,2015,0.14,0.14
+Rutovitz 2015,Oil and diesel,Fuel,Fuel,job/PJ,2015,World avg 15.1 jobs/PJ,15.1
+Notes,Oil and diesel,,,,2024,"Oil/diesel: use gas employment factors per Rutovitz 2015 methodology (Table 1, Note Oil and diesel).",
+Rutovitz 2015,Nuclear,Construction,Direct,job-yr/MW,2015,19.6,19.6
+Rutovitz 2015,Nuclear,Manufacturing,Direct,job-yr/MW,2015,1.3,1.3
+Rutovitz 2015,Nuclear,O&M,Direct,job/MW,2015,1.15,1.15
+Rutovitz 2015,Nuclear,Fuel,Fuel,job/PJ,2015,0.001 jobs/GWh final demand,
+Notes,Nuclear,,,,2024,"Nuclear: Rutovitz 2015 LA-specific from Brazil study (19.6 construct, 1.15 O&M). Rutovitz 2025 does not update nuclear. I-JEDI-US available if needed.",
+Rutovitz 2015,Biomass power,Construction,Direct,job-yr/MW,2015,14,14
+Rutovitz 2015,Biomass power,Manufacturing,Direct,job-yr/MW,2015,2.9,2.9
+Rutovitz 2015,Biomass power,O&M,Direct,job/MW,2015,1.5,1.5
+Rutovitz 2015,Biomass power,Fuel,Fuel,job/PJ,2015,81.1 jobs/PJ,81.1
+I-JEDI,Biomass power,Construction&Manufacturing,Direct,job-yr/MW,2024,22.523,22.523
+I-JEDI,Biomass power,O&M,Direct,job/MW,2024,2.406,2.406
+I-JEDI,Biomass power,Construction&Manufacturing,Indirect,job-yr/MW,2024,12.506,12.506
+I-JEDI,Biomass power,O&M,Indirect,job/MW,2024,1.477,1.477
+I-JEDI,Biomass power,Construction&Manufacturing,Induced,job-yr/MW,2024,16.497,16.497
+I-JEDI,Biomass power,O&M,Induced,job/MW,2024,1.672,1.672
+Notes,Biomass power,,,,2024,"Biomass: Rutovitz 2015 uses OECD construction/O&M but LA-specific fuel supply (81.1 jobs/PJ from Brazilian ABIB). I-JEDI Colombia provides 22.5 construct and 2.4 O&M for 1,000 MW project.",
+Rutovitz 2015,Hydro (large),Construction,Direct,job-yr/MW,2015,7.4,7.4
+Rutovitz 2015,Hydro (large),Manufacturing,Direct,job-yr/MW,2015,3.5,3.5
+Rutovitz 2015,Hydro (large),O&M,Direct,job/MW,2015,0.6,0.6
+Notes,Hydro (large),,,,2024,"Hydro large: Rutovitz 2015 no LA-specific construction factor available (use OECD 7.4 or apply 3.3Ã— multiplier). Rutovitz 2025 Australia: 7.36 construct, 2.3 O&M; rescale to LA using labour productivity ratio (LA GDP/worker â‰ˆ 0.29Ã— OECD) â†’ multiply by ~3.4 to get LA estimate.",
+Rutovitz 2015,Hydro (small),Construction,Direct,job-yr/MW,2015,15.8,15.8
+Rutovitz 2015,Hydro (small),Manufacturing,Direct,job-yr/MW,2015,10.9,10.9
+Rutovitz 2015,Hydro (small),O&M,Direct,job/MW,2015,4.9,4.9
+Notes,Hydro (small),,,,2024,"Hydro small: Rutovitz 2015 OECD 15.8 construct, 4.9 O&M; no LA-specific. Apply 3.3Ã— multiplier for LA estimate.",
+Rutovitz 2015,Onshore wind,Construction,Direct,job-yr/MW,2015,6.7,6.7
+Rutovitz 2015,Onshore wind,Manufacturing,Direct,job-yr/MW,2015,3.4,3.4
+Rutovitz 2015,Onshore wind,O&M,Direct,job/MW,2015,0.6,0.6
+Rutovitz 2025,Onshore wind,Construction,Direct,job-yr/MW,2024,2.65,2.65
+Rutovitz 2025,Onshore wind,Manufacturing,Direct,job-yr/MW,2024,1.54,1.54
+Rutovitz 2025,Onshore wind,O&M,Direct,job/MW,2024,0.21,0.21
+I-JEDI,Onshore wind,Construction&Manufacturing,Direct,job-yr/MW,2024,7.247,7.247
+I-JEDI,Onshore wind,O&M,Direct,job/MW,2024,0.03,0.03
+I-JEDI,Onshore wind,Construction&Manufacturing,Indirect,job-yr/MW,2024,5.22,5.22
+I-JEDI,Onshore wind,O&M,Indirect,job/MW,2024,0.043,0.043
+I-JEDI,Onshore wind,Construction&Manufacturing,Induced,job-yr/MW,2024,4.044,4.044
+I-JEDI,Onshore wind,O&M,Induced,job/MW,2024,0.0448,0.0448
+Notes,Onshore wind,,,,2024,"Wind onshore: Rutovitz 2015 LA-specific 6.7 construct, 0.6 O&M from Brazil study (Simas & Pacca 2015). Rutovitz 2025 Australia 2.65 construct; rescale to LA by ~3.4 factor â†’ ~9.0 construct estimate. I-JEDI Colombia 7.25 construct aligns better with LA context.",
+Rutovitz 2015,Offshore wind,Construction,Direct,job-yr/MW,2015,8,8
+Rutovitz 2015,Offshore wind,Manufacturing,Direct,job-yr/MW,2015,15.6,15.6
+Rutovitz 2015,Offshore wind,O&M,Direct,job/MW,2015,0.2,0.2
+Rutovitz 2025,Offshore wind,Construction,Direct,job-yr/MW,2024,1.5,1.5
+Rutovitz 2025,Offshore wind,Manufacturing,Direct,job-yr/MW,2024,13.68,13.68
+Rutovitz 2025,Offshore wind,O&M,Direct,job/MW,2024,0.28,0.28
+Notes,Offshore wind,,,,2024,"Wind offshore: Rutovitz 2015 uses OECD (no LA-specific). Rutovitz 2025 Australia 1.5 construct, 0.28 O&M; rescale by ~3 for LA â†’ ~4.5 construct estimate. Offshore development in Colombia is nascent; use with caution.",
+Rutovitz 2015,Utility-scale solar PV,Construction,Direct,job-yr/MW,2015,13,13
+Rutovitz 2015,Utility-scale solar PV,Manufacturing,Direct,job-yr/MW,2015,6.7,6.7
+Rutovitz 2015,Utility-scale solar PV,O&M,Direct,job/MW,2015,0.7,0.7
+Rutovitz 2025,Utility-scale solar PV,Construction,Direct,job-yr/MW,2024,1.61,1.61
+Rutovitz 2025,Utility-scale solar PV,Manufacturing,Direct,job-yr/MW,2024,3.08,3.08
+Rutovitz 2025,Utility-scale solar PV,O&M,Direct,job/MW,2024,0.09,0.09
+I-JEDI,Utility-scale solar PV,Construction&Manufacturing,Direct,job-yr/MW,2024,9.97,9.97
+I-JEDI,Utility-scale solar PV,O&M,Direct,job/MW,2024,0.0965,0.0965
+I-JEDI,Utility-scale solar PV,Construction&Manufacturing,Indirect,job-yr/MW,2024,6.364,6.364
+I-JEDI,Utility-scale solar PV,O&M,Indirect,job/MW,2024,0.066,0.066
+I-JEDI,Utility-scale solar PV,Construction&Manufacturing,Induced,job-yr/MW,2024,6.366,6.366
+I-JEDI,Utility-scale solar PV,O&M,Induced,job/MW,2024,0.0498,0.0498
+Notes,Utility-scale solar PV,,,,2024,"Solar PV (utility): Rutovitz 2015 uses OECD 13 construct, 0.7 O&M; no LA-specific. Rutovitz 2025 Australia 1.61 construct â†’ rescale by ~3â€“3.5 for LA â†’ ~5.5 construct (reflects larger modern plants). I-JEDI Colombia 9.97 for 1,000 MW is higher, suggesting finer labour intensity accounting.",
+Rutovitz 2025,Rooftop solar PV,Construction,Direct,job-yr/MW,2024,4.19,4.19
+Rutovitz 2025,Rooftop solar PV,Manufacturing,Direct,job-yr/MW,2024,2.86,2.86
+Rutovitz 2025,Rooftop solar PV,O&M,Direct,job/MW,2024,0.13,0.13
+JEDI-US,Rooftop solar PV,Construction&Manufacturing,Direct,job-yr/MW,2024,9328,9.328
+JEDI-US,Rooftop solar PV,O&M,Direct,job/MW,2024,0.3,0.3
+JEDI-US,Rooftop solar PV,Construction&Manufacturing,Indirect,job-yr/MW,2024,10.8,10.8
+JEDI-US,Rooftop solar PV,O&M,Indirect,job/MW,2024,0.105,0.105
+JEDI-US,Rooftop solar PV,Construction&Manufacturing,Induced,job-yr/MW,2024,10,10
+JEDI-US,Rooftop solar PV,O&M,Induced,job/MW,2024,0.101,0.101
+Notes,Rooftop solar PV,,,,2024,Solar PV (rooftop): Rutovitz 2015 uses OECD 13 construct. Rutovitz 2025 Australia 4.19 construct; rescale by ~3â€“3.5 for LA â†’ ~14 construct. I-JEDI Colombia has distributed PV module; conversion to rooftop-equivalent needed.,
+Rutovitz 2015,Solar thermal (CSP),Construction,Direct,job-yr/MW,2015,8,8
+Rutovitz 2015,Solar thermal (CSP),Manufacturing,Direct,job-yr/MW,2015,4,4
+Rutovitz 2015,Solar thermal (CSP),O&M,Direct,job/MW,2015,0.6,0.6
+Notes,Solar thermal (CSP),,,,2024,"Solar thermal (CSP): Rutovitz 2015 OECD 8 construct, 0.6 O&M; no LA-specific. Not updated in Rutovitz 2025. Apply 3.3Ã— LA multiplier for estimate. Limited deployed capacity in Colombia.",
+Rutovitz 2015,Geothermal,Construction,Direct,job-yr/MW,2015,6.8,6.8
+Rutovitz 2015,Geothermal,Manufacturing,Direct,job-yr/MW,2015,3.9,3.9
+Rutovitz 2015,Geothermal,O&M,Direct,job/MW,2015,0.4,0.4
+I-JEDI,Geothermal,Construction&Manufacturing,Direct,job-yr/MW,2024,5.087,5.087
+I-JEDI,Geothermal,O&M,Direct,job/MW,2024,0.008,0.008
+I-JEDI,Geothermal,Construction&Manufacturing,Indirect,job-yr/MW,2024,3.4,3.4
+I-JEDI,Geothermal,O&M,Indirect,job/MW,2024,0.01,0.01
+I-JEDI,Geothermal,Construction&Manufacturing,Induced,job-yr/MW,2024,5.5,5.5
+I-JEDI,Geothermal,O&M,Induced,job/MW,2024,0.029,0.029
+Notes,Geothermal,,,,2024,"Geothermal: Rutovitz 2015 OECD 6.8 construct, 0.4 O&M; no LA-specific. Not updated in Rutovitz 2025. Limited geothermal potential in Colombia; I-JEDI may have estimates via custom region.",
+Rutovitz 2015,Ocean,Construction,Direct,job-yr/MW,2015,10.2,10.2
+Rutovitz 2015,Ocean,Manufacturing,Direct,job-yr/MW,2015,10.2,10.2
+Rutovitz 2015,Ocean,O&M,Direct,job/MW,2015,0.6,0.6
+Notes,Ocean,,,,2024,"Ocean (tidal/wave): Rutovitz 2015 OECD 10.2 construct, 0.6 O&M; no LA-specific. Not updated in Rutovitz 2025. Early-stage technology; very limited Colombian data.",
+Rutovitz 2025,Pumped hydro storage,Construction,Direct,job-yr/MW,2024,7.18,7.18
+Rutovitz 2025,Pumped hydro storage,Manufacturing,Direct,job-yr/MW,2024,6.4,6.4
+Rutovitz 2025,Pumped hydro storage,O&M,Direct,job/MW,2024,0.08,0.08
+Notes,Pumped hydro storage,,,,2024,Pumped hydro storage (NEW in Rutovitz 2025): Australian data 2023 update. Use construction and O&M factors from Rutovitz 2025 Australia hydro; rescale by ~3â€“3.5Ã— for LA labour intensity.,
+Rutovitz 2025,Battery storage (grid),Construction,Direct,job-yr/MW,2024,0.53,0.53
+Rutovitz 2025,Battery storage (grid),Manufacturing,Direct,job-yr/MW,2024,0.31,0.31
+Rutovitz 2025,Battery storage (grid),O&M,Direct,job/MW,2024,0.03,0.03
+Notes,Battery storage (grid),,,,2024,"Battery storage (grid-scale, NEW in Rutovitz 2025): Rutovitz 2025 Australia 0.61 construct, 0.04 O&M from 13 projects, 3.3 GW combined, 235 MW average capacity, 3.2 h storage. Rescale by ~3â€“3.5Ã— for LA â†’ ~2.1 construct, 0.14 O&M (initial estimate).",
+Rutovitz 2025,Battery storage (distributed),Construction,Direct,job-yr/MW,2024,4.44,4.44
+Rutovitz 2025,Battery storage (distributed),Manufacturing,Direct,job-yr/MW,2024,0.31,0.31
+Rutovitz 2025,Battery storage (distributed),O&M,Direct,job/MW,2024,0.23,0.23
+Rutovitz 2025,Transmission (single circuit),Construction,Direct,job-yr/km,2024,0.7,0.7
+JEDI-US,Transmission (single circuit),Construction&Manufacturing,Direct,job-yr/mile,2024,0.12,0.12
+JEDI-US,Transmission (single circuit),O&M,Direct,job/mile,2024,0,0
+JEDI-US,Transmission (single circuit),Construction&Manufacturing,Indirect,job-yr/mile,2024,0.3,0.3
+JEDI-US,Transmission (single circuit),O&M,Indirect,job/mile,2024,0.026,0.026
+JEDI-US,Transmission (single circuit),Construction&Manufacturing,Induced,job-yr/mile,2024,0.24,0.24
+JEDI-US,Transmission (single circuit),O&M,Induced,job/mile,2024,0.013,0.013
+Notes,Transmission (single circuit),,,,2024,Transmission (distribution lines): Rutovitz 2025 not yet tabulated per GW; calculated from workforce projections. Estimate ~1â€“2 job-years/km for construction in Australia; rescale by 3â€“3.5Ã— for LA. OSeMOSYS-Colombia may express as jobs/circuit-km.,
+Rutovitz 2025,Transmission (double circuit),Construction,Direct,job-yr/km,2024,3.7,3.7
+Notes,Transmission (double circuit),,,,2024,"Transmission (bulk transmission/high-voltage): Rutovitz 2025 Australia shows transmission peak workforce 2,000â€“2,500 in early 2020s under Step Change scenario. Emerging construction factors; recommend model sensitivity on transmission employment. Rescale Australian data by 3â€“3.5Ã— for LA.",
+Rutovitz 2025,Transmission (other),Construction,Direct,job-yr/MUSD,2024,1.9,1.9
+Danish QBIS 2020,Offshore wind,Construction&Manufacturing,Direct,job-yr/MW,2024,7544,7.544
+Danish QBIS 2020,Offshore wind,O&M,Direct,job/MW,2024,1907,1.907
+French QBIS 2023,Offshore wind (fixed),Construction&Manufacturing,Direct,job-yr/MW,2024,6810,6.81
+French QBIS 2023,Offshore wind (fixed),O&M,Direct,job/MW,2024,1907,1.907
+French QBIS 2023,Offshore wind (floating),Construction&Manufacturing,Direct,job-yr/MW,2024,14.71,14.71
+French QBIS 2023,Offshore wind (floating),O&M,Direct,job/MW,2024,6040,6.04
