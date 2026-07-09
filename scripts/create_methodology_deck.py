@@ -275,20 +275,20 @@ def build_slides() -> list[str]:
         ),
         slide_xml(
             "Rutovitz 2015 Decline Factors",
-            "Construction and manufacturing rows from Rutovitz 2015 are brought to 2030 with Table 9 factors.",
+            "Construction, manufacturing, and O&M rows from Rutovitz 2015 are brought to 2030 with Table 9 factors.",
             [
                 textbox(50, "Formula", 0.75, 1.65, 6.1, 2.1, [
                     "Formula",
-                    "EF_2030 = EF_2015 * (1 + decline_2030)",
+                    "EF_2030 = EF_2015 * (1 - decline_factor_2030)",
                     "The coefficient is technology-specific and uses the Latin America 2030 value from Rutovitz Table 9.",
                 ], font_size=1850, bold_first=True, fill="F1F5F9", line="CBD5E1"),
                 textbox(51, "Scope", 7.15, 1.65, 4.95, 2.1, [
                     "Scope",
-                    "Applied only to Construction and Manufacturing factors.",
-                    "O&M and fuel rows remain as original values unless separately updated by source data.",
+                    "Applied to Construction, Manufacturing, and O&M factors.",
+                    "Fuel rows remain as original values unless separately updated by source data.",
                 ], font_size=1800, bold_first=True, fill="FEF3C7", line="FCD34D"),
                 textbox(52, "Examples", 0.75, 4.25, 11.35, 1.35, [
-                    "Examples: Coal uses multiplier 0.75; Solar PV uses 1.41; Offshore wind uses 1.23; Hydro large/small use 0.94.",
+                    "Examples: Coal and nuclear use multiplier 1.00 where Table 9 has a dash; utility-scale solar PV uses 0.59; offshore wind uses 0.77; hydro large/small use 1.07.",
                 ], font_size=1750, fill="FFFFFF", line="CBD5E1"),
             ],
             5,

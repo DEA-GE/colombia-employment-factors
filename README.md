@@ -18,7 +18,7 @@ without coupling it to one OSeMOSYS implementation or one model-data workflow.
 The package supports:
 
 - reading curated employment-factor tables;
-- applying technology-learning multipliers to construction and manufacturing
+- applying Rutovitz Table 9 and technology-learning multipliers to eligible
   employment factors;
 - documenting mappings between employment-factor technologies, Rutovitz Table 9
   decline factors, and the Colombian Technology Catalogue;
@@ -65,8 +65,18 @@ jobs = calculate_capacity_jobs(osemosys_capacity_results, factors)
 
 ## Method Summary
 
-For Rutovitz 2015 construction and manufacturing rows, the package applies the
-Latin America 2030 decline factors from Rutovitz Table 9.
+For Rutovitz 2015 construction, manufacturing, and O&M rows, the package applies
+the Latin America 2030 decline factors from Rutovitz Table 9, excluding fuel rows
+and treating dashes in Table 9 as a 0% decline factor. The applied formula is:
+
+```text
+EF_2030 = EF_2015 * (1 - decline_factor_2030)
+```
+
+The audit workbook mirrors this in `Mappings_Rutovitz` and uses formulas in
+`Employment_Outputs` for the corresponding Rutovitz 2015 rows projected to 2030.
+Coal and nuclear use a 1.00 multiplier because Table 9 has a dash for the Latin
+America decline factor.
 
 For 2024-source construction, manufacturing, and combined
 construction-and-manufacturing rows, the package applies the learning-curve
@@ -82,8 +92,10 @@ This is equivalent to the spreadsheet form:
 projected_factor = base_factor * capacity_ratio ^ (LN(1 - learning_rate) / LN(2))
 ```
 
-Where catalogue learning-rate inputs are unavailable, documented CAPEX-ratio
-fallbacks are used and flagged in the output metadata.
+Where catalogue learning-rate inputs are unavailable for these 2024-source
+construction/manufacturing rows, documented CAPEX-ratio fallbacks are used and
+flagged in the output metadata. O&M rows from 2024 sources are not projected by
+the catalogue learning-curve or CAPEX fallback method.
 
 ## Repository Layout
 

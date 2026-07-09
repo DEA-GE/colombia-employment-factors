@@ -3,18 +3,18 @@
 from __future__ import annotations
 
 RUTOVITZ_DECLINE_FACTORS = {
-    "Coal power": ("Coal", -0.25),
+    "Coal power": ("Coal", 0.0),
     "Gas CCGT/OCGT": ("Gas", 0.05),
     "Oil and diesel": ("Oil", 0.06),
-    "Nuclear": ("Nuclear", -0.27),
+    "Nuclear": ("Nuclear", 0.0),
     "Biomass power": ("Biomass", 0.03),
-    "Hydro (large)": ("Hydro-large", -0.06),
-    "Hydro (small)": ("Hydro-small", -0.06),
-    "Onshore wind": ("Wind onshore", 0.03),
+    "Hydro (large)": ("Hydro-large", -0.07),
+    "Hydro (small)": ("Hydro-small", -0.07),
+    "Onshore wind": ("Wind onshore", 0.05),
     "Offshore wind": ("Wind offshore", 0.23),
-    "Solar PV": ("PV", 0.41),
-    "Solar thermal/CSP": ("Solar thermal power", 0.10),
-    "Geothermal power": ("Geothermal power", 0.48),
+    "Utility-scale solar PV": ("PV", 0.41),
+    "Solar thermal (CSP)": ("Solar thermal power", 0.12),
+    "Geothermal": ("Geothermal power", 0.48),
     "Ocean": ("Ocean", 0.31),
 }
 
@@ -79,3 +79,4 @@ CAPEX_RATIOS = {
 
 PROJECTION_YEARS = (2030, 2050)
 PROJECTED_FACTOR_TYPES = ("Construction", "Manufacturing", "Construction&Manufacturing")
+RUTOVITZ_PROJECTED_FACTOR_TYPES = ("Construction", "Manufacturing", "O&M")

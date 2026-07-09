@@ -41,10 +41,10 @@ def _rutovitz_mapping_table() -> pd.DataFrame:
             {
                 "Technology": technology,
                 "Rutovitz_Table9_Tech": values[0],
-                "Latin_America_2030_change": values[1],
-                "Applied_multiplier_2015_to_2030": 1 + values[1],
+                "Latin_America_2030_decline_factor": values[1] if values[1] is not None else "-",
+                "Applied_multiplier_2015_to_2030": f'=IF(ISNUMBER(C{row_number}),1-C{row_number},"")',
             }
-            for technology, values in RUTOVITZ_DECLINE_FACTORS.items()
+            for row_number, (technology, values) in enumerate(RUTOVITZ_DECLINE_FACTORS.items(), start=2)
         ]
     )
 
@@ -119,7 +119,7 @@ def _add_overview_sheet(workbook: Workbook) -> None:
             "Mappings_Rutovitz",
             "Mapping to Rutovitz Table 9",
             "Latin America 2030 decline factors",
-            "Construction and manufacturing only for Rutovitz 2015 rows",
+            "Construction, manufacturing, and O&M for Rutovitz 2015 rows",
             "Rutovitz 2015 Table 9",
         ],
         [
@@ -163,12 +163,12 @@ def _add_method_sheet(workbook: Workbook) -> None:
 
     rows = [
         [
-            "Rutovitz 2015 C/M",
-            "EF_2030 = EF_2015 * (1 + decline_2030)",
+            "Rutovitz 2015 C/M/O&M",
+            "EF_2030 = EF_2015 × (1 - decline_factor_2030)",
             "Latin America Table 9 coefficient",
             "n/a",
             "Solar PV",
-            "Applied only to Construction and Manufacturing rows from Rutovitz 2015",
+            "Applied to Construction, Manufacturing, and O&M rows from Rutovitz 2015",
         ],
         [
             "Learning curve",
@@ -231,6 +231,57 @@ def _autofit_columns(workbook: Workbook) -> None:
             sheet.column_dimensions[get_column_letter(column_number)].width = min(max(width + 2, 12), 35)
 
 
+def _formulaize_rutovitz_2030_rows(sheet, output: pd.DataFrame) -> None:
+    columns = {name: index + 1 for index, name in enumerate(output.columns)}
+    excel_rows = {index: index + 2 for index in output.index}
+    base_rows = {}
+
+    for index, row in output.iterrows():
+        if row["Year"] != row["Base_Year"]:
+            continue
+        key = (
+            row["Source"],
+            row["Technology"],
+            row["Factor_Type"],
+            row["Job_Type"],
+            row["Unit"],
+            row["Base_Year"],
+        )
+        base_rows[key] = excel_rows[index]
+
+    for index, row in output.iterrows():
+        if (
+            row["Source"] != "Rutovitz 2015"
+            or row["Year"] != 2030
+            or row["Factor_Type"] == "Fuel"
+            or row["Method_Applied"] != "Rutovitz Table 9 decline to 2030"
+        ):
+            continue
+
+        key = (
+            row["Source"],
+            row["Technology"],
+            row["Factor_Type"],
+            row["Job_Type"],
+            row["Unit"],
+            row["Base_Year"],
+        )
+        base_row = base_rows[key]
+        excel_row = excel_rows[index]
+        factor_column = columns["Rutovitz_2030_Factor"]
+        factor_cell = f"{get_column_letter(factor_column)}{excel_row}"
+        mapped_tech_cell = f"{get_column_letter(columns['Mapped_Rutovitz_Tech'])}{excel_row}"
+        sheet.cell(
+            excel_row,
+            factor_column,
+            f"=INDEX(Mappings_Rutovitz!$D$2:$D$14,MATCH({mapped_tech_cell},Mappings_Rutovitz!$B$2:$B$14,0))",
+        )
+
+        for column_name in ("Value", "Value_Numeric", "Projected_Value"):
+            column_letter = get_column_letter(columns[column_name])
+            sheet.cell(excel_row, columns[column_name], f"={column_letter}{base_row}*{factor_cell}")
+
+
 def write_audit_workbook(output: pd.DataFrame, path: Path) -> None:
     workbook = Workbook()
     _add_overview_sheet(workbook)
@@ -238,7 +289,11 @@ def write_audit_workbook(output: pd.DataFrame, path: Path) -> None:
     _add_table_sheet(workbook, "Mappings_Catalogue", _catalogue_mapping_table())
     _add_method_sheet(workbook)
     _add_table_sheet(workbook, "Employment_Outputs", output)
+    _formulaize_rutovitz_2030_rows(workbook["Employment_Outputs"], output)
     _autofit_columns(workbook)
+    workbook.calculation.calcMode = "auto"
+    workbook.calculation.fullCalcOnLoad = True
+    workbook.calculation.forceFullCalc = True
     path.parent.mkdir(parents=True, exist_ok=True)
     workbook.save(path)
 

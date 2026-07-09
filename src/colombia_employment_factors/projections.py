@@ -11,6 +11,7 @@ from colombia_employment_factors.mappings import (
     PROJECTED_FACTOR_TYPES,
     PROJECTION_YEARS,
     RUTOVITZ_DECLINE_FACTORS,
+    RUTOVITZ_PROJECTED_FACTOR_TYPES,
     TECH_CATALOGUE_MAPPINGS,
 )
 
@@ -40,13 +41,14 @@ def _rutovitz_2030_row(row: pd.Series, value: float) -> dict | None:
     technology = row["Technology"]
     if (
         row["Source"] != "Rutovitz 2015"
-        or factor_type not in ("Construction", "Manufacturing")
+        or factor_type not in RUTOVITZ_PROJECTED_FACTOR_TYPES
         or technology not in RUTOVITZ_DECLINE_FACTORS
     ):
         return None
 
     mapped_tech, decline = RUTOVITZ_DECLINE_FACTORS[technology]
-    projected_value = value * (1 + decline)
+    multiplier = 1 - decline
+    projected_value = value * multiplier
     return {
         **row.to_dict(),
         "Year": 2030,
@@ -54,7 +56,7 @@ def _rutovitz_2030_row(row: pd.Series, value: float) -> dict | None:
         "Value_Numeric": projected_value,
         "Method_Applied": "Rutovitz Table 9 decline to 2030",
         "Mapped_Rutovitz_Tech": mapped_tech,
-        "Rutovitz_2030_Factor": 1 + decline,
+        "Rutovitz_2030_Factor": multiplier,
         "Mapped_Catalogue_Tech": "",
         "Learning_Rate": "",
         "Projection_Input": "Rutovitz Table 9 Latin America 2030",
