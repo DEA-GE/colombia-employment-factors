@@ -16,14 +16,13 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from colombia_employment_factors.mappings import (
-    CAPACITY_RATIOS,
-    CAPEX_RATIOS,
+    CAPEX_OPEX_TECH_MAPPINGS,
     RUTOVITZ_DECLINE_FACTORS,
-    TECH_CATALOGUE_MAPPINGS,
 )
 from colombia_employment_factors.projections import project_employment_factors
 
 RAW_INPUT = ROOT / "data" / "raw" / "employment_factors_final.csv"
+CAPEX_OPEX_RATIO_INPUT = ROOT / "data" / "audit" / "capex_opex_ratios_2024_2030_2050.csv"
 PROCESSED_OUTPUT = ROOT / "data" / "processed" / "employment_factors_with_2030_2050.csv"
 AUDIT_OUTPUT = ROOT / "data" / "audit" / "employment_learning_curves_2030_2050.xlsx"
 PACKAGE_DATA_OUTPUT = (
@@ -51,18 +50,14 @@ def _rutovitz_mapping_table() -> pd.DataFrame:
 
 def _catalogue_mapping_table() -> pd.DataFrame:
     rows = []
-    for technology, values in TECH_CATALOGUE_MAPPINGS.items():
-        mapped_technology, learning_rate, method = values
+    for technology, values in CAPEX_OPEX_TECH_MAPPINGS.items():
+        mapped_technology, mapping_type, projection_rule = values
         rows.append(
             {
                 "Technology": technology,
                 "Catalogue_Tech": mapped_technology,
-                "Learning_rate_or_rule": learning_rate,
-                "Method": method,
-                "STEPS_ratio_2030": CAPACITY_RATIOS[2030].get(mapped_technology),
-                "STEPS_ratio_2050": CAPACITY_RATIOS[2050].get(mapped_technology),
-                "CAPEX_ratio_2030": CAPEX_RATIOS[2030].get(mapped_technology),
-                "CAPEX_ratio_2050": CAPEX_RATIOS[2050].get(mapped_technology),
+                "Mapping_Type": mapping_type,
+                "Projection_Rule": projection_rule,
             }
         )
     return pd.DataFrame(rows)
@@ -125,8 +120,8 @@ def _add_overview_sheet(workbook: Workbook) -> None:
         [
             "Mappings_Catalogue",
             "Mapping to Colombian catalogue",
-            "Learning rates and STEPS ratios",
-            "Capacity-ratio or CAPEX fallback method",
+            "CAPEX/OPEX ratio technology names",
+            "Direct, proxy, partial, or constant mapping rule",
             "Colombian Technology Catalogue",
         ],
         [
@@ -164,59 +159,54 @@ def _add_method_sheet(workbook: Workbook) -> None:
     rows = [
         [
             "Rutovitz 2015 C/M/O&M",
-            "EF_2030 = EF_2015 × (1 - decline_factor_2030)",
+            "EF_2030 = EF_2015 * (1 - decline_factor_2030)",
             "Latin America Table 9 coefficient",
-            "n/a",
+            "2050/2030 CAPEX or OPEX ratio",
             "Solar PV",
-            "Applied to Construction, Manufacturing, and O&M rows from Rutovitz 2015",
+            "2030 uses Rutovitz Table 9; 2050 uses catalogue CAPEX/OPEX transition ratios.",
         ],
         [
-            "Learning curve",
-            "EF_t = EF_2024 * (CapacityRatio_t)^(log2(1-LR))",
-            "STEPS accumulated capacity ratio 2030",
-            "STEPS accumulated capacity ratio 2050",
-            "Onshore wind",
-            "Used for Construction, Manufacturing, and Construction&Manufacturing rows",
-        ],
-        [
-            "CAPEX fallback",
-            "EF_t = EF_2024 * (CAPEX_t / CAPEX_2024)",
-            "2030/2024 CAPEX ratio",
-            "2050/2024 CAPEX ratio",
+            "CAPEX/OPEX ratio",
+            "EF_2030 = EF_2024 * ratio_2030_2024; EF_2050 = EF_2030 * ratio_2050_2030",
+            "2030/2024 CAPEX or OPEX ratio",
+            "2050/2030 CAPEX or OPEX ratio",
             "Coal power",
-            "Used where no catalogue learning-rate/capacity-ratio mapping exists",
+            "Used for non-Rutovitz-2015 projection rows mapped to catalogue ratio technologies.",
         ],
     ]
     for row_number, row in enumerate(rows, start=3):
         for column_number, value in enumerate(row, start=2):
             sheet.cell(row_number, column_number, value)
 
-    for coordinate in ["D3", "D4", "D5", "E4", "E5"]:
+    for coordinate in ["D3", "E3", "D4", "E4"]:
         sheet[coordinate].fill = input_fill
 
-    sheet["B8"] = "Key input block"
-    sheet["B8"].font = Font(name="Calibri", size=11, bold=True)
-    key_inputs = pd.DataFrame(
+    sheet["B7"] = "CAPEX/OPEX ratio inputs"
+    sheet["B7"].font = Font(name="Calibri", size=11, bold=True)
+    ratios = pd.read_csv(CAPEX_OPEX_RATIO_INPUT)
+    ratio_inputs = ratios[
         [
-            ["Solar PV", 0.20, 2.4, 6.5],
-            ["Wind onshore", 0.05, 1.7, 2.9],
-            ["Wind offshore", 0.15, 3.0, 8.8],
-            ["Hydro", 0.01, 1.1, 1.4],
-            ["Bioenergy", 0.05, 1.3, 2.2],
-            ["Geothermal", 0.05, 1.8, 4.2],
-            ["Battery storage", 0.10, 6.5, 27.7],
-            ["Coal CAPEX ratio", "", 0.95, 0.90],
-            ["Natural Gas CAPEX ratio", "", 0.94, 0.88],
-            ["Nuclear CAPEX ratio", "", 0.90, 0.85],
-        ],
-        columns=["Mapped tech", "Learning rate", "2030 ratio", "2050 ratio"],
+            "technology_name",
+            "capex_ratio_2030_over_2024",
+            "capex_ratio_2050_over_2030",
+            "opex_ratio_2030_over_2024",
+            "opex_ratio_2050_over_2030",
+        ]
+    ].rename(
+        columns={
+            "technology_name": "Catalogue tech",
+            "capex_ratio_2030_over_2024": "CAPEX 2030/2024",
+            "capex_ratio_2050_over_2030": "CAPEX 2050/2030",
+            "opex_ratio_2030_over_2024": "OPEX 2030/2024",
+            "opex_ratio_2050_over_2030": "OPEX 2050/2030",
+        }
     )
-    start_row = 9
-    for column_number, column_name in enumerate(key_inputs.columns, start=2):
+    start_row = 8
+    for column_number, column_name in enumerate(ratio_inputs.columns, start=2):
         cell = sheet.cell(start_row, column_number, column_name)
         cell.fill = header_fill
         cell.font = header_font
-    for row_number, row in enumerate(key_inputs.itertuples(index=False), start=start_row + 1):
+    for row_number, row in enumerate(ratio_inputs.itertuples(index=False), start=start_row + 1):
         for column_number, value in enumerate(row, start=2):
             sheet.cell(row_number, column_number, value)
 
@@ -231,55 +221,94 @@ def _autofit_columns(workbook: Workbook) -> None:
             sheet.column_dimensions[get_column_letter(column_number)].width = min(max(width + 2, 12), 35)
 
 
-def _formulaize_rutovitz_2030_rows(sheet, output: pd.DataFrame) -> None:
+def _formulaize_projection_rows(sheet, output: pd.DataFrame) -> None:
     columns = {name: index + 1 for index, name in enumerate(output.columns)}
     excel_rows = {index: index + 2 for index in output.index}
     base_rows = {}
+    ratio_end_row = 8 + len(pd.read_csv(CAPEX_OPEX_RATIO_INPUT))
 
     for index, row in output.iterrows():
-        if row["Year"] != row["Base_Year"]:
-            continue
         key = (
             row["Source"],
             row["Technology"],
             row["Factor_Type"],
             row["Job_Type"],
             row["Unit"],
-            row["Base_Year"],
+            row["Year"],
         )
         base_rows[key] = excel_rows[index]
 
+    def value_formula(excel_row: int, base_row: int, ratio_formula: str, column_name: str) -> str:
+        column_letter = get_column_letter(columns[column_name])
+        return f"={column_letter}{base_row}*{ratio_formula}"
+
+    def capex_opex_ratio_formula(excel_row: int, row: pd.Series) -> str:
+        mapped_tech_cell = f"{get_column_letter(columns['Mapped_Catalogue_Tech'])}{excel_row}"
+        if not row["Mapped_Catalogue_Tech"]:
+            return "1"
+
+        is_opex = row["Factor_Type"] == "O&M"
+        if row["Base_Year"] == 2024 and row["Year"] == 2030:
+            ratio_column = "E" if is_opex else "C"
+        elif row["Base_Year"] == 2030 and row["Year"] == 2050:
+            ratio_column = "F" if is_opex else "D"
+        else:
+            return "1"
+
+        lookup = (
+            f"INDEX(Method_2030_2050!${ratio_column}$9:${ratio_column}${ratio_end_row},"
+            f"MATCH({mapped_tech_cell},Method_2030_2050!$B$9:$B${ratio_end_row},0))"
+        )
+        return f"IFERROR(IF(ISNUMBER({lookup}),{lookup},1),1)"
+
     for index, row in output.iterrows():
         if (
-            row["Source"] != "Rutovitz 2015"
-            or row["Year"] != 2030
-            or row["Factor_Type"] == "Fuel"
-            or row["Method_Applied"] != "Rutovitz Table 9 decline to 2030"
+            row["Source"] == "Rutovitz 2015"
+            and row["Year"] == 2030
+            and row["Factor_Type"] != "Fuel"
+            and row["Method_Applied"] == "Rutovitz Table 9 decline to 2030"
         ):
+            key = (
+                row["Source"],
+                row["Technology"],
+                row["Factor_Type"],
+                row["Job_Type"],
+                row["Unit"],
+                row["Base_Year"],
+            )
+            base_row = base_rows[key]
+            excel_row = excel_rows[index]
+            factor_column = columns["Rutovitz_2030_Factor"]
+            factor_cell = f"{get_column_letter(factor_column)}{excel_row}"
+            mapped_tech_cell = f"{get_column_letter(columns['Mapped_Rutovitz_Tech'])}{excel_row}"
+            sheet.cell(
+                excel_row,
+                factor_column,
+                f"=INDEX(Mappings_Rutovitz!$D$2:$D$14,MATCH({mapped_tech_cell},Mappings_Rutovitz!$B$2:$B$14,0))",
+            )
+
+            for column_name in ("Value", "Value_Numeric", "Projected_Value"):
+                sheet.cell(excel_row, columns[column_name], value_formula(excel_row, base_row, factor_cell, column_name))
             continue
 
-        key = (
-            row["Source"],
-            row["Technology"],
-            row["Factor_Type"],
-            row["Job_Type"],
-            row["Unit"],
-            row["Base_Year"],
-        )
-        base_row = base_rows[key]
-        excel_row = excel_rows[index]
-        factor_column = columns["Rutovitz_2030_Factor"]
-        factor_cell = f"{get_column_letter(factor_column)}{excel_row}"
-        mapped_tech_cell = f"{get_column_letter(columns['Mapped_Rutovitz_Tech'])}{excel_row}"
-        sheet.cell(
-            excel_row,
-            factor_column,
-            f"=INDEX(Mappings_Rutovitz!$D$2:$D$14,MATCH({mapped_tech_cell},Mappings_Rutovitz!$B$2:$B$14,0))",
-        )
-
-        for column_name in ("Value", "Value_Numeric", "Projected_Value"):
-            column_letter = get_column_letter(columns[column_name])
-            sheet.cell(excel_row, columns[column_name], f"={column_letter}{base_row}*{factor_cell}")
+        if str(row["Method_Applied"]).startswith(("CAPEX/OPEX ratio projection", "Constant projection")):
+            key = (
+                row["Source"],
+                row["Technology"],
+                row["Factor_Type"],
+                row["Job_Type"],
+                row["Unit"],
+                row["Base_Year"],
+            )
+            base_row = base_rows[key]
+            excel_row = excel_rows[index]
+            ratio_formula = capex_opex_ratio_formula(excel_row, row)
+            for column_name in ("Value", "Value_Numeric", "Projected_Value"):
+                sheet.cell(
+                    excel_row,
+                    columns[column_name],
+                    value_formula(excel_row, base_row, ratio_formula, column_name),
+                )
 
 
 def write_audit_workbook(output: pd.DataFrame, path: Path) -> None:
@@ -289,7 +318,7 @@ def write_audit_workbook(output: pd.DataFrame, path: Path) -> None:
     _add_table_sheet(workbook, "Mappings_Catalogue", _catalogue_mapping_table())
     _add_method_sheet(workbook)
     _add_table_sheet(workbook, "Employment_Outputs", output)
-    _formulaize_rutovitz_2030_rows(workbook["Employment_Outputs"], output)
+    _formulaize_projection_rows(workbook["Employment_Outputs"], output)
     _autofit_columns(workbook)
     workbook.calculation.calcMode = "auto"
     workbook.calculation.fullCalcOnLoad = True
@@ -300,7 +329,8 @@ def write_audit_workbook(output: pd.DataFrame, path: Path) -> None:
 
 def main() -> None:
     source = pd.read_csv(RAW_INPUT)
-    output = project_employment_factors(source)
+    capex_opex_ratios = pd.read_csv(CAPEX_OPEX_RATIO_INPUT)
+    output = project_employment_factors(source, capex_opex_ratios)
 
     PROCESSED_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     output.to_csv(PROCESSED_OUTPUT, index=False, float_format="%.12g")

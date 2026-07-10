@@ -37,6 +37,119 @@ TECH_CATALOGUE_MAPPINGS = {
     "Battery storage (distributed)": ("Battery storage", 0.10, "capacity_ratio"),
 }
 
+CAPEX_OPEX_TECH_MAPPINGS = {
+    "Battery storage (distributed)": (
+        "Small-scale Lithium-ion",
+        "direct",
+        "Use CAPEX/OPEX ratios from the mapped Technology Catalogue row.",
+    ),
+    "Battery storage (grid)": (
+        "Utility-scale Lithium-ion",
+        "direct",
+        "Use CAPEX/OPEX ratios from the mapped Technology Catalogue row.",
+    ),
+    "Biomass power": (
+        "Biomass power plant",
+        "direct",
+        "Use CAPEX/OPEX ratios from the mapped Technology Catalogue row.",
+    ),
+    "Coal power": (
+        "Coal Supercritical",
+        "direct",
+        "Use CAPEX/OPEX ratios from the mapped Technology Catalogue row.",
+    ),
+    "Gas CCGT/OCGT": (
+        "CCGT (GAS)",
+        "direct",
+        "Use CAPEX/OPEX ratios from the mapped Technology Catalogue row.",
+    ),
+    "Geothermal": (
+        "Geothermal large",
+        "direct",
+        "Use CAPEX/OPEX ratios from the mapped Technology Catalogue row.",
+    ),
+    "Hydro (large)": (
+        "Large Hydro reservoir",
+        "direct",
+        "Use CAPEX/OPEX ratios from the mapped Technology Catalogue row.",
+    ),
+    "Hydro (small)": (
+        "Small RoR hydro power",
+        "direct",
+        "Use CAPEX/OPEX ratios from the mapped Technology Catalogue row.",
+    ),
+    "Nuclear": (
+        "Nuclear PWR",
+        "direct",
+        "Use CAPEX/OPEX ratios from the mapped Technology Catalogue row.",
+    ),
+    "Offshore wind": (
+        "Wind Offshore fixed bottom",
+        "direct",
+        "Use fixed-bottom offshore wind ratios for generic offshore wind rows.",
+    ),
+    "Offshore wind (fixed)": (
+        "Wind Offshore fixed bottom",
+        "direct",
+        "Use CAPEX/OPEX ratios from the mapped Technology Catalogue row.",
+    ),
+    "Offshore wind (floating)": (
+        "Wind offshore floating",
+        "partial",
+        "2024 ratios are unavailable; use 2050/2030 where a 2030 base exists.",
+    ),
+    "Oil and diesel": (
+        "SCGT (GAS)",
+        "proxy",
+        "Proxy oil/diesel with simple-cycle gas turbine ratios.",
+    ),
+    "Onshore wind": (
+        "Wind Onshore",
+        "direct",
+        "Use CAPEX/OPEX ratios from the mapped Technology Catalogue row.",
+    ),
+    "Pumped hydro storage": (
+        "Hydro pumped storage",
+        "direct",
+        "Use CAPEX/OPEX ratios from the mapped Technology Catalogue row.",
+    ),
+    "Rooftop solar PV": (
+        "Residential PV (rooftop)",
+        "direct",
+        "Use residential rooftop PV ratios for rooftop solar rows.",
+    ),
+    "Solar thermal (CSP)": (
+        "",
+        "unmapped_constant",
+        "No matching ratio row; hold projected values constant.",
+    ),
+    "Ocean": (
+        "",
+        "unmapped_constant",
+        "No matching ratio row; hold projected values constant.",
+    ),
+    "Transmission (double circuit)": (
+        "",
+        "unmapped_constant",
+        "No matching ratio row; hold projected values constant.",
+    ),
+    "Transmission (other)": (
+        "",
+        "unmapped_constant",
+        "No matching ratio row; hold projected values constant.",
+    ),
+    "Transmission (single circuit)": (
+        "",
+        "unmapped_constant",
+        "No matching ratio row; hold projected values constant.",
+    ),
+    "Utility-scale solar PV": (
+        "Utility scale PV(tracking)",
+        "direct",
+        "Use utility-scale tracking PV ratios.",
+    ),
+}
+
 CAPACITY_RATIOS = {
     2030: {
         "Solar PV": 2.4,

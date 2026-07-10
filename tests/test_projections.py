@@ -4,54 +4,136 @@ import pytest
 from colombia_employment_factors.projections import project_employment_factors
 
 
-def test_project_employment_factors_adds_learning_curve_rows():
+def _ratio_table():
+    return pd.DataFrame(
+        [
+            {
+                "technology_name": "Utility-scale Lithium-ion",
+                "capex_ratio_2030_over_2024": 0.6,
+                "capex_ratio_2050_over_2030": 0.7,
+                "opex_ratio_2030_over_2024": 0.8,
+                "opex_ratio_2050_over_2030": 0.9,
+            },
+            {
+                "technology_name": "Utility scale PV(tracking)",
+                "capex_ratio_2030_over_2024": 0.69,
+                "capex_ratio_2050_over_2030": 0.67,
+                "opex_ratio_2030_over_2024": 0.85,
+                "opex_ratio_2050_over_2030": 0.86,
+            },
+            {
+                "technology_name": "Wind offshore floating",
+                "capex_ratio_2030_over_2024": None,
+                "capex_ratio_2050_over_2030": 0.522971,
+                "opex_ratio_2030_over_2024": None,
+                "opex_ratio_2050_over_2030": 0.520737,
+            },
+        ]
+    )
+
+
+def test_project_employment_factors_adds_capex_ratio_rows():
     source = pd.DataFrame(
         [
             {
                 "Source": "Rutovitz 2025",
-                "Technology": "Battery storage (distributed)",
+                "Technology": "Battery storage (grid)",
                 "Factor_Type": "Construction",
                 "Job_Type": "Direct",
                 "Unit": "job-yr/MW",
                 "Year": 2024,
-                "Value": 4.44,
-                "Value_Numeric": 4.44,
+                "Value": 10.0,
+                "Value_Numeric": 10.0,
             }
         ]
     )
 
-    projected = project_employment_factors(source)
+    projected = project_employment_factors(source, _ratio_table())
     row_2030 = projected[projected["Year"] == 2030].iloc[0]
+    row_2050 = projected[projected["Year"] == 2050].iloc[0]
 
     assert len(projected) == 3
-    assert row_2030["Method_Applied"] == "Learning curve from cumulative capacity ratio"
-    assert row_2030["Mapped_Catalogue_Tech"] == "Battery storage"
-    assert row_2030["Projected_Value"] == pytest.approx(3.3405472979883593)
+    assert row_2030["Method_Applied"] == "CAPEX/OPEX ratio projection"
+    assert row_2030["Mapped_Catalogue_Tech"] == "Utility-scale Lithium-ion"
+    assert row_2030["Projected_Value"] == pytest.approx(6.0)
+    assert row_2050["Base_Year"] == 2030
+    assert row_2050["Projected_Value"] == pytest.approx(4.2)
 
 
-def test_project_employment_factors_does_not_project_2024_o_and_m_rows():
+def test_project_employment_factors_adds_opex_ratio_rows_for_o_and_m():
     source = pd.DataFrame(
         [
             {
                 "Source": "Rutovitz 2025",
-                "Technology": "Battery storage (distributed)",
+                "Technology": "Battery storage (grid)",
                 "Factor_Type": "O&M",
                 "Job_Type": "Direct",
                 "Unit": "jobs/MW",
                 "Year": 2024,
-                "Value": 0.11,
-                "Value_Numeric": 0.11,
+                "Value": 10.0,
+                "Value_Numeric": 10.0,
             }
         ]
     )
 
-    projected = project_employment_factors(source)
+    projected = project_employment_factors(source, _ratio_table())
+    row_2030 = projected[projected["Year"] == 2030].iloc[0]
+    row_2050 = projected[projected["Year"] == 2050].iloc[0]
 
-    assert len(projected) == 1
-    assert set(projected["Year"]) == {2024}
+    assert len(projected) == 3
+    assert row_2030["Projected_Value"] == pytest.approx(8.0)
+    assert row_2050["Projected_Value"] == pytest.approx(7.2)
 
 
-def test_project_employment_factors_adds_rutovitz_decline_row():
+def test_project_employment_factors_uses_constant_bridge_for_partial_floating_wind():
+    source = pd.DataFrame(
+        [
+            {
+                "Source": "French QBIS 2023",
+                "Technology": "Offshore wind (floating)",
+                "Factor_Type": "Construction&Manufacturing",
+                "Job_Type": "Direct",
+                "Unit": "job-yr/MW",
+                "Year": 2024,
+                "Value": 10.0,
+                "Value_Numeric": 10.0,
+            }
+        ]
+    )
+
+    projected = project_employment_factors(source, _ratio_table())
+    row_2030 = projected[projected["Year"] == 2030].iloc[0]
+    row_2050 = projected[projected["Year"] == 2050].iloc[0]
+
+    assert row_2030["Projected_Value"] == pytest.approx(10.0)
+    assert row_2030["Method_Applied"] == "CAPEX/OPEX ratio projection with constant bridge"
+    assert row_2050["Projected_Value"] == pytest.approx(5.22971)
+
+
+def test_project_employment_factors_holds_unmapped_technologies_constant():
+    source = pd.DataFrame(
+        [
+            {
+                "Source": "Rutovitz 2025",
+                "Technology": "Transmission (single circuit)",
+                "Factor_Type": "Construction",
+                "Job_Type": "Direct",
+                "Unit": "job-yr/km",
+                "Year": 2024,
+                "Value": 10.0,
+                "Value_Numeric": 10.0,
+            }
+        ]
+    )
+
+    projected = project_employment_factors(source, _ratio_table())
+
+    assert list(projected["Year"]) == [2024, 2030, 2050]
+    assert projected.loc[projected["Year"] == 2030, "Projected_Value"].iloc[0] == pytest.approx(10.0)
+    assert projected.loc[projected["Year"] == 2050, "Projected_Value"].iloc[0] == pytest.approx(10.0)
+
+
+def test_project_employment_factors_adds_rutovitz_decline_and_2050_ratio_rows():
     source = pd.DataFrame(
         [
             {
@@ -67,37 +149,16 @@ def test_project_employment_factors_adds_rutovitz_decline_row():
         ]
     )
 
-    projected = project_employment_factors(source)
+    projected = project_employment_factors(source, _ratio_table())
     row_2030 = projected[projected["Year"] == 2030].iloc[0]
+    row_2050 = projected[projected["Year"] == 2050].iloc[0]
 
-    assert len(projected) == 2
+    assert len(projected) == 3
     assert row_2030["Method_Applied"] == "Rutovitz Table 9 decline to 2030"
     assert row_2030["Rutovitz_2030_Factor"] == pytest.approx(0.59)
     assert row_2030["Projected_Value"] == pytest.approx(5.9)
-
-
-def test_project_employment_factors_adds_rutovitz_o_and_m_decline_row():
-    source = pd.DataFrame(
-        [
-            {
-                "Source": "Rutovitz 2015",
-                "Technology": "Utility-scale solar PV",
-                "Factor_Type": "O&M",
-                "Job_Type": "Direct",
-                "Unit": "jobs/MW",
-                "Year": 2015,
-                "Value": 1.0,
-                "Value_Numeric": 1.0,
-            }
-        ]
-    )
-
-    projected = project_employment_factors(source)
-    row_2030 = projected[projected["Year"] == 2030].iloc[0]
-
-    assert len(projected) == 2
-    assert row_2030["Method_Applied"] == "Rutovitz Table 9 decline to 2030"
-    assert row_2030["Projected_Value"] == pytest.approx(0.59)
+    assert row_2050["Base_Year"] == 2030
+    assert row_2050["Projected_Value"] == pytest.approx(3.953)
 
 
 def test_project_employment_factors_skips_rutovitz_fuel_and_projects_zero_declines():
@@ -126,10 +187,10 @@ def test_project_employment_factors_skips_rutovitz_fuel_and_projects_zero_declin
         ]
     )
 
-    projected = project_employment_factors(source)
+    projected = project_employment_factors(source, _ratio_table())
     row_2030 = projected[projected["Year"] == 2030].iloc[0]
 
-    assert len(projected) == 3
+    assert len(projected) == 4
     assert row_2030["Technology"] == "Coal power"
     assert row_2030["Rutovitz_2030_Factor"] == pytest.approx(1.0)
     assert row_2030["Projected_Value"] == pytest.approx(10.0)

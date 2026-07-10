@@ -1,6 +1,6 @@
 # Colombia Employment Factors
 
-Model-agnostic employment factors and learning-curve methodology for Colombia's
+Model-agnostic employment factors and CAPEX/OPEX ratio methodology for Colombia's
 power sector.
 
 This repository packages employment-factor data and projection methods so they
@@ -18,7 +18,7 @@ without coupling it to one OSeMOSYS implementation or one model-data workflow.
 The package supports:
 
 - reading curated employment-factor tables;
-- applying Rutovitz Table 9 and technology-learning multipliers to eligible
+- applying Rutovitz Table 9 and CAPEX/OPEX ratio multipliers to eligible
   employment factors;
 - documenting mappings between employment-factor technologies, Rutovitz Table 9
   decline factors, and the Colombian Technology Catalogue;
@@ -78,24 +78,36 @@ The audit workbook mirrors this in `Mappings_Rutovitz` and uses formulas in
 Coal and nuclear use a 1.00 multiplier because Table 9 has a dash for the Latin
 America decline factor.
 
-For 2024-source construction, manufacturing, and combined
-construction-and-manufacturing rows, the package applies the learning-curve
-relationship:
+For non-Rutovitz-2015 rows with a 2024 base year, the package applies CAPEX/OPEX
+transition ratios from `data/audit/capex_opex_ratios_2024_2030_2050.csv`.
+Construction, manufacturing, and combined construction-and-manufacturing factors
+use CAPEX ratios; O&M factors use OPEX ratios. The projection is sequential:
 
 ```text
-projected_factor = base_factor * capacity_ratio ** log2(1 - learning_rate)
+EF_2030 = EF_2024 * ratio_2030_2024
+EF_2050 = EF_2030 * ratio_2050_2030
 ```
 
-This is equivalent to the spreadsheet form:
+For Rutovitz 2015 rows already projected to 2030, the package applies the same
+CAPEX/OPEX `2050/2030` transition from the 2030 value:
 
 ```text
-projected_factor = base_factor * capacity_ratio ^ (LN(1 - learning_rate) / LN(2))
+EF_2050 = EF_2030 * ratio_2050_2030
 ```
 
-Where catalogue learning-rate inputs are unavailable for these 2024-source
-construction/manufacturing rows, documented CAPEX-ratio fallbacks are used and
-flagged in the output metadata. O&M rows from 2024 sources are not projected by
-the catalogue learning-curve or CAPEX fallback method.
+Technologies without a matching catalogue ratio row, such as transmission,
+solar thermal (CSP), and ocean, are projected as constant values. Offshore wind
+(floating) has no 2024 ratio in the catalogue table, so its 2030 value is held
+constant from 2024 and its 2050 value uses the available `2050/2030` ratio.
+
+The audit file
+`data/audit/capex_opex_ratios_2024_2030_2050.csv` records the CAPEX and fixed
+O&M values extracted from `docs/sources/datos_cuantitativos_EN.xlsx` for each
+technology sheet, excluding `Guide&Cover` and `Index`. It includes the selected
+source row labels and row numbers, a normalized technology name without sheet
+numbering, the 2024, 2030, and 2050 values, and the transition ratios
+`2030/2024` and `2050/2030`. This table is the catalogue-ratio input used for
+the 2030 and 2050 employment-factor projection method.
 
 ## Repository Layout
 
@@ -104,7 +116,7 @@ src/colombia_employment_factors/   installable Python package
 scripts/                           maintainer scripts for rebuilding outputs
 data/raw/                          source employment-factor tables
 data/processed/                    generated model-ready employment factors
-data/audit/                        Excel audit workbooks
+data/audit/                        audit workbooks and derived ratio tables
 docs/sources/                      source PDFs and catalogue spreadsheets
 tests/                             unit tests for formulas and adapters
 ```

@@ -180,7 +180,7 @@ def build_slides() -> list[str]:
     return [
         slide_xml(
             "Colombia Employment Factors",
-            "Reusable employment-factor data and learning-curve methodology for power-sector models",
+            "Reusable employment-factor data and CAPEX/OPEX ratio methodology for power-sector models",
             [
                 textbox(10, "Hero", 0.7, 1.75, 7.2, 2.0, [
                     "Purpose",
@@ -188,7 +188,7 @@ def build_slides() -> list[str]:
                 ], font_size=2100, bold_first=True, fill="E0F2FE", line="7DD3FC"),
                 textbox(11, "Stats", 8.35, 1.75, 4.25, 2.0, [
                     "Current dataset",
-                    "193 rows",
+                    "361 rows",
                     "22 technologies",
                     "Years: 2015, 2024, 2030, 2050",
                 ], font_size=1850, bold_first=True, fill="ECFDF5", line="86EFAC"),
@@ -294,45 +294,44 @@ def build_slides() -> list[str]:
             5,
         ),
         slide_xml(
-            "Learning-Curve Method",
-            "2024 construction and manufacturing-related rows are projected to 2030 and 2050 using cumulative capacity growth.",
+            "CAPEX/OPEX Ratio Method",
+            "2024-source rows are projected sequentially to 2030 and 2050 using catalogue CAPEX and OPEX transition ratios.",
             [
                 textbox(60, "Equation", 0.75, 1.6, 11.4, 1.55, [
-                    "projected_factor = base_factor * capacity_ratio ^ log2(1 - learning_rate)",
-                    "Equivalent spreadsheet exponent: LN(1 - LR) / LN(2)",
+                    "EF_2030 = EF_2024 * ratio_2030_2024",
+                    "EF_2050 = EF_2030 * ratio_2050_2030",
                 ], font_size=2000, bold_first=True, fill="ECFDF5", line="86EFAC"),
                 textbox(61, "Variables", 0.75, 3.55, 5.4, 2.35, [
                     "Variables",
                     "base_factor: 2024 employment factor",
-                    "capacity_ratio: accumulated generation capacity relative to 2024",
-                    "learning_rate: technology learning rate from the Colombian catalogue mapping",
+                    "CAPEX ratios: construction, manufacturing, and combined construction/manufacturing rows",
+                    "OPEX ratios: O&M rows",
                 ], font_size=1650, bold_first=True),
                 textbox(62, "Interpretation", 6.75, 3.55, 5.4, 2.35, [
                     "Interpretation",
-                    "As cumulative capacity increases, labour intensity per MW falls for technologies with positive learning rates.",
-                    "The approach mirrors the standard cost learning curve, applied to employment intensity.",
+                    "The employment factor follows the same transition ratio as the mapped catalogue cost item.",
+                    "Unmapped technologies are held constant unless a proxy mapping is documented.",
                 ], font_size=1700, bold_first=True, fill="F8FAFC", line="CBD5E1"),
             ],
             6,
         ),
         slide_xml(
-            "Catalogue Mapping And Fallbacks",
-            "Technology names are mapped to catalogue categories; missing learning inputs use explicit CAPEX-ratio fallback rules.",
+            "Catalogue Mapping Rules",
+            "Technology names are mapped to catalogue CAPEX/OPEX rows with direct, proxy, partial, or constant rules.",
             [
                 textbox(70, "Direct mappings", 0.75, 1.55, 5.7, 4.7, [
-                    "Direct learning-rate mappings",
-                    "Solar PV -> Solar PV",
-                    "Onshore wind -> Wind onshore",
-                    "Offshore wind -> Wind offshore",
-                    "Hydro large/small -> Hydro",
-                    "Biomass power -> Bioenergy",
-                    "Battery storage -> Battery storage",
+                    "Direct catalogue mappings",
+                    "Utility-scale solar PV -> Utility scale PV(tracking)",
+                    "Onshore wind -> Wind Onshore",
+                    "Offshore wind -> Wind Offshore fixed bottom",
+                    "Biomass power -> Biomass power plant",
+                    "Battery storage -> lithium-ion rows",
                 ], font_size=1600, bold_first=True),
                 textbox(71, "Fallbacks", 6.85, 1.55, 5.25, 4.7, [
-                    "CAPEX-ratio fallback",
-                    "EF_t = EF_2024 * (CAPEX_t / CAPEX_2024)",
-                    "Used where no catalogue learning-rate/capacity-ratio mapping was available.",
-                    "Examples: Coal, Natural Gas, Nuclear, and Oil/Diesel proxy treatment.",
+                    "Proxy and constant rules",
+                    "Oil and diesel -> SCGT (GAS)",
+                    "Solar thermal, ocean, and transmission are held constant.",
+                    "Floating offshore wind uses a constant 2030 bridge and the available 2050/2030 ratio.",
                 ], font_size=1700, bold_first=True, fill="FEF2F2", line="FCA5A5"),
             ],
             7,
@@ -347,7 +346,7 @@ def build_slides() -> list[str]:
                 ], font_size=1700, bold_first=True, fill="EFF6FF", line="93C5FD"),
                 textbox(81, "Step 2", 4.75, 1.65, 3.55, 3.1, [
                     "2. Apply method",
-                    "Rutovitz Table 9, learning curve, or CAPEX fallback depending on source and technology.",
+                    "Rutovitz Table 9 for 2015-to-2030; CAPEX/OPEX ratios for subsequent projection years.",
                 ], font_size=1700, bold_first=True, fill="ECFDF5", line="86EFAC"),
                 textbox(82, "Step 3", 8.75, 1.65, 3.55, 3.1, [
                     "3. Write outputs",
@@ -387,13 +386,13 @@ def build_slides() -> list[str]:
             [
                 textbox(100, "Quality controls", 0.75, 1.55, 5.7, 4.7, [
                     "Tests",
-                    "Learning-curve formula equals the Excel LN expression.",
-                    "Projection rows are checked against known values.",
+                    "CAPEX/OPEX ratio projections are checked against known values.",
+                    "Rutovitz 2015 2030 and 2050 projections are tested.",
                     "OSeMOSYS adapter merge and multiplication are checked.",
                 ], font_size=1750, bold_first=True, fill="ECFDF5", line="86EFAC"),
                 textbox(101, "Traceability", 6.85, 1.55, 5.25, 4.7, [
                     "Audit trail",
-                    "Generated rows include method, mapped technology, learning rate, and projection input.",
+                    "Generated rows include method, mapped technology, and projection input.",
                     "Raw, processed, audit, and source folders have distinct responsibilities.",
                     "Assumptions remain visible for future UPME review.",
                 ], font_size=1700, bold_first=True, fill="EFF6FF", line="93C5FD"),
@@ -405,7 +404,7 @@ def build_slides() -> list[str]:
             "The package is ready for GitHub publication and downstream model integration.",
             [
                 textbox(110, "Next", 0.75, 1.55, 11.35, 4.9, [
-                    "1. Replace approximate CAPEX fallback ratios with fully extracted catalogue values where possible.",
+                    "1. Review proxy and constant projection mappings for technologies without direct catalogue rows.",
                     "2. Add a documented OSeMOSYS-UPME technology-name mapping file.",
                     "3. Add citation guidance for Rutovitz, the Colombian Technology Catalogue, and derived outputs.",
                     "4. Tag a first release and reference it from OSeMOSYS-UPME requirements.txt.",

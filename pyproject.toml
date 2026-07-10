@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "colombia-employment-factors"
 version = "0.1.0"
-description = "Employment-factor data and learning-curve projections for Colombia power-sector models."
+description = "Employment-factor data and CAPEX/OPEX ratio projections for Colombia power-sector models."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { file = "LICENSE" }
