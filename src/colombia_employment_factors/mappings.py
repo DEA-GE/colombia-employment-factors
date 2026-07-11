@@ -150,6 +150,37 @@ CAPEX_OPEX_TECH_MAPPINGS = {
     ),
 }
 
+DEFAULT_SOURCE_BY_TECHNOLOGY = {
+    "Battery storage (distributed)": "Rutovitz 2025",
+    "Battery storage (grid)": "Rutovitz 2025",
+    "Biomass power": "I-JEDI",
+    "Coal power": "Rutovitz 2015",
+    "Gas CCGT/OCGT": "Rutovitz 2015",
+    "Geothermal": "I-JEDI",
+    "Hydro (large)": "Rutovitz 2015",
+    "Hydro (small)": "Rutovitz 2015",
+    "Nuclear": "Rutovitz 2015",
+    "Ocean": "Rutovitz 2015",
+    "Offshore wind (fixed)": "French QBIS 2023",
+    "Offshore wind (floating)": "French QBIS 2023",
+    "Oil and diesel": "Rutovitz 2015",
+    "Onshore wind": "I-JEDI",
+    "Pumped hydro storage": "Rutovitz 2025",
+    "Rooftop solar PV": "JEDI-US",
+    "Solar thermal (CSP)": "Rutovitz 2015",
+    "Transmission (double circuit)": "Rutovitz 2025",
+    "Transmission (other)": "Rutovitz 2025",
+    "Transmission (single circuit)": "JEDI-US",
+    "Utility-scale solar PV": "I-JEDI",
+}
+
+DEFAULT_SOURCE_NOTES = {
+    "Transmission (single circuit)": (
+        "Fallback to JEDI-US because the raw table has no Rutovitz 2025 row "
+        "for this specific transmission technology."
+    ),
+}
+
 CAPACITY_RATIOS = {
     2030: {
         "Solar PV": 2.4,

@@ -6,12 +6,12 @@ Rutovitz 2015,Coal power,Fuel,Fuel,job/PJ,2015,15.4 jobs/PJ,15.4
 Rutovitz 2025,Coal power,Construction,Direct,job-yr/MW,2024,11.08,11.08
 Rutovitz 2025,Coal power,Manufacturing,Direct,job-yr/MW,2024,5.41,5.41
 Rutovitz 2025,Coal power,O&M,Direct,job/MW,2024,0.22,0.22
-I-JEDI,Coal power,Construction&Manufacturing,Direct,job-yr/MW,2024,9.61,9.61
-I-JEDI,Coal power,O&M,Direct,job/MW,2024,0.143,0.143
-I-JEDI,Coal power,Construction&Manufacturing,Indirect,job-yr/MW,2024,12.232,12.232
-I-JEDI,Coal power,O&M,Indirect,job/MW,2024,0.789,0.789
-I-JEDI,Coal power,Construction&Manufacturing,Induced,job-yr/MW,2024,11.301,11.301
-I-JEDI,Coal power,O&M,Induced,job/MW,2024,0.561,0.561
+JEDI-US,Coal power,Construction&Manufacturing,Direct,job-yr/MW,2024,9.61,9.61
+JEDI-US,Coal power,O&M,Direct,job/MW,2024,0.143,0.143
+JEDI-US,Coal power,Construction&Manufacturing,Indirect,job-yr/MW,2024,12.232,12.232
+JEDI-US,Coal power,O&M,Indirect,job/MW,2024,0.789,0.789
+JEDI-US,Coal power,Construction&Manufacturing,Induced,job-yr/MW,2024,11.301,11.301
+JEDI-US,Coal power,O&M,Induced,job/MW,2024,0.561,0.561
 Notes,Coal power,,,,2024,"Coal construction & manufacturing from OECD JEDI model (Rutov 2015, Note 1). Fuel supply from Colombia data (15.4 jobs/PJ, 2,200 tonnes/worker-year). For LA adjustment: multiply OECD factors by 3.3 (2020 multiplier) if needed; these Rut 2015 LA factors already regional.",
 Rutovitz 2015,Gas CCGT/OCGT,Construction,Direct,job-yr/MW,2015,1.3,1.3
 Rutovitz 2015,Gas CCGT/OCGT,Manufacturing,Direct,job-yr/MW,2015,0.93,0.93
@@ -65,13 +65,13 @@ I-JEDI,Onshore wind,O&M,Indirect,job/MW,2024,0.043,0.043
 I-JEDI,Onshore wind,Construction&Manufacturing,Induced,job-yr/MW,2024,4.044,4.044
 I-JEDI,Onshore wind,O&M,Induced,job/MW,2024,0.0448,0.0448
 Notes,Onshore wind,,,,2024,"Wind onshore: Rutovitz 2015 LA-specific 6.7 construct, 0.6 O&M from Brazil study (Simas & Pacca 2015). Rutovitz 2025 Australia 2.65 construct; rescale to LA by ~3.4 factor â†’ ~9.0 construct estimate. I-JEDI Colombia 7.25 construct aligns better with LA context.",
-Rutovitz 2015,Offshore wind,Construction,Direct,job-yr/MW,2015,8,8
-Rutovitz 2015,Offshore wind,Manufacturing,Direct,job-yr/MW,2015,15.6,15.6
-Rutovitz 2015,Offshore wind,O&M,Direct,job/MW,2015,0.2,0.2
-Rutovitz 2025,Offshore wind,Construction,Direct,job-yr/MW,2024,1.5,1.5
-Rutovitz 2025,Offshore wind,Manufacturing,Direct,job-yr/MW,2024,13.68,13.68
-Rutovitz 2025,Offshore wind,O&M,Direct,job/MW,2024,0.28,0.28
-Notes,Offshore wind,,,,2024,"Wind offshore: Rutovitz 2015 uses OECD (no LA-specific). Rutovitz 2025 Australia 1.5 construct, 0.28 O&M; rescale by ~3 for LA â†’ ~4.5 construct estimate. Offshore development in Colombia is nascent; use with caution.",
+Rutovitz 2015,Offshore wind (fixed),Construction,Direct,job-yr/MW,2015,8,8
+Rutovitz 2015,Offshore wind (fixed),Manufacturing,Direct,job-yr/MW,2015,15.6,15.6
+Rutovitz 2015,Offshore wind (fixed),O&M,Direct,job/MW,2015,0.2,0.2
+Rutovitz 2025,Offshore wind (fixed),Construction,Direct,job-yr/MW,2024,1.5,1.5
+Rutovitz 2025,Offshore wind (fixed),Manufacturing,Direct,job-yr/MW,2024,13.68,13.68
+Rutovitz 2025,Offshore wind (fixed),O&M,Direct,job/MW,2024,0.28,0.28
+Notes,Offshore wind (fixed),,,,2024,"Wind offshore: Rutovitz 2015 uses OECD (no LA-specific). Rutovitz 2025 Australia 1.5 construct, 0.28 O&M; rescale by ~3 for LA â†’ ~4.5 construct estimate. Offshore development in Colombia is nascent; use with caution.",
 Rutovitz 2015,Utility-scale solar PV,Construction,Direct,job-yr/MW,2015,13,13
 Rutovitz 2015,Utility-scale solar PV,Manufacturing,Direct,job-yr/MW,2015,6.7,6.7
 Rutovitz 2015,Utility-scale solar PV,O&M,Direct,job/MW,2015,0.7,0.7
@@ -135,9 +135,11 @@ Notes,Transmission (single circuit),,,,2024,Transmission (distribution lines): R
 Rutovitz 2025,Transmission (double circuit),Construction,Direct,job-yr/km,2024,3.7,3.7
 Notes,Transmission (double circuit),,,,2024,"Transmission (bulk transmission/high-voltage): Rutovitz 2025 Australia shows transmission peak workforce 2,000â€“2,500 in early 2020s under Step Change scenario. Emerging construction factors; recommend model sensitivity on transmission employment. Rescale Australian data by 3â€“3.5Ã— for LA.",
 Rutovitz 2025,Transmission (other),Construction,Direct,job-yr/MUSD,2024,1.9,1.9
-Danish QBIS 2020,Offshore wind,Construction&Manufacturing,Direct,job-yr/MW,2024,7544,7.544
-Danish QBIS 2020,Offshore wind,O&M,Direct,job/MW,2024,1907,1.907
-French QBIS 2023,Offshore wind (fixed),Construction&Manufacturing,Direct,job-yr/MW,2024,6810,6.81
-French QBIS 2023,Offshore wind (fixed),O&M,Direct,job/MW,2024,1907,1.907
-French QBIS 2023,Offshore wind (floating),Construction&Manufacturing,Direct,job-yr/MW,2024,14.71,14.71
-French QBIS 2023,Offshore wind (floating),O&M,Direct,job/MW,2024,6040,6.04
+Danish QBIS 2020,Offshore wind (fixed),Construction&Manufacturing,Direct,job-yr/MW,2022,6830,6.83
+Danish QBIS 2020,Offshore wind (fixed),O&M,Direct,job/MW,2022,0.0763,0.0763
+Notes,Offshore wind (fixed),,,,2022,"QBIS 2020 Table 5 reports direct FTE for a 1 GW offshore wind farm commissioned in 2022. Construction&Manufacturing is treated as cumulative direct job-years for development, wind turbine production, balance of plant, and installation/grid connection: 574+2655+2820+781=6830 FTE/GW = 6.83 job-yr/MW. Decommissioning (713 FTE/GW) is excluded. O&M is reported as 1907 FTE/GW over 25 years and annualized to 1907/1000/25=0.0763 job/MW. Indirect and induced jobs are calculated separately in QBIS 2020 Tables 6-7, so these factors are direct jobs only.",
+French QBIS 2023,Offshore wind (fixed),Construction&Manufacturing,Direct,job-yr/MW,2022,6401,6.401
+French QBIS 2023,Offshore wind (fixed),O&M,Direct,job/MW,2022,0.1056,0.1056
+French QBIS 2023,Offshore wind (floating),Construction&Manufacturing,Direct,job-yr/MW,2022,14468,14.468
+French QBIS 2023,Offshore wind (floating),O&M,Direct,job/MW,2022,0.2416,0.2416
+Notes,Offshore wind (fixed/floating),,,,2022,"QBIS 2023 Figures 2.3-2.4 and Tables 2.1-2.2 report direct FTE/GW for 1 GW fixed and floating OWF models in 2022. Construction&Manufacturing is treated as cumulative direct job-years excluding O&M and decommissioning: fixed 131+2666+2608+996=6401 FTE/GW = 6.401 job-yr/MW; floating 208+4210+8348+1702=14468 FTE/GW = 14.468 job-yr/MW. O&M is reported over 25 years and annualized: fixed 2640/1000/25=0.1056 job/MW; floating 6041/1000/25=0.2416 job/MW. QBIS 2023 Chapter 3 separately adds indirect FTE using an input-output model, so Figures 2.3-2.4 and Tables 2.1-2.2 are direct jobs only.",

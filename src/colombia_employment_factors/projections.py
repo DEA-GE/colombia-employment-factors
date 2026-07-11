@@ -11,6 +11,7 @@ from colombia_employment_factors.mappings import (
 )
 
 RATIO_PROJECTED_FACTOR_TYPES = ("Construction", "Manufacturing", "Construction&Manufacturing", "O&M")
+QBIS_RATIO_BASE_SOURCES = ("Danish QBIS 2020", "French QBIS 2023")
 
 
 def _numeric_value(row: pd.Series) -> float:
@@ -163,14 +164,22 @@ def _ratio_projection_input(factor_type: str, transition: str, ratio: float, map
     return f"{ratio_label} {transition.replace('_', '/')}={ratio}"
 
 
-def _projected_2024_ratio_rows(
+def _is_ratio_base_row(row: pd.Series, factor_type: str) -> bool:
+    if factor_type not in RATIO_PROJECTED_FACTOR_TYPES:
+        return False
+    if row["Year"] == 2024:
+        return True
+    return row["Year"] == 2022 and row["Source"] in QBIS_RATIO_BASE_SOURCES
+
+
+def _projected_ratio_rows(
     row: pd.Series,
     value: float,
     ratios_by_technology: dict[str, dict[str, float]],
 ) -> list[dict]:
     factor_type = row["Factor_Type"] if pd.notna(row["Factor_Type"]) else ""
     technology = row["Technology"]
-    if row["Year"] != 2024 or factor_type not in RATIO_PROJECTED_FACTOR_TYPES:
+    if not _is_ratio_base_row(row, factor_type):
         return []
     if technology not in CAPEX_OPEX_TECH_MAPPINGS:
         return []
@@ -178,6 +187,10 @@ def _projected_2024_ratio_rows(
     mapped_tech, ratio_2030, mapping_type_2030 = _ratio_value(
         technology, factor_type, "2030_2024", ratios_by_technology
     )
+    projection_input_2030 = _ratio_projection_input(factor_type, "2030_2024", ratio_2030, mapping_type_2030)
+    if row["Year"] == 2022:
+        projection_input_2030 = f"{projection_input_2030}; applied to 2022 QBIS base value"
+
     value_2030 = value * ratio_2030
     row_2030 = _projected_row(
         row,
@@ -185,8 +198,8 @@ def _projected_2024_ratio_rows(
         2030,
         _ratio_method(mapping_type_2030),
         mapped_catalogue_tech=mapped_tech,
-        projection_input=_ratio_projection_input(factor_type, "2030_2024", ratio_2030, mapping_type_2030),
-        base_year=2024,
+        projection_input=projection_input_2030,
+        base_year=row["Year"],
     )
 
     _, ratio_2050, mapping_type_2050 = _ratio_value(
@@ -251,7 +264,7 @@ def project_employment_factors(
             rows.append(rutovitz_row)
             rows.append(_rutovitz_2050_ratio_row(rutovitz_row, ratios_by_technology))
 
-        rows.extend(_projected_2024_ratio_rows(row, value, ratios_by_technology))
+        rows.extend(_projected_ratio_rows(row, value, ratios_by_technology))
 
     output = pd.DataFrame(rows)
     return output.sort_values(

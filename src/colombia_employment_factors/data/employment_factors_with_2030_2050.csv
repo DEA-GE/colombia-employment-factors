@@ -51,15 +51,15 @@ Rutovitz 2015,Coal power,Construction,Direct,job-yr/MW,2050,10.76041071869504,10
 Rutovitz 2025,Coal power,Construction,Direct,job-yr/MW,2024,11.08,11.08,Original,,,,,,2024,2024,11.08
 Rutovitz 2025,Coal power,Construction,Direct,job-yr/MW,2030,10.947703029857072,10.9477030299,CAPEX/OPEX ratio projection,,,Coal Supercritical,,CAPEX 2030/2024=0.988059840239808,2024,2030,10.9477030299
 Rutovitz 2025,Coal power,Construction,Direct,job-yr/MW,2050,10.518016163175375,10.5180161632,CAPEX/OPEX ratio projection,,,Coal Supercritical,,CAPEX 2050/2030=0.9607509570263428,2030,2050,10.5180161632
-I-JEDI,Coal power,Construction&Manufacturing,Direct,job-yr/MW,2024,9.61,9.61,Original,,,,,,2024,2024,9.61
-I-JEDI,Coal power,Construction&Manufacturing,Direct,job-yr/MW,2030,9.495255064704555,9.4952550647,CAPEX/OPEX ratio projection,,,Coal Supercritical,,CAPEX 2030/2024=0.988059840239808,2024,2030,9.4952550647
-I-JEDI,Coal power,Construction&Manufacturing,Direct,job-yr/MW,2050,9.12257539062413,9.12257539062,CAPEX/OPEX ratio projection,,,Coal Supercritical,,CAPEX 2050/2030=0.9607509570263428,2030,2050,9.12257539062
-I-JEDI,Coal power,Construction&Manufacturing,Indirect,job-yr/MW,2024,12.232,12.232,Original,,,,,,2024,2024,12.232
-I-JEDI,Coal power,Construction&Manufacturing,Indirect,job-yr/MW,2030,12.08594796581333,12.0859479658,CAPEX/OPEX ratio projection,,,Coal Supercritical,,CAPEX 2030/2024=0.988059840239808,2024,2030,12.0859479658
-I-JEDI,Coal power,Construction&Manufacturing,Indirect,job-yr/MW,2050,11.61158607472574,11.6115860747,CAPEX/OPEX ratio projection,,,Coal Supercritical,,CAPEX 2050/2030=0.9607509570263428,2030,2050,11.6115860747
-I-JEDI,Coal power,Construction&Manufacturing,Induced,job-yr/MW,2024,11.301,11.301,Original,,,,,,2024,2024,11.301
-I-JEDI,Coal power,Construction&Manufacturing,Induced,job-yr/MW,2030,11.16606425455007,11.1660642546,CAPEX/OPEX ratio projection,,,Coal Supercritical,,CAPEX 2030/2024=0.988059840239808,2024,2030,11.1660642546
-I-JEDI,Coal power,Construction&Manufacturing,Induced,job-yr/MW,2050,10.727806918776617,10.7278069188,CAPEX/OPEX ratio projection,,,Coal Supercritical,,CAPEX 2050/2030=0.9607509570263428,2030,2050,10.7278069188
+JEDI-US,Coal power,Construction&Manufacturing,Direct,job-yr/MW,2024,9.61,9.61,Original,,,,,,2024,2024,9.61
+JEDI-US,Coal power,Construction&Manufacturing,Direct,job-yr/MW,2030,9.495255064704555,9.4952550647,CAPEX/OPEX ratio projection,,,Coal Supercritical,,CAPEX 2030/2024=0.988059840239808,2024,2030,9.4952550647
+JEDI-US,Coal power,Construction&Manufacturing,Direct,job-yr/MW,2050,9.12257539062413,9.12257539062,CAPEX/OPEX ratio projection,,,Coal Supercritical,,CAPEX 2050/2030=0.9607509570263428,2030,2050,9.12257539062
+JEDI-US,Coal power,Construction&Manufacturing,Indirect,job-yr/MW,2024,12.232,12.232,Original,,,,,,2024,2024,12.232
+JEDI-US,Coal power,Construction&Manufacturing,Indirect,job-yr/MW,2030,12.08594796581333,12.0859479658,CAPEX/OPEX ratio projection,,,Coal Supercritical,,CAPEX 2030/2024=0.988059840239808,2024,2030,12.0859479658
+JEDI-US,Coal power,Construction&Manufacturing,Indirect,job-yr/MW,2050,11.61158607472574,11.6115860747,CAPEX/OPEX ratio projection,,,Coal Supercritical,,CAPEX 2050/2030=0.9607509570263428,2030,2050,11.6115860747
+JEDI-US,Coal power,Construction&Manufacturing,Induced,job-yr/MW,2024,11.301,11.301,Original,,,,,,2024,2024,11.301
+JEDI-US,Coal power,Construction&Manufacturing,Induced,job-yr/MW,2030,11.16606425455007,11.1660642546,CAPEX/OPEX ratio projection,,,Coal Supercritical,,CAPEX 2030/2024=0.988059840239808,2024,2030,11.1660642546
+JEDI-US,Coal power,Construction&Manufacturing,Induced,job-yr/MW,2050,10.727806918776617,10.7278069188,CAPEX/OPEX ratio projection,,,Coal Supercritical,,CAPEX 2050/2030=0.9607509570263428,2030,2050,10.7278069188
 Rutovitz 2015,Coal power,Fuel,Fuel,job/PJ,2015,15.4 jobs/PJ,15.4,Original,,,,,,2015,2015,15.4
 Rutovitz 2015,Coal power,Manufacturing,Direct,job-yr/MW,2015,5.4,5.4,Original,,,,,,2015,2015,5.4
 Rutovitz 2015,Coal power,Manufacturing,Direct,job-yr/MW,2030,5.4,5.4,Rutovitz Table 9 decline to 2030,Coal,1.0,,,Rutovitz Table 9 Latin America 2030,2015,2030,5.4
@@ -67,21 +67,21 @@ Rutovitz 2015,Coal power,Manufacturing,Direct,job-yr/MW,2050,5.1880551679422515,
 Rutovitz 2025,Coal power,Manufacturing,Direct,job-yr/MW,2024,5.41,5.41,Original,,,,,,2024,2024,5.41
 Rutovitz 2025,Coal power,Manufacturing,Direct,job-yr/MW,2030,5.345403735697361,5.3454037357,CAPEX/OPEX ratio projection,,,Coal Supercritical,,CAPEX 2030/2024=0.988059840239808,2024,2030,5.3454037357
 Rutovitz 2025,Coal power,Manufacturing,Direct,job-yr/MW,2050,5.135601754763428,5.13560175476,CAPEX/OPEX ratio projection,,,Coal Supercritical,,CAPEX 2050/2030=0.9607509570263428,2030,2050,5.13560175476
-I-JEDI,Coal power,O&M,Direct,job/MW,2024,0.143,0.143,Original,,,,,,2024,2024,0.143
-I-JEDI,Coal power,O&M,Direct,job/MW,2030,0.14130099009900987,0.141300990099,CAPEX/OPEX ratio projection,,,Coal Supercritical,,OPEX 2030/2024=0.988118811881188,2024,2030,0.141300990099
-I-JEDI,Coal power,O&M,Direct,job/MW,2050,0.13563762376237623,0.135637623762,CAPEX/OPEX ratio projection,,,Coal Supercritical,,OPEX 2050/2030=0.9599198396793588,2030,2050,0.135637623762
+JEDI-US,Coal power,O&M,Direct,job/MW,2024,0.143,0.143,Original,,,,,,2024,2024,0.143
+JEDI-US,Coal power,O&M,Direct,job/MW,2030,0.14130099009900987,0.141300990099,CAPEX/OPEX ratio projection,,,Coal Supercritical,,OPEX 2030/2024=0.988118811881188,2024,2030,0.141300990099
+JEDI-US,Coal power,O&M,Direct,job/MW,2050,0.13563762376237623,0.135637623762,CAPEX/OPEX ratio projection,,,Coal Supercritical,,OPEX 2050/2030=0.9599198396793588,2030,2050,0.135637623762
 Rutovitz 2015,Coal power,O&M,Direct,job/MW,2015,0.14,0.14,Original,,,,,,2015,2015,0.14
 Rutovitz 2015,Coal power,O&M,Direct,job/MW,2030,0.14,0.14,Rutovitz Table 9 decline to 2030,Coal,1.0,,,Rutovitz Table 9 Latin America 2030,2015,2030,0.14
 Rutovitz 2015,Coal power,O&M,Direct,job/MW,2050,0.13438877755511025,0.134388777555,CAPEX/OPEX ratio projection,Coal,,Coal Supercritical,,OPEX 2050/2030=0.9599198396793588,2030,2050,0.134388777555
 Rutovitz 2025,Coal power,O&M,Direct,job/MW,2024,0.22,0.22,Original,,,,,,2024,2024,0.22
 Rutovitz 2025,Coal power,O&M,Direct,job/MW,2030,0.21738613861386136,0.217386138614,CAPEX/OPEX ratio projection,,,Coal Supercritical,,OPEX 2030/2024=0.988118811881188,2024,2030,0.217386138614
 Rutovitz 2025,Coal power,O&M,Direct,job/MW,2050,0.20867326732673266,0.208673267327,CAPEX/OPEX ratio projection,,,Coal Supercritical,,OPEX 2050/2030=0.9599198396793588,2030,2050,0.208673267327
-I-JEDI,Coal power,O&M,Indirect,job/MW,2024,0.789,0.789,Original,,,,,,2024,2024,0.789
-I-JEDI,Coal power,O&M,Indirect,job/MW,2030,0.7796257425742573,0.779625742574,CAPEX/OPEX ratio projection,,,Coal Supercritical,,OPEX 2030/2024=0.988118811881188,2024,2030,0.779625742574
-I-JEDI,Coal power,O&M,Indirect,job/MW,2050,0.7483782178217822,0.748378217822,CAPEX/OPEX ratio projection,,,Coal Supercritical,,OPEX 2050/2030=0.9599198396793588,2030,2050,0.748378217822
-I-JEDI,Coal power,O&M,Induced,job/MW,2024,0.561,0.561,Original,,,,,,2024,2024,0.561
-I-JEDI,Coal power,O&M,Induced,job/MW,2030,0.5543346534653465,0.554334653465,CAPEX/OPEX ratio projection,,,Coal Supercritical,,OPEX 2030/2024=0.988118811881188,2024,2030,0.554334653465
-I-JEDI,Coal power,O&M,Induced,job/MW,2050,0.5321168316831684,0.532116831683,CAPEX/OPEX ratio projection,,,Coal Supercritical,,OPEX 2050/2030=0.9599198396793588,2030,2050,0.532116831683
+JEDI-US,Coal power,O&M,Indirect,job/MW,2024,0.789,0.789,Original,,,,,,2024,2024,0.789
+JEDI-US,Coal power,O&M,Indirect,job/MW,2030,0.7796257425742573,0.779625742574,CAPEX/OPEX ratio projection,,,Coal Supercritical,,OPEX 2030/2024=0.988118811881188,2024,2030,0.779625742574
+JEDI-US,Coal power,O&M,Indirect,job/MW,2050,0.7483782178217822,0.748378217822,CAPEX/OPEX ratio projection,,,Coal Supercritical,,OPEX 2050/2030=0.9599198396793588,2030,2050,0.748378217822
+JEDI-US,Coal power,O&M,Induced,job/MW,2024,0.561,0.561,Original,,,,,,2024,2024,0.561
+JEDI-US,Coal power,O&M,Induced,job/MW,2030,0.5543346534653465,0.554334653465,CAPEX/OPEX ratio projection,,,Coal Supercritical,,OPEX 2030/2024=0.988118811881188,2024,2030,0.554334653465
+JEDI-US,Coal power,O&M,Induced,job/MW,2050,0.5321168316831684,0.532116831683,CAPEX/OPEX ratio projection,,,Coal Supercritical,,OPEX 2050/2030=0.9599198396793588,2030,2050,0.532116831683
 Rutovitz 2015,Gas CCGT/OCGT,Construction,Direct,job-yr/MW,2015,1.3,1.3,Original,,,,,,2015,2015,1.3
 Rutovitz 2015,Gas CCGT/OCGT,Construction,Direct,job-yr/MW,2030,1.2349999999999999,1.235,Rutovitz Table 9 decline to 2030,Gas,0.95,,,Rutovitz Table 9 Latin America 2030,2015,2030,1.235
 Rutovitz 2015,Gas CCGT/OCGT,Construction,Direct,job-yr/MW,2050,1.1865274319275332,1.18652743193,CAPEX/OPEX ratio projection,Gas,,CCGT (GAS),,CAPEX 2050/2030=0.9607509570263428,2030,2050,1.18652743193
@@ -170,42 +170,36 @@ Rutovitz 2015,Ocean,Manufacturing,Direct,job-yr/MW,2050,7.037999999999999,7.038,
 Rutovitz 2015,Ocean,O&M,Direct,job/MW,2015,0.6,0.6,Original,,,,,,2015,2015,0.6
 Rutovitz 2015,Ocean,O&M,Direct,job/MW,2030,0.414,0.414,Rutovitz Table 9 decline to 2030,Ocean,0.69,,,Rutovitz Table 9 Latin America 2030,2015,2030,0.414
 Rutovitz 2015,Ocean,O&M,Direct,job/MW,2050,0.414,0.414,Constant projection for unmapped catalogue ratio,Ocean,,,,No catalogue ratio mapping; value held constant,2030,2050,0.414
-Rutovitz 2015,Offshore wind,Construction,Direct,job-yr/MW,2015,8,8,Original,,,,,,2015,2015,8
-Rutovitz 2015,Offshore wind,Construction,Direct,job-yr/MW,2030,6.16,6.16,Rutovitz Table 9 decline to 2030,Wind offshore,0.77,,,Rutovitz Table 9 Latin America 2030,2015,2030,6.16
-Rutovitz 2015,Offshore wind,Construction,Direct,job-yr/MW,2050,4.315357198428583,4.31535719843,CAPEX/OPEX ratio projection,Wind offshore,,Wind Offshore fixed bottom,,CAPEX 2050/2030=0.7005449997448997,2030,2050,4.31535719843
-Rutovitz 2025,Offshore wind,Construction,Direct,job-yr/MW,2024,1.5,1.5,Original,,,,,,2024,2024,1.5
-Rutovitz 2025,Offshore wind,Construction,Direct,job-yr/MW,2030,1.1197808930672095,1.11978089307,CAPEX/OPEX ratio projection,,,Wind Offshore fixed bottom,,CAPEX 2030/2024=0.7465205953781396,2024,2030,1.11978089307
-Rutovitz 2025,Offshore wind,Construction,Direct,job-yr/MW,2050,0.7844569054481119,0.784456905448,CAPEX/OPEX ratio projection,,,Wind Offshore fixed bottom,,CAPEX 2050/2030=0.7005449997448997,2030,2050,0.784456905448
-Danish QBIS 2020,Offshore wind,Construction&Manufacturing,Direct,job-yr/MW,2024,7544,7.544,Original,,,,,,2024,2024,7.544
-Danish QBIS 2020,Offshore wind,Construction&Manufacturing,Direct,job-yr/MW,2030,5.631751371532685,5.63175137153,CAPEX/OPEX ratio projection,,,Wind Offshore fixed bottom,,CAPEX 2030/2024=0.7465205953781396,2024,2030,5.63175137153
-Danish QBIS 2020,Offshore wind,Construction&Manufacturing,Direct,job-yr/MW,2050,3.9452952631337035,3.94529526313,CAPEX/OPEX ratio projection,,,Wind Offshore fixed bottom,,CAPEX 2050/2030=0.7005449997448997,2030,2050,3.94529526313
-Rutovitz 2015,Offshore wind,Manufacturing,Direct,job-yr/MW,2015,15.6,15.6,Original,,,,,,2015,2015,15.6
-Rutovitz 2015,Offshore wind,Manufacturing,Direct,job-yr/MW,2030,12.012,12.012,Rutovitz Table 9 decline to 2030,Wind offshore,0.77,,,Rutovitz Table 9 Latin America 2030,2015,2030,12.012
-Rutovitz 2015,Offshore wind,Manufacturing,Direct,job-yr/MW,2050,8.414946536935735,8.41494653694,CAPEX/OPEX ratio projection,Wind offshore,,Wind Offshore fixed bottom,,CAPEX 2050/2030=0.7005449997448997,2030,2050,8.41494653694
-Rutovitz 2025,Offshore wind,Manufacturing,Direct,job-yr/MW,2024,13.68,13.68,Original,,,,,,2024,2024,13.68
-Rutovitz 2025,Offshore wind,Manufacturing,Direct,job-yr/MW,2030,10.21240174477295,10.2124017448,CAPEX/OPEX ratio projection,,,Wind Offshore fixed bottom,,CAPEX 2030/2024=0.7465205953781396,2024,2030,10.2124017448
-Rutovitz 2025,Offshore wind,Manufacturing,Direct,job-yr/MW,2050,7.15424697768678,7.15424697769,CAPEX/OPEX ratio projection,,,Wind Offshore fixed bottom,,CAPEX 2050/2030=0.7005449997448997,2030,2050,7.15424697769
-Danish QBIS 2020,Offshore wind,O&M,Direct,job/MW,2024,1907,1.907,Original,,,,,,2024,2024,1.907
-Danish QBIS 2020,Offshore wind,O&M,Direct,job/MW,2030,1.4236589861751152,1.42365898618,CAPEX/OPEX ratio projection,,,Wind Offshore fixed bottom,,OPEX 2030/2024=0.7465437788018433,2024,2030,1.42365898618
-Danish QBIS 2020,Offshore wind,O&M,Direct,job/MW,2050,0.9930460829493087,0.993046082949,CAPEX/OPEX ratio projection,,,Wind Offshore fixed bottom,,OPEX 2050/2030=0.6975308641975309,2030,2050,0.993046082949
-Rutovitz 2015,Offshore wind,O&M,Direct,job/MW,2015,0.2,0.2,Original,,,,,,2015,2015,0.2
-Rutovitz 2015,Offshore wind,O&M,Direct,job/MW,2030,0.15400000000000003,0.154,Rutovitz Table 9 decline to 2030,Wind offshore,0.77,,,Rutovitz Table 9 Latin America 2030,2015,2030,0.154
-Rutovitz 2015,Offshore wind,O&M,Direct,job/MW,2050,0.10741975308641977,0.107419753086,CAPEX/OPEX ratio projection,Wind offshore,,Wind Offshore fixed bottom,,OPEX 2050/2030=0.6975308641975309,2030,2050,0.107419753086
-Rutovitz 2025,Offshore wind,O&M,Direct,job/MW,2024,0.28,0.28,Original,,,,,,2024,2024,0.28
-Rutovitz 2025,Offshore wind,O&M,Direct,job/MW,2030,0.20903225806451614,0.209032258065,CAPEX/OPEX ratio projection,,,Wind Offshore fixed bottom,,OPEX 2030/2024=0.7465437788018433,2024,2030,0.209032258065
-Rutovitz 2025,Offshore wind,O&M,Direct,job/MW,2050,0.14580645161290323,0.145806451613,CAPEX/OPEX ratio projection,,,Wind Offshore fixed bottom,,OPEX 2050/2030=0.6975308641975309,2030,2050,0.145806451613
-French QBIS 2023,Offshore wind (fixed),Construction&Manufacturing,Direct,job-yr/MW,2024,6810,6.81,Original,,,,,,2024,2024,6.81
-French QBIS 2023,Offshore wind (fixed),Construction&Manufacturing,Direct,job-yr/MW,2030,5.083805254525131,5.08380525453,CAPEX/OPEX ratio projection,,,Wind Offshore fixed bottom,,CAPEX 2030/2024=0.7465205953781396,2024,2030,5.08380525453
-French QBIS 2023,Offshore wind (fixed),Construction&Manufacturing,Direct,job-yr/MW,2050,3.5614343507344275,3.56143435073,CAPEX/OPEX ratio projection,,,Wind Offshore fixed bottom,,CAPEX 2050/2030=0.7005449997448997,2030,2050,3.56143435073
-French QBIS 2023,Offshore wind (fixed),O&M,Direct,job/MW,2024,1907,1.907,Original,,,,,,2024,2024,1.907
-French QBIS 2023,Offshore wind (fixed),O&M,Direct,job/MW,2030,1.4236589861751152,1.42365898618,CAPEX/OPEX ratio projection,,,Wind Offshore fixed bottom,,OPEX 2030/2024=0.7465437788018433,2024,2030,1.42365898618
-French QBIS 2023,Offshore wind (fixed),O&M,Direct,job/MW,2050,0.9930460829493087,0.993046082949,CAPEX/OPEX ratio projection,,,Wind Offshore fixed bottom,,OPEX 2050/2030=0.6975308641975309,2030,2050,0.993046082949
-French QBIS 2023,Offshore wind (floating),Construction&Manufacturing,Direct,job-yr/MW,2024,14.71,14.71,Original,,,,,,2024,2024,14.71
-French QBIS 2023,Offshore wind (floating),Construction&Manufacturing,Direct,job-yr/MW,2030,14.71,14.71,CAPEX/OPEX ratio projection with constant bridge,,,Wind offshore floating,,CAPEX 2030/2024 unavailable; value held constant,2024,2030,14.71
-French QBIS 2023,Offshore wind (floating),Construction&Manufacturing,Direct,job-yr/MW,2050,7.692907386094484,7.69290738609,CAPEX/OPEX ratio projection with constant bridge,,,Wind offshore floating,,CAPEX 2050/2030=0.5229712702987412,2030,2050,7.69290738609
-French QBIS 2023,Offshore wind (floating),O&M,Direct,job/MW,2024,6040,6.04,Original,,,,,,2024,2024,6.04
-French QBIS 2023,Offshore wind (floating),O&M,Direct,job/MW,2030,6.04,6.04,CAPEX/OPEX ratio projection with constant bridge,,,Wind offshore floating,,OPEX 2030/2024 unavailable; value held constant,2024,2030,6.04
-French QBIS 2023,Offshore wind (floating),O&M,Direct,job/MW,2050,3.145253456221198,3.14525345622,CAPEX/OPEX ratio projection with constant bridge,,,Wind offshore floating,,OPEX 2050/2030=0.5207373271889401,2030,2050,3.14525345622
+Rutovitz 2015,Offshore wind (fixed),Construction,Direct,job-yr/MW,2015,8,8,Original,,,,,,2015,2015,8
+Rutovitz 2025,Offshore wind (fixed),Construction,Direct,job-yr/MW,2024,1.5,1.5,Original,,,,,,2024,2024,1.5
+Rutovitz 2025,Offshore wind (fixed),Construction,Direct,job-yr/MW,2030,1.1197808930672095,1.11978089307,CAPEX/OPEX ratio projection,,,Wind Offshore fixed bottom,,CAPEX 2030/2024=0.7465205953781396,2024,2030,1.11978089307
+Rutovitz 2025,Offshore wind (fixed),Construction,Direct,job-yr/MW,2050,0.7844569054481119,0.784456905448,CAPEX/OPEX ratio projection,,,Wind Offshore fixed bottom,,CAPEX 2050/2030=0.7005449997448997,2030,2050,0.784456905448
+Danish QBIS 2020,Offshore wind (fixed),Construction&Manufacturing,Direct,job-yr/MW,2022,6830,6.83,Original,,,,,,2022,2022,6.83
+Danish QBIS 2020,Offshore wind (fixed),Construction&Manufacturing,Direct,job-yr/MW,2030,5.0987356664326935,5.09873566643,CAPEX/OPEX ratio projection,,,Wind Offshore fixed bottom,,CAPEX 2030/2024=0.7465205953781396; applied to 2022 QBIS base value,2022,2030,5.09873566643
+Danish QBIS 2020,Offshore wind (fixed),Construction&Manufacturing,Direct,job-yr/MW,2050,3.5718937761404024,3.57189377614,CAPEX/OPEX ratio projection,,,Wind Offshore fixed bottom,,CAPEX 2050/2030=0.7005449997448997,2030,2050,3.57189377614
+French QBIS 2023,Offshore wind (fixed),Construction&Manufacturing,Direct,job-yr/MW,2022,6401,6.401,Original,,,,,,2022,2022,6.401
+French QBIS 2023,Offshore wind (fixed),Construction&Manufacturing,Direct,job-yr/MW,2030,4.778478331015472,4.77847833102,CAPEX/OPEX ratio projection,,,Wind Offshore fixed bottom,,CAPEX 2030/2024=0.7465205953781396; applied to 2022 QBIS base value,2022,2030,4.77847833102
+French QBIS 2023,Offshore wind (fixed),Construction&Manufacturing,Direct,job-yr/MW,2050,3.3475391011822424,3.34753910118,CAPEX/OPEX ratio projection,,,Wind Offshore fixed bottom,,CAPEX 2050/2030=0.7005449997448997,2030,2050,3.34753910118
+Rutovitz 2015,Offshore wind (fixed),Manufacturing,Direct,job-yr/MW,2015,15.6,15.6,Original,,,,,,2015,2015,15.6
+Rutovitz 2025,Offshore wind (fixed),Manufacturing,Direct,job-yr/MW,2024,13.68,13.68,Original,,,,,,2024,2024,13.68
+Rutovitz 2025,Offshore wind (fixed),Manufacturing,Direct,job-yr/MW,2030,10.21240174477295,10.2124017448,CAPEX/OPEX ratio projection,,,Wind Offshore fixed bottom,,CAPEX 2030/2024=0.7465205953781396,2024,2030,10.2124017448
+Rutovitz 2025,Offshore wind (fixed),Manufacturing,Direct,job-yr/MW,2050,7.15424697768678,7.15424697769,CAPEX/OPEX ratio projection,,,Wind Offshore fixed bottom,,CAPEX 2050/2030=0.7005449997448997,2030,2050,7.15424697769
+Danish QBIS 2020,Offshore wind (fixed),O&M,Direct,job/MW,2022,0.0763,0.0763,Original,,,,,,2022,2022,0.0763
+Danish QBIS 2020,Offshore wind (fixed),O&M,Direct,job/MW,2030,0.05696129032258065,0.0569612903226,CAPEX/OPEX ratio projection,,,Wind Offshore fixed bottom,,OPEX 2030/2024=0.7465437788018433; applied to 2022 QBIS base value,2022,2030,0.0569612903226
+Danish QBIS 2020,Offshore wind (fixed),O&M,Direct,job/MW,2050,0.03973225806451613,0.0397322580645,CAPEX/OPEX ratio projection,,,Wind Offshore fixed bottom,,OPEX 2050/2030=0.6975308641975309,2030,2050,0.0397322580645
+French QBIS 2023,Offshore wind (fixed),O&M,Direct,job/MW,2022,0.1056,0.1056,Original,,,,,,2022,2022,0.1056
+French QBIS 2023,Offshore wind (fixed),O&M,Direct,job/MW,2030,0.07883502304147465,0.0788350230415,CAPEX/OPEX ratio projection,,,Wind Offshore fixed bottom,,OPEX 2030/2024=0.7465437788018433; applied to 2022 QBIS base value,2022,2030,0.0788350230415
+French QBIS 2023,Offshore wind (fixed),O&M,Direct,job/MW,2050,0.054989861751152065,0.0549898617512,CAPEX/OPEX ratio projection,,,Wind Offshore fixed bottom,,OPEX 2050/2030=0.6975308641975309,2030,2050,0.0549898617512
+Rutovitz 2015,Offshore wind (fixed),O&M,Direct,job/MW,2015,0.2,0.2,Original,,,,,,2015,2015,0.2
+Rutovitz 2025,Offshore wind (fixed),O&M,Direct,job/MW,2024,0.28,0.28,Original,,,,,,2024,2024,0.28
+Rutovitz 2025,Offshore wind (fixed),O&M,Direct,job/MW,2030,0.20903225806451614,0.209032258065,CAPEX/OPEX ratio projection,,,Wind Offshore fixed bottom,,OPEX 2030/2024=0.7465437788018433,2024,2030,0.209032258065
+Rutovitz 2025,Offshore wind (fixed),O&M,Direct,job/MW,2050,0.14580645161290323,0.145806451613,CAPEX/OPEX ratio projection,,,Wind Offshore fixed bottom,,OPEX 2050/2030=0.6975308641975309,2030,2050,0.145806451613
+French QBIS 2023,Offshore wind (floating),Construction&Manufacturing,Direct,job-yr/MW,2022,14468,14.468,Original,,,,,,2022,2022,14.468
+French QBIS 2023,Offshore wind (floating),Construction&Manufacturing,Direct,job-yr/MW,2030,14.468,14.468,CAPEX/OPEX ratio projection with constant bridge,,,Wind offshore floating,,CAPEX 2030/2024 unavailable; value held constant; applied to 2022 QBIS base value,2022,2030,14.468
+French QBIS 2023,Offshore wind (floating),Construction&Manufacturing,Direct,job-yr/MW,2050,7.566348338682189,7.56634833868,CAPEX/OPEX ratio projection with constant bridge,,,Wind offshore floating,,CAPEX 2050/2030=0.5229712702987412,2030,2050,7.56634833868
+French QBIS 2023,Offshore wind (floating),O&M,Direct,job/MW,2022,0.2416,0.2416,Original,,,,,,2022,2022,0.2416
+French QBIS 2023,Offshore wind (floating),O&M,Direct,job/MW,2030,0.2416,0.2416,CAPEX/OPEX ratio projection with constant bridge,,,Wind offshore floating,,OPEX 2030/2024 unavailable; value held constant; applied to 2022 QBIS base value,2022,2030,0.2416
+French QBIS 2023,Offshore wind (floating),O&M,Direct,job/MW,2050,0.12581013824884793,0.125810138249,CAPEX/OPEX ratio projection with constant bridge,,,Wind offshore floating,,OPEX 2050/2030=0.5207373271889401,2030,2050,0.125810138249
 Rutovitz 2015,Oil and diesel,Construction,Direct,job-yr/MW,2015,1.3,1.3,Original,,,,,,2015,2015,1.3
 Rutovitz 2015,Oil and diesel,Construction,Direct,job-yr/MW,2030,1.222,1.222,Rutovitz Table 9 decline to 2030,Oil,0.94,,,Rutovitz Table 9 Latin America 2030,2015,2030,1.222
 Rutovitz 2015,Oil and diesel,Construction,Direct,job-yr/MW,2050,1.174037669486191,1.17403766949,CAPEX/OPEX ratio projection using proxy mapping,Oil,,SCGT (GAS),,CAPEX 2050/2030=0.9607509570263428,2030,2050,1.17403766949

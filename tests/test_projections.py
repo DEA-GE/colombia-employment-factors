@@ -110,6 +110,46 @@ def test_project_employment_factors_uses_constant_bridge_for_partial_floating_wi
     assert row_2050["Projected_Value"] == pytest.approx(5.22971)
 
 
+def test_project_employment_factors_applies_2030_2024_ratio_to_qbis_2022_rows():
+    source = pd.DataFrame(
+        [
+            {
+                "Source": "French QBIS 2023",
+                "Technology": "Offshore wind (fixed)",
+                "Factor_Type": "Construction&Manufacturing",
+                "Job_Type": "Direct",
+                "Unit": "job-yr/MW",
+                "Year": 2022,
+                "Value": 10.0,
+                "Value_Numeric": 10.0,
+            }
+        ]
+    )
+
+    ratio_table = pd.DataFrame(
+        [
+            {
+                "technology_name": "Wind Offshore fixed bottom",
+                "capex_ratio_2030_over_2024": 0.8,
+                "capex_ratio_2050_over_2030": 0.75,
+                "opex_ratio_2030_over_2024": 0.9,
+                "opex_ratio_2050_over_2030": 0.85,
+            }
+        ]
+    )
+
+    projected = project_employment_factors(source, ratio_table)
+    row_2030 = projected[projected["Year"] == 2030].iloc[0]
+    row_2050 = projected[projected["Year"] == 2050].iloc[0]
+
+    assert len(projected) == 3
+    assert row_2030["Base_Year"] == 2022
+    assert "applied to 2022 QBIS base value" in row_2030["Projection_Input"]
+    assert row_2030["Projected_Value"] == pytest.approx(8.0)
+    assert row_2050["Base_Year"] == 2030
+    assert row_2050["Projected_Value"] == pytest.approx(6.0)
+
+
 def test_project_employment_factors_holds_unmapped_technologies_constant():
     source = pd.DataFrame(
         [

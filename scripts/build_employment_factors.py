@@ -17,13 +17,21 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from colombia_employment_factors.mappings import (
     CAPEX_OPEX_TECH_MAPPINGS,
+    DEFAULT_SOURCE_BY_TECHNOLOGY,
+    DEFAULT_SOURCE_NOTES,
     RUTOVITZ_DECLINE_FACTORS,
 )
 from colombia_employment_factors.projections import project_employment_factors
+from colombia_employment_factors.yearly import (
+    build_default_model_employment_factors,
+    build_yearly_employment_factors,
+)
 
-RAW_INPUT = ROOT / "data" / "raw" / "employment_factors_final.csv"
+RAW_INPUT = ROOT / "data" / "raw" / "employment_factors_input.csv"
 CAPEX_OPEX_RATIO_INPUT = ROOT / "data" / "audit" / "capex_opex_ratios_2024_2030_2050.csv"
 PROCESSED_OUTPUT = ROOT / "data" / "processed" / "employment_factors_with_2030_2050.csv"
+YEARLY_OUTPUT = ROOT / "data" / "processed" / "employment_factors_yearly_2024_2055.csv"
+MODEL_OUTPUT = ROOT / "data" / "processed" / "employment_factors_model_default_2024_2055.csv"
 AUDIT_OUTPUT = ROOT / "data" / "audit" / "employment_learning_curves_2030_2050.xlsx"
 PACKAGE_DATA_OUTPUT = (
     ROOT
@@ -31,6 +39,20 @@ PACKAGE_DATA_OUTPUT = (
     / "colombia_employment_factors"
     / "data"
     / "employment_factors_with_2030_2050.csv"
+)
+PACKAGE_YEARLY_OUTPUT = (
+    ROOT
+    / "src"
+    / "colombia_employment_factors"
+    / "data"
+    / "employment_factors_yearly_2024_2055.csv"
+)
+PACKAGE_MODEL_OUTPUT = (
+    ROOT
+    / "src"
+    / "colombia_employment_factors"
+    / "data"
+    / "employment_factors_model_default_2024_2055.csv"
 )
 
 
@@ -61,6 +83,19 @@ def _catalogue_mapping_table() -> pd.DataFrame:
             }
         )
     return pd.DataFrame(rows)
+
+
+def _default_source_table() -> pd.DataFrame:
+    return pd.DataFrame(
+        [
+            {
+                "Technology": technology,
+                "Default_Source": source,
+                "Note": DEFAULT_SOURCE_NOTES.get(technology, ""),
+            }
+            for technology, source in DEFAULT_SOURCE_BY_TECHNOLOGY.items()
+        ]
+    )
 
 
 def _add_table_sheet(workbook: Workbook, name: str, data: pd.DataFrame) -> None:
@@ -138,6 +173,27 @@ def _add_overview_sheet(workbook: Workbook) -> None:
             "CSV-equivalent dataset",
             "For direct model use",
         ],
+        [
+            "Yearly_All_Sources",
+            "Interpolated yearly outputs",
+            "All eligible sources and factor types",
+            "Annual values for 2024-2055",
+            "Sparse projection table interpolated by source/technology/factor/job/unit",
+        ],
+        [
+            "Default_Source_Mapping",
+            "Model default source choices",
+            "One source per technology",
+            "Used to select the model-ready table",
+            "Repository default assumptions",
+        ],
+        [
+            "Model_Default_2024_2055",
+            "Model-ready yearly outputs",
+            "Default-source rows only",
+            "Use this table for OSeMOSYS-style retrieval",
+            "Derived from Yearly_All_Sources and Default_Source_Mapping",
+        ],
     ]
     for row_number, row in enumerate(rows, start=3):
         for column_number, value in enumerate(row, start=2):
@@ -167,11 +223,27 @@ def _add_method_sheet(workbook: Workbook) -> None:
         ],
         [
             "CAPEX/OPEX ratio",
-            "EF_2030 = EF_2024 * ratio_2030_2024; EF_2050 = EF_2030 * ratio_2050_2030",
+            "EF_2030 = EF_base * ratio_2030_2024; EF_2050 = EF_2030 * ratio_2050_2030",
             "2030/2024 CAPEX or OPEX ratio",
             "2050/2030 CAPEX or OPEX ratio",
             "Coal power",
-            "Used for non-Rutovitz-2015 projection rows mapped to catalogue ratio technologies.",
+            "Used for non-Rutovitz-2015 projection rows mapped to catalogue ratio technologies. For QBIS rows, the 2030/2024 ratio is applied to corrected 2022 base values for simplicity.",
+        ],
+        [
+            "Yearly interpolation",
+            "Linear interpolation between known datapoints; EF_2051-2055 = EF_2050",
+            "Known points from original/projected rows",
+            "No catalogue ratios beyond 2050",
+            "All technologies",
+            "Rutovitz 2015 values use the 2015 and 2030 points to interpolate 2024-2029.",
+        ],
+        [
+            "Model default source",
+            "Filter yearly table by Default_Source_By_Technology",
+            "Default source mapping",
+            "One source per technology",
+            "Offshore wind fixed",
+            "QBIS 2023 is used for fixed and floating offshore wind; other source choices are in Default_Source_Mapping.",
         ],
     ]
     for row_number, row in enumerate(rows, start=3):
@@ -248,7 +320,7 @@ def _formulaize_projection_rows(sheet, output: pd.DataFrame) -> None:
             return "1"
 
         is_opex = row["Factor_Type"] == "O&M"
-        if row["Base_Year"] == 2024 and row["Year"] == 2030:
+        if row["Base_Year"] in (2022, 2024) and row["Year"] == 2030:
             ratio_column = "E" if is_opex else "C"
         elif row["Base_Year"] == 2030 and row["Year"] == 2050:
             ratio_column = "F" if is_opex else "D"
@@ -311,7 +383,12 @@ def _formulaize_projection_rows(sheet, output: pd.DataFrame) -> None:
                 )
 
 
-def write_audit_workbook(output: pd.DataFrame, path: Path) -> None:
+def write_audit_workbook(
+    output: pd.DataFrame,
+    yearly_output: pd.DataFrame,
+    model_output: pd.DataFrame,
+    path: Path,
+) -> None:
     workbook = Workbook()
     _add_overview_sheet(workbook)
     _add_table_sheet(workbook, "Mappings_Rutovitz", _rutovitz_mapping_table())
@@ -319,6 +396,9 @@ def write_audit_workbook(output: pd.DataFrame, path: Path) -> None:
     _add_method_sheet(workbook)
     _add_table_sheet(workbook, "Employment_Outputs", output)
     _formulaize_projection_rows(workbook["Employment_Outputs"], output)
+    _add_table_sheet(workbook, "Yearly_All_Sources", yearly_output)
+    _add_table_sheet(workbook, "Default_Source_Mapping", _default_source_table())
+    _add_table_sheet(workbook, "Model_Default_2024_2055", model_output)
     _autofit_columns(workbook)
     workbook.calculation.calcMode = "auto"
     workbook.calculation.fullCalcOnLoad = True
@@ -331,20 +411,31 @@ def main() -> None:
     source = pd.read_csv(RAW_INPUT)
     capex_opex_ratios = pd.read_csv(CAPEX_OPEX_RATIO_INPUT)
     output = project_employment_factors(source, capex_opex_ratios)
+    yearly_output = build_yearly_employment_factors(output)
+    model_output = build_default_model_employment_factors(yearly_output)
 
     PROCESSED_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     output.to_csv(PROCESSED_OUTPUT, index=False, float_format="%.12g")
+    yearly_output.to_csv(YEARLY_OUTPUT, index=False, float_format="%.12g")
+    model_output.to_csv(MODEL_OUTPUT, index=False, float_format="%.12g")
 
     PACKAGE_DATA_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(PROCESSED_OUTPUT, PACKAGE_DATA_OUTPUT)
+    shutil.copyfile(YEARLY_OUTPUT, PACKAGE_YEARLY_OUTPUT)
+    shutil.copyfile(MODEL_OUTPUT, PACKAGE_MODEL_OUTPUT)
 
-    write_audit_workbook(output, AUDIT_OUTPUT)
+    write_audit_workbook(output, yearly_output, model_output, AUDIT_OUTPUT)
     print(
         {
             "csv": str(PROCESSED_OUTPUT),
+            "yearly_csv": str(YEARLY_OUTPUT),
+            "model_csv": str(MODEL_OUTPUT),
             "xlsx": str(AUDIT_OUTPUT),
             "rows": len(output),
+            "yearly_rows": len(yearly_output),
+            "model_rows": len(model_output),
             "technologies": output["Technology"].nunique(),
+            "model_technologies": model_output["Technology"].nunique(),
         }
     )
 
