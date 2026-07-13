@@ -19,9 +19,14 @@ from colombia_employment_factors.mappings import (
     CAPEX_OPEX_TECH_MAPPINGS,
     DEFAULT_SOURCE_BY_TECHNOLOGY,
     DEFAULT_SOURCE_NOTES,
+    RUTOVITZ_2015_RENEWABLE_LOCAL_MANUFACTURING_SHARE,
+    RUTOVITZ_2015_RENEWABLE_LOCAL_MANUFACTURING_TECHS,
     RUTOVITZ_DECLINE_FACTORS,
 )
-from colombia_employment_factors.projections import project_employment_factors
+from colombia_employment_factors.projections import (
+    add_construction_manufacturing_rows,
+    project_employment_factors,
+)
 from colombia_employment_factors.yearly import (
     build_default_model_employment_factors,
     build_yearly_employment_factors,
@@ -333,6 +338,14 @@ def _formulaize_projection_rows(sheet, output: pd.DataFrame) -> None:
         )
         return f"IFERROR(IF(ISNUMBER({lookup}),{lookup},1),1)"
 
+    def manufacturing_share(row: pd.Series) -> float:
+        if (
+            row["Source"] == "Rutovitz 2015"
+            and row["Technology"] in RUTOVITZ_2015_RENEWABLE_LOCAL_MANUFACTURING_TECHS
+        ):
+            return RUTOVITZ_2015_RENEWABLE_LOCAL_MANUFACTURING_SHARE
+        return 1.0
+
     for index, row in output.iterrows():
         if (
             row["Source"] == "Rutovitz 2015"
@@ -381,6 +394,38 @@ def _formulaize_projection_rows(sheet, output: pd.DataFrame) -> None:
                     columns[column_name],
                     value_formula(excel_row, base_row, ratio_formula, column_name),
                 )
+            continue
+
+        if row["Method_Applied"] == "Derived Construction&Manufacturing":
+            excel_row = excel_rows[index]
+            construction_key = (
+                row["Source"],
+                row["Technology"],
+                "Construction",
+                row["Job_Type"],
+                row["Unit"],
+                row["Year"],
+            )
+            manufacturing_key = (
+                row["Source"],
+                row["Technology"],
+                "Manufacturing",
+                row["Job_Type"],
+                row["Unit"],
+                row["Year"],
+            )
+            if construction_key not in base_rows or manufacturing_key not in base_rows:
+                continue
+            construction_row = base_rows[construction_key]
+            manufacturing_row = base_rows[manufacturing_key]
+            share = manufacturing_share(row)
+            for column_name in ("Value", "Value_Numeric", "Projected_Value"):
+                column_letter = get_column_letter(columns[column_name])
+                sheet.cell(
+                    excel_row,
+                    columns[column_name],
+                    f"={column_letter}{construction_row}+{share}*{column_letter}{manufacturing_row}",
+                )
 
 
 def write_audit_workbook(
@@ -410,7 +455,7 @@ def write_audit_workbook(
 def main() -> None:
     source = pd.read_csv(RAW_INPUT)
     capex_opex_ratios = pd.read_csv(CAPEX_OPEX_RATIO_INPUT)
-    output = project_employment_factors(source, capex_opex_ratios)
+    output = add_construction_manufacturing_rows(project_employment_factors(source, capex_opex_ratios))
     yearly_output = build_yearly_employment_factors(output)
     model_output = build_default_model_employment_factors(yearly_output)
 

@@ -6,12 +6,15 @@ import pandas as pd
 
 from colombia_employment_factors.mappings import (
     CAPEX_OPEX_TECH_MAPPINGS,
+    RUTOVITZ_2015_RENEWABLE_LOCAL_MANUFACTURING_SHARE,
+    RUTOVITZ_2015_RENEWABLE_LOCAL_MANUFACTURING_TECHS,
     RUTOVITZ_DECLINE_FACTORS,
     RUTOVITZ_PROJECTED_FACTOR_TYPES,
 )
 
 RATIO_PROJECTED_FACTOR_TYPES = ("Construction", "Manufacturing", "Construction&Manufacturing", "O&M")
 QBIS_RATIO_BASE_SOURCES = ("Danish QBIS 2020", "French QBIS 2023")
+COMBINED_FACTOR_SOURCES = ("Rutovitz 2015", "Rutovitz 2025")
 
 
 def _numeric_value(row: pd.Series) -> float:
@@ -267,6 +270,80 @@ def project_employment_factors(
         rows.extend(_projected_ratio_rows(row, value, ratios_by_technology))
 
     output = pd.DataFrame(rows)
+    return output.sort_values(
+        ["Technology", "Factor_Type", "Job_Type", "Source", "Projected_Year"]
+    ).reset_index(drop=True)
+
+
+def _rutovitz_2015_manufacturing_share(technology: str) -> float:
+    if technology in RUTOVITZ_2015_RENEWABLE_LOCAL_MANUFACTURING_TECHS:
+        return RUTOVITZ_2015_RENEWABLE_LOCAL_MANUFACTURING_SHARE
+    return 1.0
+
+
+def _combined_row(construction: pd.Series, manufacturing: pd.Series, manufacturing_share: float) -> dict:
+    value = _numeric_value(construction) + manufacturing_share * _numeric_value(manufacturing)
+    if construction["Source"] == "Rutovitz 2015":
+        note = (
+            "Construction + Manufacturing * "
+            f"{manufacturing_share:g}; renewable local manufacturing share from Rutovitz 2015 Table 17"
+            if manufacturing_share != 1.0
+            else "Construction + Manufacturing; full regional manufacturing assumed by Rutovitz 2015 method"
+        )
+    else:
+        note = "Construction + Manufacturing; Rutovitz 2025 total manufacturing factor used without local-share scaling"
+
+    return {
+        **construction.to_dict(),
+        "Factor_Type": "Construction&Manufacturing",
+        "Value": value,
+        "Value_Numeric": value,
+        "Method_Applied": "Derived Construction&Manufacturing",
+        "Projection_Input": note,
+        "Projected_Value": value,
+    }
+
+
+def add_construction_manufacturing_rows(projected_factors: pd.DataFrame) -> pd.DataFrame:
+    """Add derived C&M rows for Rutovitz sources where C and M are separate."""
+    df = projected_factors.copy()
+    if df.empty:
+        return df
+
+    df["Year"] = pd.to_numeric(df["Year"], errors="coerce")
+    df["Value_Numeric"] = pd.to_numeric(df["Value_Numeric"], errors="coerce")
+    key_columns = ["Source", "Technology", "Job_Type", "Unit", "Year"]
+    existing_keys = set(
+        tuple(row[column] for column in key_columns)
+        for _, row in df[df["Factor_Type"] == "Construction&Manufacturing"].iterrows()
+    )
+
+    rows = []
+    eligible = df[
+        df["Source"].isin(COMBINED_FACTOR_SOURCES)
+        & df["Factor_Type"].isin(["Construction", "Manufacturing"])
+        & df["Value_Numeric"].notna()
+    ]
+    for key, group in eligible.groupby(key_columns, dropna=False, sort=False):
+        if key in existing_keys:
+            continue
+        factors = {row["Factor_Type"]: row for _, row in group.iterrows()}
+        if "Construction" not in factors or "Manufacturing" not in factors:
+            continue
+        construction = factors["Construction"]
+        manufacturing = factors["Manufacturing"]
+        share = (
+            _rutovitz_2015_manufacturing_share(construction["Technology"])
+            if construction["Source"] == "Rutovitz 2015"
+            else 1.0
+        )
+        rows.append(_combined_row(construction, manufacturing, share))
+
+    if not rows:
+        return df
+
+    output = pd.concat([df, pd.DataFrame(rows)], ignore_index=True)
+    output["Year"] = output["Year"].astype(int)
     return output.sort_values(
         ["Technology", "Factor_Type", "Job_Type", "Source", "Projected_Year"]
     ).reset_index(drop=True)

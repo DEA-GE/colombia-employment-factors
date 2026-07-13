@@ -1,7 +1,10 @@
 import pandas as pd
 import pytest
 
-from colombia_employment_factors.projections import project_employment_factors
+from colombia_employment_factors.projections import (
+    add_construction_manufacturing_rows,
+    project_employment_factors,
+)
 
 
 def _ratio_table():
@@ -234,3 +237,85 @@ def test_project_employment_factors_skips_rutovitz_fuel_and_projects_zero_declin
     assert row_2030["Technology"] == "Coal power"
     assert row_2030["Rutovitz_2030_Factor"] == pytest.approx(1.0)
     assert row_2030["Projected_Value"] == pytest.approx(10.0)
+
+
+def test_add_construction_manufacturing_rows_scales_rutovitz_2015_renewable_manufacturing():
+    factors = pd.DataFrame(
+        [
+            {
+                "Source": "Rutovitz 2015",
+                "Technology": "Onshore wind",
+                "Factor_Type": "Construction",
+                "Job_Type": "Direct",
+                "Unit": "job-yr/MW",
+                "Year": 2030,
+                "Value": 10.0,
+                "Value_Numeric": 10.0,
+                "Method_Applied": "test",
+                "Projection_Input": "",
+                "Projected_Year": 2030,
+                "Projected_Value": 10.0,
+            },
+            {
+                "Source": "Rutovitz 2015",
+                "Technology": "Onshore wind",
+                "Factor_Type": "Manufacturing",
+                "Job_Type": "Direct",
+                "Unit": "job-yr/MW",
+                "Year": 2030,
+                "Value": 4.0,
+                "Value_Numeric": 4.0,
+                "Method_Applied": "test",
+                "Projection_Input": "",
+                "Projected_Year": 2030,
+                "Projected_Value": 4.0,
+            },
+        ]
+    )
+
+    output = add_construction_manufacturing_rows(factors)
+    combined = output[output["Factor_Type"] == "Construction&Manufacturing"].iloc[0]
+
+    assert combined["Value_Numeric"] == pytest.approx(12.0)
+    assert "0.5" in combined["Projection_Input"]
+
+
+def test_add_construction_manufacturing_rows_uses_full_rutovitz_2025_manufacturing():
+    factors = pd.DataFrame(
+        [
+            {
+                "Source": "Rutovitz 2025",
+                "Technology": "Battery storage (grid)",
+                "Factor_Type": "Construction",
+                "Job_Type": "Direct",
+                "Unit": "job-yr/MW",
+                "Year": 2024,
+                "Value": 10.0,
+                "Value_Numeric": 10.0,
+                "Method_Applied": "test",
+                "Projection_Input": "",
+                "Projected_Year": 2024,
+                "Projected_Value": 10.0,
+            },
+            {
+                "Source": "Rutovitz 2025",
+                "Technology": "Battery storage (grid)",
+                "Factor_Type": "Manufacturing",
+                "Job_Type": "Direct",
+                "Unit": "job-yr/MW",
+                "Year": 2024,
+                "Value": 4.0,
+                "Value_Numeric": 4.0,
+                "Method_Applied": "test",
+                "Projection_Input": "",
+                "Projected_Year": 2024,
+                "Projected_Value": 4.0,
+            },
+        ]
+    )
+
+    output = add_construction_manufacturing_rows(factors)
+    combined = output[output["Factor_Type"] == "Construction&Manufacturing"].iloc[0]
+
+    assert combined["Value_Numeric"] == pytest.approx(14.0)
+    assert "without local-share scaling" in combined["Projection_Input"]

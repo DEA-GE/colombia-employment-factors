@@ -106,6 +106,33 @@ solar thermal (CSP), and ocean, are projected as constant values. Offshore wind
 held constant from the available base year and its 2050 value uses the available
 `2050/2030` ratio.
 
+After sparse projection and before yearly interpolation, the pipeline derives
+`Construction&Manufacturing` rows for Rutovitz sources that report construction
+and manufacturing separately:
+
+```text
+Rutovitz 2015: Construction&Manufacturing = Construction + local_share * Manufacturing
+Rutovitz 2015 renewables: Construction&Manufacturing = Construction + 0.5 * Manufacturing
+Rutovitz 2025: Construction&Manufacturing = Construction + Manufacturing
+```
+
+For Rutovitz 2015, the local manufacturing share follows Table 17 of the 2015
+methodology report. Fossil fuel, biomass, hydro, and nuclear technologies use a
+100% manufacturing share because the report assumes manufacturing occurs within
+the region for those technologies. Renewable technologies covered by Table 17
+use a 0.5 local manufacturing factor, equivalent to a 50% local manufacturing
+share and corresponding to the Latin America 2010 entry. This `0.5` factor is
+applied to geothermal, ocean, offshore wind, onshore wind, rooftop solar PV,
+solar thermal (CSP), and utility-scale solar PV when present in the Rutovitz
+2015 source.
+
+For Rutovitz 2025, the curated manufacturing values are the report's total
+manufacturing factors, so the combined value sums construction and manufacturing
+without applying a local manufacturing share. Local/onshore manufacturing shares
+could be derived from Rutovitz 2025 Table 3 by dividing the Australian/onshore
+manufacturing value by the total manufacturing value; Table 4 provides a more
+detailed comparison of current factors and previous sources.
+
 The audit file
 `data/audit/capex_opex_ratios_2024_2030_2050.csv` records the CAPEX and fixed
 O&M values extracted from `docs/sources/datos_cuantitativos_EN.xlsx` for each

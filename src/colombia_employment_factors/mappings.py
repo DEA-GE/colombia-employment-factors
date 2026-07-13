@@ -11,11 +11,24 @@ RUTOVITZ_DECLINE_FACTORS = {
     "Hydro (large)": ("Hydro-large", -0.07),
     "Hydro (small)": ("Hydro-small", -0.07),
     "Onshore wind": ("Wind onshore", 0.05),
-    "Offshore wind": ("Wind offshore", 0.23),
+    "Offshore wind (fixed)": ("Wind offshore", 0.23),
     "Utility-scale solar PV": ("PV", 0.41),
     "Solar thermal (CSP)": ("Solar thermal power", 0.12),
     "Geothermal": ("Geothermal power", 0.48),
     "Ocean": ("Ocean", 0.31),
+}
+
+RUTOVITZ_2015_RENEWABLE_LOCAL_MANUFACTURING_SHARE = 0.50
+RUTOVITZ_2015_RENEWABLE_LOCAL_MANUFACTURING_TECHS = {
+    "Geothermal",
+    "Ocean",
+    "Offshore wind",
+    "Offshore wind (fixed)",
+    "Offshore wind (floating)",
+    "Onshore wind",
+    "Rooftop solar PV",
+    "Solar thermal (CSP)",
+    "Utility-scale solar PV",
 }
 
 TECH_CATALOGUE_MAPPINGS = {
