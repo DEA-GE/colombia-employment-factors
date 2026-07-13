@@ -218,13 +218,43 @@ docs/sources/                      source PDFs and catalogue spreadsheets
 tests/                             unit tests for formulas and adapters
 ```
 
-## Sources
+## References
 
-The current data workflow uses employment factors and mappings derived from:
+The current data workflow uses employment factors, technology mappings, and
+projection ratios derived from the following sources. Users should cite the
+original data sources alongside this repository when using the outputs in reports
+or model documentation.
 
-- Rutovitz et al. 2015, including Table 9 regional decline factors;
-- Colombian Technology Catalogue inputs;
-- JEDI/I-JEDI and updated Rutovitz employment-factor rows where available.
+Danish Energy Agency, Ministry of Mines and Energy, Mining and Energy Planning
+Unit, & Emergente. (2025). *Colombian Technology Catalogue quantitative data*
+[Data workbook].
 
-Users should cite the original data sources alongside this repository when using
-the outputs in reports or model documentation.
+Danish Energy Agency, Ministry of Mines and Energy, Mining and Energy Planning
+Unit, & Emergente. (2025). *Colombian Technology Catalogue for power generation
+and storage technologies 2025*.
+
+National Laboratory of the Rockies. (n.d.). *International Jobs and Economic
+Development Impacts (I-JEDI) model*. Retrieved July 13, 2026, from
+https://www.nlr.gov/analysis/jedi/international
+
+National Laboratory of the Rockies. (n.d.). *Jobs and Economic Development
+Impact (JEDI) models*. Retrieved July 13, 2026, from
+https://www.nlr.gov/analysis/jedi
+
+QBIS. (2020). *Socio-economic impact study of offshore wind: Final technical
+report*. Danish Shipping, Wind Denmark, and Danish Energy.
+
+QBIS. (2023). *Employment impacts of 40 GW offshore wind in France by 2050:
+Technical report*. Ministry of Foreign Affairs of Denmark.
+
+Ramboll & Danish Energy Agency. (2023). *Job creation in a new industry:
+Learnings from Denmark's offshore wind journey*.
+
+Rutovitz, J., Dominish, E., & Downes, J. (2015). *Calculating global energy
+sector jobs: 2015 methodology update*. Institute for Sustainable Futures,
+University of Technology Sydney.
+
+Rutovitz, J., Langdon, R., Briggs, C., Mey, F., Dominish, E., & Nagrath, K.
+(2025). Updated employment factors and occupational shares for the energy
+transition. *Renewable and Sustainable Energy Reviews, 212*, 115339.
+https://doi.org/10.1016/j.rser.2025.115339
