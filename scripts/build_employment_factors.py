@@ -19,6 +19,8 @@ from colombia_employment_factors.mappings import (
     CAPEX_OPEX_TECH_MAPPINGS,
     DEFAULT_SOURCE_BY_TECHNOLOGY,
     DEFAULT_SOURCE_NOTES,
+    RUTOVITZ_2015_CONSTRUCTION_TIME_MAPPINGS,
+    RUTOVITZ_2015_CONSTRUCTION_TIME_YEARS,
     RUTOVITZ_2015_RENEWABLE_LOCAL_MANUFACTURING_SHARE,
     RUTOVITZ_2015_RENEWABLE_LOCAL_MANUFACTURING_TECHS,
     RUTOVITZ_DECLINE_FACTORS,
@@ -33,10 +35,12 @@ from colombia_employment_factors.yearly import (
 )
 
 RAW_INPUT = ROOT / "data" / "raw" / "employment_factors_input.csv"
+TECHNOLOGY_CATALOGUE_SOURCE = ROOT / "docs" / "sources" / "datos_cuantitativos_EN.xlsx"
 CAPEX_OPEX_RATIO_INPUT = ROOT / "data" / "audit" / "capex_opex_ratios_2024_2030_2050.csv"
 PROCESSED_OUTPUT = ROOT / "data" / "processed" / "employment_factors_with_2030_2050.csv"
 YEARLY_OUTPUT = ROOT / "data" / "processed" / "employment_factors_yearly_2024_2055.csv"
 MODEL_OUTPUT = ROOT / "data" / "processed" / "employment_factors_model_default_2024_2055.csv"
+TECHNOLOGY_ASSUMPTIONS_OUTPUT = ROOT / "data" / "processed" / "technology_assumptions_2024.csv"
 AUDIT_OUTPUT = ROOT / "data" / "audit" / "employment_learning_curves_2030_2050.xlsx"
 PACKAGE_DATA_OUTPUT = (
     ROOT
@@ -59,6 +63,110 @@ PACKAGE_MODEL_OUTPUT = (
     / "data"
     / "employment_factors_model_default_2024_2055.csv"
 )
+PACKAGE_TECHNOLOGY_ASSUMPTIONS_OUTPUT = (
+    ROOT
+    / "src"
+    / "colombia_employment_factors"
+    / "data"
+    / "technology_assumptions_2024.csv"
+)
+
+
+def _as_float(value) -> float | None:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def _catalogue_rows_by_technology(path: Path) -> dict[str, dict[str, object]]:
+    import openpyxl
+
+    workbook = openpyxl.load_workbook(path, read_only=True, data_only=True)
+    rows_by_technology = {}
+    for worksheet in workbook.worksheets:
+        if worksheet.title in {"Guide&Cover", "Index"}:
+            continue
+
+        technology_name = worksheet.title.split(". ", 1)[1]
+        row_data = {
+            "technology_sheet": worksheet.title,
+            "lifetime_years": None,
+            "lifetime_source_year": None,
+            "lifetime_row_number": None,
+            "construction_time_years": None,
+            "construction_time_source_year": None,
+            "construction_time_row_number": None,
+        }
+        for row_number, row in enumerate(worksheet.iter_rows(values_only=True), start=1):
+            label = row[1] if len(row) > 1 else None
+            if label == "Technical lifetime (years)":
+                value_2024 = _as_float(row[2])
+                value_2030 = _as_float(row[3])
+                row_data["lifetime_years"] = value_2024 if value_2024 is not None else value_2030
+                row_data["lifetime_source_year"] = 2024 if value_2024 is not None else 2030
+                row_data["lifetime_row_number"] = row_number
+            elif label == "Construction time (years)":
+                value_2024 = _as_float(row[2])
+                value_2030 = _as_float(row[3])
+                row_data["construction_time_years"] = value_2024 if value_2024 is not None else value_2030
+                row_data["construction_time_source_year"] = 2024 if value_2024 is not None else 2030
+                row_data["construction_time_row_number"] = row_number
+
+        rows_by_technology[technology_name] = row_data
+    return rows_by_technology
+
+
+def build_technology_assumptions(catalogue_path: Path) -> pd.DataFrame:
+    """Extract 2024 technology lifetimes and construction times for model technologies."""
+    catalogue_rows = _catalogue_rows_by_technology(catalogue_path)
+    rows = []
+    for technology in DEFAULT_SOURCE_BY_TECHNOLOGY:
+        mapped = CAPEX_OPEX_TECH_MAPPINGS.get(technology, ("", "unmapped_constant", ""))
+        catalogue_tech, mapping_type, _ = mapped
+        catalogue_row = catalogue_rows.get(catalogue_tech, {})
+        notes = []
+        lifetime_years = catalogue_row.get("lifetime_years")
+        lifetime_source_year = catalogue_row.get("lifetime_source_year")
+        construction_time_years = catalogue_row.get("construction_time_years")
+        construction_time_source_year = catalogue_row.get("construction_time_source_year")
+        source = "Colombian Technology Catalogue"
+
+        if lifetime_source_year == 2030:
+            notes.append("2024 catalogue lifetime unavailable; 2030 catalogue value used.")
+        if construction_time_source_year == 2030:
+            notes.append("2024 catalogue construction time unavailable; 2030 catalogue value used.")
+
+        rutovitz_mapping = RUTOVITZ_2015_CONSTRUCTION_TIME_MAPPINGS.get(technology)
+        if construction_time_years is None and rutovitz_mapping:
+            construction_time_years = RUTOVITZ_2015_CONSTRUCTION_TIME_YEARS[rutovitz_mapping]
+            construction_time_source_year = 2015
+            source = "Rutovitz 2015 Table 1"
+            notes.append("No matching catalogue row; construction time from Rutovitz 2015 Table 1.")
+
+        if technology.startswith("Transmission"):
+            notes.append(
+                "No matching Technology Catalogue or Rutovitz 2015 Table 1 construction-time row."
+            )
+
+        rows.append(
+            {
+                "Technology": technology,
+                "Catalogue_Tech": catalogue_tech,
+                "lifetime_years": lifetime_years,
+                "lifetime_source_year": lifetime_source_year,
+                "construction_time_years": construction_time_years,
+                "construction_time_source_year": construction_time_source_year,
+                "construction_time_source": source if construction_time_years is not None else "",
+                "technology_sheet": catalogue_row.get("technology_sheet", ""),
+                "lifetime_row_number": catalogue_row.get("lifetime_row_number"),
+                "construction_time_row_number": catalogue_row.get("construction_time_row_number"),
+                "mapping_type": mapping_type,
+                "notes": " ".join(notes),
+            }
+        )
+
+    return pd.DataFrame(rows).sort_values("Technology").reset_index(drop=True)
 
 
 def _rutovitz_mapping_table() -> pd.DataFrame:
@@ -198,6 +306,13 @@ def _add_overview_sheet(workbook: Workbook) -> None:
             "Default-source rows only",
             "Use this table for OSeMOSYS-style retrieval",
             "Derived from Yearly_All_Sources and Default_Source_Mapping",
+        ],
+        [
+            "Technology_Assumptions",
+            "Technology lifetime and construction time assumptions",
+            "2024 catalogue values plus documented fallback rules",
+            "Used when annualizing construction-and-manufacturing job-years",
+            "Colombian Technology Catalogue and Rutovitz 2015 Table 1",
         ],
     ]
     for row_number, row in enumerate(rows, start=3):
@@ -432,6 +547,7 @@ def write_audit_workbook(
     output: pd.DataFrame,
     yearly_output: pd.DataFrame,
     model_output: pd.DataFrame,
+    technology_assumptions: pd.DataFrame,
     path: Path,
 ) -> None:
     workbook = Workbook()
@@ -444,6 +560,7 @@ def write_audit_workbook(
     _add_table_sheet(workbook, "Yearly_All_Sources", yearly_output)
     _add_table_sheet(workbook, "Default_Source_Mapping", _default_source_table())
     _add_table_sheet(workbook, "Model_Default_2024_2055", model_output)
+    _add_table_sheet(workbook, "Technology_Assumptions", technology_assumptions)
     _autofit_columns(workbook)
     workbook.calculation.calcMode = "auto"
     workbook.calculation.fullCalcOnLoad = True
@@ -458,27 +575,32 @@ def main() -> None:
     output = add_construction_manufacturing_rows(project_employment_factors(source, capex_opex_ratios))
     yearly_output = build_yearly_employment_factors(output)
     model_output = build_default_model_employment_factors(yearly_output)
+    technology_assumptions = build_technology_assumptions(TECHNOLOGY_CATALOGUE_SOURCE)
 
     PROCESSED_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     output.to_csv(PROCESSED_OUTPUT, index=False, float_format="%.12g")
     yearly_output.to_csv(YEARLY_OUTPUT, index=False, float_format="%.12g")
     model_output.to_csv(MODEL_OUTPUT, index=False, float_format="%.12g")
+    technology_assumptions.to_csv(TECHNOLOGY_ASSUMPTIONS_OUTPUT, index=False, float_format="%.12g")
 
     PACKAGE_DATA_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(PROCESSED_OUTPUT, PACKAGE_DATA_OUTPUT)
     shutil.copyfile(YEARLY_OUTPUT, PACKAGE_YEARLY_OUTPUT)
     shutil.copyfile(MODEL_OUTPUT, PACKAGE_MODEL_OUTPUT)
+    shutil.copyfile(TECHNOLOGY_ASSUMPTIONS_OUTPUT, PACKAGE_TECHNOLOGY_ASSUMPTIONS_OUTPUT)
 
-    write_audit_workbook(output, yearly_output, model_output, AUDIT_OUTPUT)
+    write_audit_workbook(output, yearly_output, model_output, technology_assumptions, AUDIT_OUTPUT)
     print(
         {
             "csv": str(PROCESSED_OUTPUT),
             "yearly_csv": str(YEARLY_OUTPUT),
             "model_csv": str(MODEL_OUTPUT),
+            "technology_assumptions_csv": str(TECHNOLOGY_ASSUMPTIONS_OUTPUT),
             "xlsx": str(AUDIT_OUTPUT),
             "rows": len(output),
             "yearly_rows": len(yearly_output),
             "model_rows": len(model_output),
+            "technology_assumption_rows": len(technology_assumptions),
             "technologies": output["Technology"].nunique(),
             "model_technologies": model_output["Technology"].nunique(),
         }

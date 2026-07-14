@@ -194,6 +194,26 @@ DEFAULT_SOURCE_NOTES = {
     ),
 }
 
+RUTOVITZ_2015_CONSTRUCTION_TIME_YEARS = {
+    "Coal": 5.0,
+    "Gas": 2.0,
+    "Nuclear": 10.0,
+    "Biomass": 2.0,
+    "Hydro-large": 2.0,
+    "Hydro-small": 2.0,
+    "Wind onshore": 2.0,
+    "Wind offshore": 4.0,
+    "Solar Photovoltaics": 1.0,
+    "Geothermal": 2.0,
+    "Solar thermal": 2.0,
+    "Ocean": 2.0,
+}
+
+RUTOVITZ_2015_CONSTRUCTION_TIME_MAPPINGS = {
+    "Ocean": "Ocean",
+    "Solar thermal (CSP)": "Solar thermal",
+}
+
 CAPACITY_RATIOS = {
     2030: {
         "Solar PV": 2.4,

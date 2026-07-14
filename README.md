@@ -55,6 +55,17 @@ solar_2030 = factors[
 model_factors = get_model_employment_factors()
 ```
 
+Technology lifetime and construction-time assumptions can be retrieved with the
+same package API:
+
+```python
+from colombia_employment_factors import get_technology_assumption
+
+assumption = get_technology_assumption("Onshore wind")
+construction_time_years = assumption["construction_time_years"]
+lifetime_years = assumption["lifetime_years"]
+```
+
 For OSeMOSYS-style post-processing:
 
 ```python
@@ -192,6 +203,57 @@ The model-ready table at
 yearly all-source table to one default source per technology. This is the table
 intended for direct retrieval by model workflows such as OSeMOSYS post-processing.
 
+### Technology lifetime and construction-time assumptions
+
+The package includes
+`data/processed/technology_assumptions_2024.csv`, also packaged at
+`src/colombia_employment_factors/data/technology_assumptions_2024.csv`, so other
+Python libraries can retrieve lifetime and construction-time assumptions by the
+same technology names used in the employment-factor tables.
+
+The table is generated from `docs/sources/datos_cuantitativos_EN.xlsx`. For each
+technology, the default rule is to use the 2024 `Technical lifetime (years)` and
+`Construction time (years)` values from the mapped Colombian Technology
+Catalogue sheet. The table records the source sheet, row numbers, and source
+year for each metric.
+
+Documented exceptions:
+
+- `Offshore wind (floating)` has no 2024 catalogue lifetime or construction
+  time. The table uses the 2030 catalogue values, including the requested 2030
+  construction time of 2.5 years.
+- `Ocean` and `Solar thermal (CSP)` have no matching catalogue sheet. Their
+  construction times use Rutovitz 2015 Table 1: 2 years for ocean and 2 years
+  for solar thermal. Their lifetimes are left blank because Table 1 does not
+  provide technical lifetime assumptions.
+- Transmission technologies have no matching Colombian Technology Catalogue row
+  and no construction-time row in Rutovitz 2015 Table 1. Their lifetime and
+  construction-time values are therefore left blank and flagged in the `notes`
+  column.
+
+Example retrieval from another Python package:
+
+```python
+from colombia_employment_factors import (
+    get_model_employment_factors,
+    get_technology_assumption,
+)
+
+technology = "Utility-scale solar PV"
+factors = get_model_employment_factors()
+assumption = get_technology_assumption(technology)
+
+cm_2024 = factors[
+    (factors["Technology"] == technology)
+    & (factors["Factor_Type"] == "Construction&Manufacturing")
+    & (factors["Year"] == 2024)
+].copy()
+
+cm_2024["annualized_fte_per_mw"] = (
+    cm_2024["Value_Numeric"] / assumption["construction_time_years"]
+)
+```
+
 Default source choices are defined in
 `colombia_employment_factors.mappings.DEFAULT_SOURCE_BY_TECHNOLOGY`:
 
@@ -213,6 +275,7 @@ scripts/                           maintainer scripts for rebuilding outputs
 data/raw/employment_factors_input.csv
                                    curated source employment-factor inputs
 data/processed/                    generated model-ready employment factors
+                                   and technology assumptions
 data/audit/                        audit workbooks and derived ratio tables
 docs/sources/                      source PDFs and catalogue spreadsheets
 tests/                             unit tests for formulas and adapters
