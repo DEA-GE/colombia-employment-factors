@@ -1,5 +1,7 @@
 # Colombia Employment Factors
 
+See [Auditable methodology updates](docs/METHODOLOGY_UPDATES.md) for the approved rooftop transfer, selective productivity policy, current utility-input gap, and reproducible regeneration commands.
+
 Model-agnostic employment factors and CAPEX/OPEX ratio methodology for Colombia's
 power sector.
 
@@ -261,7 +263,7 @@ Default source choices are defined in
 - Rutovitz 2025 for storage technologies and available transmission rows.
 - I-JEDI for direct, indirect, and induced renewable rows for biomass,
   geothermal, onshore wind, and utility-scale solar PV.
-- JEDI-US for rooftop solar PV.
+- Matched US-JEDI relative rooftop factors anchored to I-JEDI Colombia when available; otherwise the checksum-locked published rooftop baseline is explicitly retained.
 - Rutovitz 2015 for the remaining technologies.
 
 `Transmission (single circuit)` falls back to JEDI-US because the raw table does

@@ -27,7 +27,7 @@ dev = [
 where = ["src"]
 
 [tool.setuptools.package-data]
-colombia_employment_factors = ["data/*.csv"]
+colombia_employment_factors = ["data/*.csv", "data/*.json"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]

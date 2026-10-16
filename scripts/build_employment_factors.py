@@ -2,7 +2,11 @@
 
 from __future__ import annotations
 
+import argparse
+import hashlib
+import json
 import shutil
+import subprocess
 import sys
 from pathlib import Path
 
@@ -16,6 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from colombia_employment_factors.mappings import (
+    BASE_SOURCE_BY_TECHNOLOGY,
     CAPEX_OPEX_TECH_MAPPINGS,
     DEFAULT_SOURCE_BY_TECHNOLOGY,
     DEFAULT_SOURCE_NOTES,
@@ -33,6 +38,11 @@ from colombia_employment_factors.yearly import (
     build_default_model_employment_factors,
     build_yearly_employment_factors,
 )
+from colombia_employment_factors.adjustments import (
+    LEGACY_ROOFTOP_SOURCE, ROOFTOP_SOURCE, apply_productivity_adjustments,
+    derive_rooftop, load_policy, retain_published_rooftop, validate_factors,
+)
+from colombia_employment_factors.jedi import extract_jedi_sources, sha256
 
 RAW_INPUT = ROOT / "data" / "raw" / "employment_factors_input.csv"
 TECHNOLOGY_CATALOGUE_SOURCE = ROOT / "docs" / "sources" / "datos_cuantitativos_EN.xlsx"
@@ -549,6 +559,9 @@ def write_audit_workbook(
     model_output: pd.DataFrame,
     technology_assumptions: pd.DataFrame,
     path: Path,
+    default_sources: dict | None = None,
+    policy: dict | None = None,
+    solar_ratios: list | None = None,
 ) -> None:
     workbook = Workbook()
     _add_overview_sheet(workbook)
@@ -558,9 +571,20 @@ def write_audit_workbook(
     _add_table_sheet(workbook, "Employment_Outputs", output)
     _formulaize_projection_rows(workbook["Employment_Outputs"], output)
     _add_table_sheet(workbook, "Yearly_All_Sources", yearly_output)
-    _add_table_sheet(workbook, "Default_Source_Mapping", _default_source_table())
+    _add_table_sheet(workbook, "Default_Source_Mapping", _default_source_table() if default_sources is None else pd.DataFrame([
+        {"Technology": technology, "Default_Source": source} for technology, source in default_sources.items()
+    ]))
     _add_table_sheet(workbook, "Model_Default_2024_2055", model_output)
     _add_table_sheet(workbook, "Technology_Assumptions", technology_assumptions)
+    if policy is not None:
+        _add_table_sheet(workbook, "Productivity_Eligibility", pd.DataFrame(policy["productivity_eligibility"]))
+        _add_table_sheet(workbook, "Methodology_Assumptions", pd.DataFrame([
+            {"assumption": key, "value": json.dumps(value, ensure_ascii=False)}
+            for key, value in policy.items() if key != "productivity_eligibility"
+        ]))
+        _add_table_sheet(workbook, "Solar_Transfer_Ratios", pd.DataFrame(solar_ratios) if solar_ratios else pd.DataFrame([
+            {"status": "PENDING: full-precision utility run missing; published rooftop series retained"}
+        ]))
     _autofit_columns(workbook)
     workbook.calculation.calcMode = "auto"
     workbook.calculation.fullCalcOnLoad = True
@@ -570,41 +594,95 @@ def write_audit_workbook(
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--scenario", choices=["low", "central", "high"], default="central")
+    parser.add_argument("--solar-projection", choices=["catalogue", "constant-relative"], default="catalogue")
+    parser.add_argument("--productivity-transfer", choices=["selective", "none"], default="selective", help="Disable only for source-refresh attribution/reference builds")
+    parser.add_argument("--output-dir", type=Path, help="Write a review/scenario build here without changing packaged defaults")
+    parser.add_argument("--require-solar-ratios", action="store_true", help="Fail rather than retaining the published rooftop fallback")
+    args = parser.parse_args()
+    policy_path = ROOT / "data/assumptions/employment_methodology.json"
+    policy = load_policy(policy_path)
     source = pd.read_csv(RAW_INPUT)
+    extracted, source_manifest = extract_jedi_sources(ROOT, policy)
+    keys = ["Source", "Technology", "Factor_Type", "Job_Type", "Year"]
+    comparison = source.merge(extracted, on=keys, how="right", suffixes=("_curated", "_cached"), validate="one_to_one")
+    numeric = pd.to_numeric(comparison["Value_Numeric_curated"], errors="coerce")
+    expected = comparison["Value_Numeric_cached"]
+    if numeric.isna().any() or ((numeric-expected).abs() > 1e-12 * expected.abs().clip(lower=1)).any():
+        raise ValueError("JEDI caches and curated inputs differ; review and run scripts/extract_jedi_factors.py --write")
+    baseline_path = ROOT / policy["published_baseline"]
+    if sha256(baseline_path) != policy["published_baseline_sha256"]:
+        raise ValueError("Frozen baseline checksum mismatch")
+    baseline = pd.read_csv(baseline_path)
+    solar_available = "settings" in source_manifest["us_utility"]
+    solar_ratios = []
+    if solar_available:
+        source, solar_ratios = derive_rooftop(source)
+    elif args.require_solar_ratios or policy["missing_utility_policy"] != "retain_published_baseline" or args.solar_projection == "constant-relative":
+        raise ValueError("Full-precision saved utility run required; rounded screenshots cannot supply ratios")
+    validate_factors(source[source["Factor_Type"].isin(["Construction", "Manufacturing", "Construction&Manufacturing", "O&M"])])
     capex_opex_ratios = pd.read_csv(CAPEX_OPEX_RATIO_INPUT)
     output = add_construction_manufacturing_rows(project_employment_factors(source, capex_opex_ratios))
     yearly_output = build_yearly_employment_factors(output)
-    model_output = build_default_model_employment_factors(yearly_output)
+    if args.solar_projection == "constant-relative":
+        utility = yearly_output[(yearly_output["Source"] == "I-JEDI") & (yearly_output["Technology"] == "Utility-scale solar PV")]
+        lookup = {(r.Factor_Type, r.Job_Type, r.Year): r.Value_Numeric for r in utility.itertuples()}
+        ratios = {(r["phase"], r["category"]): r["ratio"] for r in solar_ratios}
+        for index, row in yearly_output[yearly_output["Source"] == ROOFTOP_SOURCE].iterrows():
+            value = lookup[(row["Factor_Type"], row["Job_Type"], row["Year"])] * ratios[(row["Factor_Type"], row["Job_Type"])]
+            for column in ("Value", "Value_Numeric", "Projected_Value"):
+                yearly_output.loc[index, column] = value
+            yearly_output.loc[index, "Method_Applied"] = "Constant matched US relative ratio × current-year Colombia utility factor"
+    regional_sources = {}
+    if args.productivity_transfer == "selective":
+        yearly_output, regional_sources = apply_productivity_adjustments(yearly_output, policy, args.scenario)
+    defaults = dict(BASE_SOURCE_BY_TECHNOLOGY)
+    for technology, adjusted_source in regional_sources.items():
+        if defaults.get(technology) == adjusted_source.split(" [LATAM")[0]:
+            defaults[technology] = adjusted_source
+    if solar_available:
+        defaults["Rooftop solar PV"] = ROOFTOP_SOURCE
+    else:
+        yearly_output = retain_published_rooftop(yearly_output, baseline)
+        defaults["Rooftop solar PV"] = LEGACY_ROOFTOP_SOURCE
+    validate_factors(yearly_output)
+    model_output = build_default_model_employment_factors(yearly_output, defaults)
+    validate_factors(model_output, model=True)
+    if set(defaults) != set(model_output["Technology"]):
+        raise ValueError("Missing default employment technology")
     technology_assumptions = build_technology_assumptions(TECHNOLOGY_CATALOGUE_SOURCE)
-
-    PROCESSED_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    output.to_csv(PROCESSED_OUTPUT, index=False, float_format="%.12g")
-    yearly_output.to_csv(YEARLY_OUTPUT, index=False, float_format="%.12g")
-    model_output.to_csv(MODEL_OUTPUT, index=False, float_format="%.12g")
-    technology_assumptions.to_csv(TECHNOLOGY_ASSUMPTIONS_OUTPUT, index=False, float_format="%.12g")
-
-    PACKAGE_DATA_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(PROCESSED_OUTPUT, PACKAGE_DATA_OUTPUT)
-    shutil.copyfile(YEARLY_OUTPUT, PACKAGE_YEARLY_OUTPUT)
-    shutil.copyfile(MODEL_OUTPUT, PACKAGE_MODEL_OUTPUT)
-    shutil.copyfile(TECHNOLOGY_ASSUMPTIONS_OUTPUT, PACKAGE_TECHNOLOGY_ASSUMPTIONS_OUTPUT)
-
-    write_audit_workbook(output, yearly_output, model_output, technology_assumptions, AUDIT_OUTPUT)
-    print(
-        {
-            "csv": str(PROCESSED_OUTPUT),
-            "yearly_csv": str(YEARLY_OUTPUT),
-            "model_csv": str(MODEL_OUTPUT),
-            "technology_assumptions_csv": str(TECHNOLOGY_ASSUMPTIONS_OUTPUT),
-            "xlsx": str(AUDIT_OUTPUT),
-            "rows": len(output),
-            "yearly_rows": len(yearly_output),
-            "model_rows": len(model_output),
-            "technology_assumption_rows": len(technology_assumptions),
-            "technologies": output["Technology"].nunique(),
-            "model_technologies": model_output["Technology"].nunique(),
-        }
-    )
+    default_build = args.output_dir is None and args.scenario == "central" and args.solar_projection == "catalogue" and args.productivity_transfer == "selective"
+    destination = args.output_dir or (PROCESSED_OUTPUT.parent if default_build else ROOT / "data/processed/scenarios" / f"{args.scenario}-{args.solar_projection}-{args.productivity_transfer}")
+    destination.mkdir(parents=True, exist_ok=True)
+    tables = {PROCESSED_OUTPUT.name: output, YEARLY_OUTPUT.name: yearly_output,
+              MODEL_OUTPUT.name: model_output, TECHNOLOGY_ASSUMPTIONS_OUTPUT.name: technology_assumptions}
+    for name, table in tables.items():
+        table.to_csv(destination / name, index=False, float_format="%.12g", lineterminator="\n")
+        if default_build:
+            shutil.copyfile(destination / name, PACKAGE_DATA_OUTPUT.parent / name)
+    input_paths = sorted(set([*ROOT.glob("src/**/*.py"), *ROOT.glob("scripts/*.py"), policy_path,
+        RAW_INPUT, CAPEX_OPEX_RATIO_INPUT, TECHNOLOGY_CATALOGUE_SOURCE, baseline_path,
+        *[ROOT / p for p in policy["jedi_workbooks"].values() if (ROOT / p).exists()]]))
+    input_hashes = {p.relative_to(ROOT).as_posix(): sha256(p) for p in input_paths}
+    revision = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+    provenance = {"schema_version": 1, "source_repository": "https://github.com/DEA-GE/colombia-employment-factors",
+        "source_revision": revision, "source_tree_dirty": bool(subprocess.check_output(["git", "status", "--porcelain"], cwd=ROOT)),
+        "input_sha256": input_hashes, "source_content_sha256": hashlib.sha256(json.dumps(input_hashes, sort_keys=True).encode()).hexdigest(),
+        "output_sha256": {name: sha256(destination / name) for name in tables},
+        "scenario": args.scenario, "productivity_ratio": policy["productivity_ratios"][args.scenario] if args.productivity_transfer == "selective" else 1.0,
+        "employment_multiplier": 1 / policy["productivity_ratios"][args.scenario] if args.productivity_transfer == "selective" else 1.0,
+        "productivity_transfer": args.productivity_transfer,
+        "solar_projection": args.solar_projection, "solar_transfer_status": "matched ratios" if solar_available else "pending utility run; published rooftop retained",
+        "solar_transfer_ready": solar_available, "solar_ratios": solar_ratios, "jedi_sources": source_manifest}
+    manifest_path = destination / "employment_factor_provenance.json"
+    manifest_path.write_text(json.dumps(provenance, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    if default_build:
+        shutil.copyfile(manifest_path, PACKAGE_DATA_OUTPUT.parent / manifest_path.name)
+    audit_path = AUDIT_OUTPUT if default_build else destination / AUDIT_OUTPUT.name
+    write_audit_workbook(output, yearly_output, model_output, technology_assumptions, audit_path, defaults, policy, solar_ratios)
+    print(json.dumps({"destination": str(destination), "model_rows": len(model_output),
+                      "solar_transfer_status": provenance["solar_transfer_status"], "scenario": args.scenario}))
 
 
 if __name__ == "__main__":

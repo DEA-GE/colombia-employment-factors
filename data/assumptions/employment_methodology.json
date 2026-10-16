@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "reference_year": 2024,
+  "productivity_ratios": {"low": 0.33, "central": 0.32, "high": 0.30},
+  "productivity_status": "Approximate modelling assumption; exact observations, weights and agricultural adjustment have not been reproduced. Scenarios are screening assumptions, not confidence limits.",
+  "productivity_measure": "LATAM/OECD non-agricultural GDP per person employed; LAC excluding high-income economies is the proposed regional proxy, not a Colombia estimate. OECD per-hour comparisons are only plausibility checks.",
+  "productivity_time_convention": "Apply the fixed ratio once to eligible yearly factors for 2024-2055; no additional calendar-year GDP growth or manufacturing multiplier.",
+  "jedi_workbooks": {
+    "i_jedi": "data/raw/01d-jedi-international-090324.xlsm",
+    "us_residential": "data/raw/jedi-pv-model.xlsm",
+    "us_utility": "data/raw/jedi-pv-model-utility-1mw.xlsm"
+  },
+  "missing_utility_policy": "retain_published_baseline",
+  "published_baseline": "data/audit/baseline_model_default_23b7f592.csv",
+  "published_baseline_sha256": "521506df050ce7ac7c59ac1c0e5bffc4805018c6266c254b607c3a8bc647ab1b",
+  "solar_projection": "catalogue",
+  "solar_boundary_assumption": "Transfer six matched US residential/utility ratios by phase and category to I-JEDI Colombia utility anchors. US on-site Direct and I-JEDI expenditure-based Direct are approximate counterparts. Preserve combined construction/manufacturing; no invented split. Residential portfolio is not commercial/industrial rooftop.",
+  "capacity_basis_assumption": "The dimensionless US ratio is transferred to the I-JEDI anchor capacity basis without an additional DC/AC multiplier; retain source capacity labels and flag this transfer assumption.",
+  "exclusions": [
+    "I-JEDI Colombia and rooftop factors derived from it",
+    "Already-LATAM employment factors, including nuclear and large-hydro O&M",
+    "Bioenergy under the approved scope",
+    "Global manufacturing totals and mixed construction/manufacturing totals lacking a supported split",
+    "Indirect and induced impacts; nuclear O&M; fuel and transmission factors",
+    "Unverified provenance: leave unadjusted and flag for review"
+  ],
+  "productivity_eligibility": [
+    {"source":"Rutovitz 2015","technology":"Coal power","phase":"Construction","evidence":"Table 1, printed p.5: OECD 11.2. Corrects contradictory curated regional note; fuel is a separate regional input."},
+    {"source":"Rutovitz 2015","technology":"Coal power","phase":"O&M","evidence":"Table 1, printed p.5: OECD 0.14; not the regional coal-fuel factor."},
+    {"source":"Rutovitz 2015","technology":"Gas CCGT/OCGT","phase":"Construction","evidence":"Table 1, printed p.5; notes p.6: OECD installation factor."},
+    {"source":"Rutovitz 2015","technology":"Gas CCGT/OCGT","phase":"O&M","evidence":"Table 1, printed p.5; notes p.6: OECD O&M factor."},
+    {"source":"Rutovitz 2015","technology":"Oil and diesel","phase":"Construction","evidence":"Table 1, printed p.5: use gas factors; OECD proxy."},
+    {"source":"Rutovitz 2015","technology":"Oil and diesel","phase":"O&M","evidence":"Table 1, printed p.5: use gas factors; OECD proxy."},
+    {"source":"Rutovitz 2015","technology":"Hydro (large)","phase":"Construction","evidence":"Table 1, printed p.5: OECD 7.4. O&M 0.6 is LATAM Table 2 p.8 and is deliberately excluded."},
+    {"source":"Rutovitz 2015","technology":"Hydro (small)","phase":"Construction","evidence":"Table 1, printed p.5: OECD 15.8; notes p.6."},
+    {"source":"Rutovitz 2015","technology":"Hydro (small)","phase":"O&M","evidence":"Table 1, printed p.5: OECD 4.9; notes p.6."},
+    {"source":"Rutovitz 2015","technology":"Solar thermal (CSP)","phase":"Construction","evidence":"Table 1, printed p.5: OECD construction factor; non-bioenergy proxy assumption."},
+    {"source":"Rutovitz 2015","technology":"Solar thermal (CSP)","phase":"O&M","evidence":"Table 1, printed p.5: OECD O&M factor; non-bioenergy proxy assumption."},
+    {"source":"Rutovitz 2015","technology":"Ocean","phase":"Construction","evidence":"Table 1, printed p.5: OECD construction factor; non-bioenergy proxy assumption."},
+    {"source":"Rutovitz 2015","technology":"Ocean","phase":"O&M","evidence":"Table 1, printed p.5: OECD O&M factor; non-bioenergy proxy assumption."},
+    {"source":"Rutovitz 2025","technology":"Battery storage (grid)","phase":"Construction","evidence":"Australian construction factor in curated source; Australia treated as an OECD proxy, not an OECD average."},
+    {"source":"Rutovitz 2025","technology":"Battery storage (grid)","phase":"O&M","evidence":"Australian O&M factor in curated source; Australia treated as an OECD proxy, not an OECD average."},
+    {"source":"Rutovitz 2025","technology":"Battery storage (distributed)","phase":"Construction","evidence":"Australian construction factor in curated source; global manufacturing is not scaled."},
+    {"source":"Rutovitz 2025","technology":"Battery storage (distributed)","phase":"O&M","evidence":"Australian O&M factor in curated source; regional productivity transfer remains an assumption."},
+    {"source":"Rutovitz 2025","technology":"Pumped hydro storage","phase":"Construction","evidence":"Australian construction factor in curated source; global manufacturing is not scaled."},
+    {"source":"Rutovitz 2025","technology":"Pumped hydro storage","phase":"O&M","evidence":"Australian O&M factor in curated source; regional productivity transfer remains an assumption."},
+    {"source":"French QBIS 2023","technology":"Offshore wind (fixed)","phase":"O&M","evidence":"Direct operational labour, report Table 2.1, lifetime FTE annualised once; France is an OECD proxy. Mixed construction/manufacturing is excluded."},
+    {"source":"French QBIS 2023","technology":"Offshore wind (floating)","phase":"O&M","evidence":"Direct operational labour, report Table 2.2, lifetime FTE annualised once; France is an OECD proxy. Mixed construction/manufacturing is excluded."}
+  ]
+}

@@ -32,8 +32,10 @@ def test_get_model_employment_factors_accepts_explicit_path(tmp_path):
 
 
 def test_default_source_mapping_is_importable():
-    assert DEFAULT_SOURCE_BY_TECHNOLOGY["Offshore wind (fixed)"] == "French QBIS 2023"
-    assert DEFAULT_SOURCE_BY_TECHNOLOGY["Rooftop solar PV"] == "JEDI-US"
+    model = get_model_employment_factors()
+    selected = model[["Technology", "Source"]].drop_duplicates()
+    assert DEFAULT_SOURCE_BY_TECHNOLOGY == dict(zip(selected.Technology, selected.Source))
+    assert DEFAULT_SOURCE_BY_TECHNOLOGY["Nuclear"] == "Rutovitz 2015"
 
 
 def test_get_technology_assumptions_accepts_explicit_path(tmp_path):

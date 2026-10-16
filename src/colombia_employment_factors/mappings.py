@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+import csv
+from pathlib import Path
+
 RUTOVITZ_DECLINE_FACTORS = {
     "Coal power": ("Coal", 0.0),
     "Gas CCGT/OCGT": ("Gas", 0.05),
@@ -163,7 +166,7 @@ CAPEX_OPEX_TECH_MAPPINGS = {
     ),
 }
 
-DEFAULT_SOURCE_BY_TECHNOLOGY = {
+BASE_SOURCE_BY_TECHNOLOGY = {
     "Battery storage (distributed)": "Rutovitz 2025",
     "Battery storage (grid)": "Rutovitz 2025",
     "Biomass power": "I-JEDI",
@@ -186,6 +189,27 @@ DEFAULT_SOURCE_BY_TECHNOLOGY = {
     "Transmission (single circuit)": "JEDI-US",
     "Utility-scale solar PV": "I-JEDI",
 }
+
+def _packaged_default_sources() -> dict[str, str]:
+    """Keep the public default selector aligned with the actual packaged table.
+
+    Builders use BASE_SOURCE_BY_TECHNOLOGY before applying the explicit policy;
+    readers use the resolved, published source labels, including pending status.
+    """
+    path = Path(__file__).with_name("data") / "employment_factors_model_default_2024_2055.csv"
+    if not path.exists():  # bootstrap before the first generated-data build
+        return dict(BASE_SOURCE_BY_TECHNOLOGY)
+    selected = {}
+    with path.open(encoding="utf-8", newline="") as handle:
+        for row in csv.DictReader(handle):
+            technology, source = row["Technology"], row["Source"]
+            if technology in selected and selected[technology] != source:
+                raise ValueError(f"Multiple packaged default sources for {technology}")
+            selected[technology] = source
+    return selected
+
+
+DEFAULT_SOURCE_BY_TECHNOLOGY = _packaged_default_sources()
 
 DEFAULT_SOURCE_NOTES = {
     "Transmission (single circuit)": (

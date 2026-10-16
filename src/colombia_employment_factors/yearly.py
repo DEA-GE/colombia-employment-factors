@@ -66,6 +66,8 @@ def build_yearly_employment_factors(
     df["Year"] = df["Year"].astype(int)
 
     key_columns = ["Source", "Technology", "Factor_Type", "Job_Type", "Unit"]
+    if df.duplicated(key_columns + ["Year"]).any():
+        raise ValueError("Duplicate source/year factors cannot be interpolated safely")
     years = range(start_year, end_year + 1)
     yearly_groups = [
         _interpolate_group(group, years)
