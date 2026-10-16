@@ -1,0 +1,8 @@
+# Stable generated-data checksums on Windows and Linux.
+data/raw/*.csv text eol=lf
+data/raw/*.xlsm -text
+data/processed/**/*.csv text eol=lf
+src/colombia_employment_factors/data/*.csv text eol=lf
+src/colombia_employment_factors/data/*.json text eol=lf
+# Preserve the exact historical byte sequence used by the frozen-baseline hash.
+data/audit/baseline_model_default_23b7f592.csv -text
