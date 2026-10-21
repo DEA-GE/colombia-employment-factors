@@ -1,6 +1,11 @@
 # Productivity evidence and the retained study assumption
 
-The study retains a central ratio of **0.32**, inverse **3.125**, and low/central/high
+The package now defaults to **no additional productivity transfer**. The ratios
+below remain optional sensitivity assumptions, selected with
+`get_model_employment_factors(productivity_transfer=True)` for the central case.
+This audit documents the evidence for that optional transfer.
+
+The study retains an optional central ratio of **0.32**, inverse **3.125**, and low/central/high
 employment-intensity ratios **0.33/0.32/0.30**. These are explicit user-approved
 screening assumptions, not confidence limits or reproduced 2023 observations.
 The supplied chat establishes the intended rationale, but its numerical derivation

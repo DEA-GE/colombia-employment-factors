@@ -219,3 +219,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Optional values-only review exports.
+**/employment_factor_audit.xlsx
+~$*.xlsm

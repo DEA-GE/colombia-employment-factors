@@ -1,241 +1,16 @@
 # Colombia Employment Factors
 
-See [Auditable methodology updates](docs/METHODOLOGY_UPDATES.md) for the rooftop transfer from the supplied 1 MW residential and 100 MW utility US-JEDI runs, selective productivity policy, and reproducible regeneration commands. The [productivity evidence audit](docs/PRODUCTIVITY_EVIDENCE.md) distinguishes the retained 0.32 modelling assumption from reproduced source comparisons.
+Model-agnostic employment factors and technology assumptions for Colombia's power
+sector, with annual factors through 2055. The package supports ex-post analysis;
+model-specific mappings and capacity conversions belong in downstream workflows.
 
-The [solar PV update](docs/SOLAR_PV_UPDATE.md) lists the six transferred factors, changes from the previous defaults, and guidance for model consumers.
+## Install and use
 
-Model-agnostic employment factors and CAPEX/OPEX ratio methodology for Colombia's
-power sector.
-
-This repository packages employment-factor data and projection methods so they
-can be reused by capacity-expansion models such as OSeMOSYS, TIMES-MARKAL, LEAP,
-or other energy-system tools. The main use case is ex-post jobs analysis:
-capacity results from an energy model are multiplied by technology-specific
-employment factors by year, factor type, and job type.
-
-## Purpose
-
-The repository keeps labour-impact assumptions outside the core optimization
-model. This makes the employment methodology versioned, auditable, and reusable
-without coupling it to one OSeMOSYS implementation or one model-data workflow.
-
-The package supports:
-
-- reading curated employment-factor tables;
-- applying Rutovitz Table 9 and CAPEX/OPEX ratio multipliers to eligible
-  employment factors;
-- documenting mappings between employment-factor technologies, Rutovitz Table 9
-  decline factors, and the Colombian Technology Catalogue;
-- providing adapters for model-specific result formats such as OSeMOSYS.
-
-## Installation
-
-For local development:
-
-```bash
-pip install -e .
+```sh
+pip install .
+# Maintainer environment (no separate requirements.txt):
+pip install -e ".[build,dev]"
 ```
-
-For use from another repository, such as `Osemosys_UPME`, install directly from
-GitHub once the repository is published:
-
-```bash
-pip install git+https://github.com/<org>/colombia-employment-factors.git
-```
-
-The runtime dependencies are also listed in `requirements.txt`.
-
-## Basic Usage
-
-```python
-from colombia_employment_factors import get_employment_factors, get_model_employment_factors
-
-factors = get_employment_factors()
-solar_2030 = factors[
-    (factors["Technology"] == "Solar PV")
-    & (factors["Year"] == 2030)
-]
-
-model_factors = get_model_employment_factors()
-```
-
-Technology lifetime and construction-time assumptions can be retrieved with the
-same package API:
-
-```python
-from colombia_employment_factors import get_technology_assumption
-
-assumption = get_technology_assumption("Onshore wind")
-construction_time_years = assumption["construction_time_years"]
-lifetime_years = assumption["lifetime_years"]
-```
-
-For OSeMOSYS-style post-processing:
-
-```python
-from colombia_employment_factors import get_employment_factors
-from colombia_employment_factors.adapters.osemosys import calculate_capacity_jobs
-
-factors = get_employment_factors()
-jobs = calculate_capacity_jobs(osemosys_capacity_results, factors)
-```
-
-## Method Summary
-
-For Rutovitz 2015 construction, manufacturing, and O&M rows, the package applies
-the Latin America 2030 decline factors from Rutovitz Table 9, excluding fuel rows
-and treating dashes in Table 9 as a 0% decline factor. The applied formula is:
-
-```text
-EF_2030 = EF_2015 * (1 - decline_factor_2030)
-```
-
-The audit workbook mirrors this in `Mappings_Rutovitz` and uses formulas in
-`Employment_Outputs` for the corresponding Rutovitz 2015 rows projected to 2030.
-Coal and nuclear use a 1.00 multiplier because Table 9 has a dash for the Latin
-America decline factor.
-
-For non-Rutovitz-2015 rows with a 2024 base year, the package applies CAPEX/OPEX
-transition ratios from `data/audit/capex_opex_ratios_2024_2030_2050.csv`.
-Construction, manufacturing, and combined construction-and-manufacturing factors
-use CAPEX ratios; O&M factors use OPEX ratios. Corrected QBIS offshore wind rows
-use a 2022 base year; for simplicity, the same Technology Catalogue
-`2030/2024` ratio is applied to these 2022 base values. The projection is
-sequential:
-
-```text
-EF_2030 = EF_base * ratio_2030_2024
-EF_2050 = EF_2030 * ratio_2050_2030
-```
-
-For Rutovitz 2015 rows already projected to 2030, the package applies the same
-CAPEX/OPEX `2050/2030` transition from the 2030 value:
-
-```text
-EF_2050 = EF_2030 * ratio_2050_2030
-```
-
-Technologies without a matching catalogue ratio row, such as transmission,
-solar thermal (CSP), and ocean, are projected as constant values. Offshore wind
-(floating) has no `2030/2024` ratio in the catalogue table, so its 2030 value is
-held constant from the available base year and its 2050 value uses the available
-`2050/2030` ratio.
-
-After sparse projection and before yearly interpolation, the pipeline derives
-`Construction&Manufacturing` rows for Rutovitz sources that report construction
-and manufacturing separately:
-
-```text
-Rutovitz 2015: Construction&Manufacturing = Construction + local_share * Manufacturing
-Rutovitz 2015 renewables: Construction&Manufacturing = Construction + 0.5 * Manufacturing
-Rutovitz 2025: Construction&Manufacturing = Construction + Manufacturing
-```
-
-For Rutovitz 2015, the local manufacturing share follows Table 17 of the 2015
-methodology report. Fossil fuel, biomass, hydro, and nuclear technologies use a
-100% manufacturing share because the report assumes manufacturing occurs within
-the region for those technologies. Renewable technologies covered by Table 17
-use a 0.5 local manufacturing factor, equivalent to a 50% local manufacturing
-share and corresponding to the Latin America 2010 entry. This `0.5` factor is
-applied to geothermal, ocean, offshore wind, onshore wind, rooftop solar PV,
-solar thermal (CSP), and utility-scale solar PV when present in the Rutovitz
-2015 source.
-
-For Rutovitz 2025, the curated manufacturing values are the report's total
-manufacturing factors, so the combined value sums construction and manufacturing
-without applying a local manufacturing share. Local/onshore manufacturing shares
-could be derived from Rutovitz 2025 Table 3 by dividing the Australian/onshore
-manufacturing value by the total manufacturing value; Table 4 provides a more
-detailed comparison of current factors and previous sources.
-
-The audit file
-`data/audit/capex_opex_ratios_2024_2030_2050.csv` records the CAPEX and fixed
-O&M values extracted from `docs/sources/datos_cuantitativos_EN.xlsx` for each
-technology sheet, excluding `Guide&Cover` and `Index`. It includes the selected
-source row labels and row numbers, a normalized technology name without sheet
-numbering, the 2024, 2030, and 2050 values, and the transition ratios
-`2030/2024` and `2050/2030`. This table is the catalogue-ratio input used for
-the 2030 and 2050 employment-factor projection method.
-
-### QBIS offshore wind factors
-
-QBIS 2020 and QBIS 2023 offshore wind factors are treated as direct jobs only.
-QBIS 2020 reports direct FTE in Table 5 and calculates indirect and induced
-effects separately in Tables 6-7. QBIS 2023 reports the fixed and floating model
-configuration as direct labour input in Figures 2.3-2.4 and Tables 2.1-2.2,
-then adds indirect FTE separately in Chapter 3 using an input-output model.
-
-For construction and manufacturing, QBIS FTE/GW values are cumulative labour
-input over project phases and are therefore comparable to job-years/MW. The
-curated factors exclude decommissioning and O&M:
-
-- QBIS 2020 fixed-bottom generic offshore wind:
-  `(574 + 2655 + 2820 + 781) / 1000 = 6.83 job-yr/MW`.
-- QBIS 2023 fixed-bottom offshore wind:
-  `(131 + 2666 + 2608 + 996) / 1000 = 6.401 job-yr/MW`.
-- QBIS 2023 floating offshore wind:
-  `(208 + 4210 + 8348 + 1702) / 1000 = 14.468 job-yr/MW`.
-
-QBIS O&M values are reported as lifetime FTE/GW over 25 years, so they are
-annualized to job/MW before use:
-
-- QBIS 2020: `1907 / 1000 / 25 = 0.0763 job/MW`.
-- QBIS 2023 fixed-bottom: `2640 / 1000 / 25 = 0.1056 job/MW`.
-- QBIS 2023 floating: `6041 / 1000 / 25 = 0.2416 job/MW`.
-
-### Yearly 2024-2055 tables
-
-The sparse original/projection table is expanded to a yearly all-source table at
-`data/processed/employment_factors_yearly_2024_2055.csv`. It includes eligible
-FTE factor types only: construction, manufacturing, combined
-construction-and-manufacturing, and O&M. Fuel rows are excluded from the yearly
-FTE table.
-
-For each source, technology, factor type, job type, and unit, missing years are
-filled by linear interpolation between known datapoints:
-
-- Rutovitz 2015 rows use the 2015 source value and the 2030 projected value to
-  interpolate 2024-2029.
-- Other projected rows interpolate from their available base year, usually 2024
-  and for corrected QBIS rows 2022, to 2030.
-- Rows interpolate from 2030 to 2050 using the projected 2050 value.
-- Values from 2051 through 2055 are held constant at the 2050 value because the
-  Technology Catalogue ratio table ends in 2050.
-
-The model-ready table at
-`data/processed/employment_factors_model_default_2024_2055.csv` filters the
-yearly all-source table to one default source per technology. This is the table
-intended for direct retrieval by model workflows such as OSeMOSYS post-processing.
-
-### Technology lifetime and construction-time assumptions
-
-The package includes
-`data/processed/technology_assumptions_2024.csv`, also packaged at
-`src/colombia_employment_factors/data/technology_assumptions_2024.csv`, so other
-Python libraries can retrieve lifetime and construction-time assumptions by the
-same technology names used in the employment-factor tables.
-
-The table is generated from `docs/sources/datos_cuantitativos_EN.xlsx`. For each
-technology, the default rule is to use the 2024 `Technical lifetime (years)` and
-`Construction time (years)` values from the mapped Colombian Technology
-Catalogue sheet. The table records the source sheet, row numbers, and source
-year for each metric.
-
-Documented exceptions:
-
-- `Offshore wind (floating)` has no 2024 catalogue lifetime or construction
-  time. The table uses the 2030 catalogue values, including the requested 2030
-  construction time of 2.5 years.
-- `Ocean` and `Solar thermal (CSP)` have no matching catalogue sheet. Their
-  construction times use Rutovitz 2015 Table 1: 2 years for ocean and 2 years
-  for solar thermal. Their lifetimes are left blank because Table 1 does not
-  provide technical lifetime assumptions.
-- Transmission technologies have no matching Colombian Technology Catalogue row
-  and no construction-time row in Rutovitz 2015 Table 1. Their lifetime and
-  construction-time values are therefore left blank and flagged in the `notes`
-  column.
-
-Example retrieval from another Python package:
 
 ```python
 from colombia_employment_factors import (
@@ -243,85 +18,160 @@ from colombia_employment_factors import (
     get_technology_assumption,
 )
 
-technology = "Utility-scale solar PV"
 factors = get_model_employment_factors()
-assumption = get_technology_assumption(technology)
-
-cm_2024 = factors[
-    (factors["Technology"] == technology)
+# Optional sensitivity: selective LATAM productivity transfer (1 / 0.32).
+latam_factors = get_model_employment_factors(productivity_transfer=True)
+solar = factors[
+    (factors["Technology"] == "Utility-scale solar PV")
+    & (factors["Year"] == 2030)
     & (factors["Factor_Type"] == "Construction&Manufacturing")
-    & (factors["Year"] == 2024)
-].copy()
-
-cm_2024["annualized_fte_per_mw"] = (
-    cm_2024["Value_Numeric"] / assumption["construction_time_years"]
-)
+    & (factors["Job_Type"] == "Direct")
+]
+assumption = get_technology_assumption("Utility-scale solar PV")
 ```
 
-Default source choices are defined in
-`colombia_employment_factors.mappings.DEFAULT_SOURCE_BY_TECHNOLOGY`:
+Productivity transfer is **off by default**. This changes the previous model
+default; pass `productivity_transfer=True` to select the optional 3.125 adjustment.
+Both tables are bundled with the installed package, so consumers need no checkout
+or rebuild. The default retains source-specific regional factors, solar transfers,
+and temporal projections; it omits the additional LATAM productivity multiplier.
 
-- QBIS 2023 for fixed and floating offshore wind.
-- Rutovitz 2025 for storage technologies and available transmission rows.
-- I-JEDI for direct, indirect, and induced renewable rows for biomass,
-  geothermal, onshore wind, and utility-scale solar PV.
-- Matched US-JEDI relative rooftop factors anchored to I-JEDI Colombia when available; otherwise the checksum-locked published rooftop baseline is explicitly retained.
-- Rutovitz 2015 for the remaining technologies.
+Both model tables use **Rutovitz 2025 direct rooftop ratios**: construction
+4.19/1.61 (about 2.602) and O&M 0.13/0.09 (about 1.444), applied to the Colombian
+I-JEDI utility anchors. The construction-only ratio is a documented proxy for
+the combined direct construction/manufacturing phase. Indirect and induced
+rooftop factors retain US-JEDI ratios. See the [methodology](docs/methodology.md#rooftop-transfer-rutovitz-direct-ratios-and-us-jedi-wider-impacts)
+for boundaries and numerical results. No total-manufacturing ratio option is provided.
 
-`Transmission (single circuit)` falls back to JEDI-US because the raw table does
-not include a Rutovitz 2025 factor for that specific technology.
+Public interfaces:
 
-## Repository Layout
+- `get_model_employment_factors(path=None, *, productivity_transfer=False)`:
+  annual selected defaults; `True` selects the optional LATAM-adjusted table.
+  An explicit `path` takes precedence and loads that CSV as-is, regardless of the flag.
+- `get_yearly_employment_factors(path=None)`: annual alternative sources and variants.
+- `get_employment_factors(path=None)`: sparse source observations and projections,
+  including fuel factors; this is not the annual model-default table.
+- `get_technology_assumptions(path=None)` and
+  `get_technology_assumption(technology, path=None)`.
+- `project_employment_factors(employment_factors, capex_opex_ratios=None)`.
+- `DEFAULT_SOURCE_BY_TECHNOLOGY`: resolved packaged source choices.
 
-```text
-src/colombia_employment_factors/   installable Python package
-scripts/                           maintainer scripts for rebuilding outputs
-data/raw/employment_factors_input.csv
-                                   curated source employment-factor inputs
-data/processed/                    generated model-ready employment factors
-                                   and technology assumptions
-data/audit/                        audit workbooks and derived ratio tables
-docs/sources/                      source PDFs and catalogue spreadsheets
-tests/                             unit tests for formulas and adapters
+`DEFAULT_SOURCE_BY_TECHNOLOGY` describes the unadjusted default. Use the returned
+table's `Source` column for the selected variant. The all-source yearly API still
+includes labelled adjusted alternatives; it is not the selected model-default table.
+
+The projection function alone does not run the complete methodology. Supply
+catalogue ratios explicitly when using it independently; omission retains its
+existing constant-ratio behavior.
+
+## Units and model integration
+
+Construction factors in `job-yr/MW` multiply **new capacity in MW** to give total
+job-years. O&M factors in `job/MW` multiply **operating capacity in MW** to give
+annual jobs. Construction-time assumptions support allocation of job-years over
+construction periods. Do not sum combined construction/manufacturing with its
+separate components or sum alternative source series.
+
+Transmission includes factors per km, mile, and million USD. Preserve these
+units and use matching activity data; they are not factors per MW. Direct,
+Indirect, and Induced remain separate categories.
+
+`colombia_employment_factors.adapters.osemosys.calculate_capacity_jobs` is a thin
+join/multiplication adapter. Select the appropriate factor type and job type,
+provide a technology mapping, and convert model activity units before calling it.
+It does not infer new versus operating capacity, convert units, or allocate jobs
+over construction years. OSeMOSYS PR #174's exact consumer contracts were not
+accessible during refactoring; the Python API and existing CSV columns remain.
+
+## Rebuild
+
+```sh
+python scripts/build_employment_factors.py --require-solar-ratios
 ```
 
-## References
+This offline command reads manual inputs, saved JEDI caches, catalogue row
+selections, and methodology policy; it writes the five canonical CSVs (including
+both model choices) and
+`employment_factor_provenance.json` directly to
+`src/colombia_employment_factors/data/`. It also regenerates the catalogue ratio
+audit CSV. Source workbooks are never recalculated or modified. The strict flag
+requires the matched utility PV run; without it the documented frozen rooftop
+fallback remains available.
 
-The current data workflow uses employment factors, technology mappings, and
-projection ratios derived from the following sources. Users should cite the
-original data sources alongside this repository when using the outputs in reports
-or model documentation.
+```sh
+# Isolated central export, including an optional three-sheet review workbook:
+python scripts/build_employment_factors.py --require-solar-ratios --output-dir output/review --audit-workbook
+# Scenario publication: model-default CSV and provenance only:
+python scripts/build_employment_factors.py --productivity-transfer selective --scenario low
+python scripts/build_employment_factors.py --productivity-transfer selective --scenario high
+python scripts/build_employment_factors.py --productivity-transfer selective
+# Former US-JEDI direct ratios, exported separately for comparison:
+python scripts/build_employment_factors.py --solar-ratio-method us-jedi --require-solar-ratios
+# Full tables for research or consumers of earlier scenario exports:
+python scripts/build_employment_factors.py --productivity-transfer selective --scenario low --all-tables --output-dir output/low-review
+```
 
-Danish Energy Agency, Ministry of Mines and Energy, Mining and Energy Planning
-Unit, & Emergente. (2025). *Colombian Technology Catalogue quantitative data*
-[Data workbook].
+The default build uses `--productivity-transfer none` and bundles the optional
+central adjusted table alongside the default. Explicit `selective` builds export
+to `data/processed/scenarios/<scenario>-catalogue-selective/` by default.
+The `source-refresh/` export is refreshed to match the current no-transfer
+model-default CSV; consumers can use the packaged default instead.
 
-Danish Energy Agency, Ministry of Mines and Energy, Mining and Energy Planning
-Unit, & Emergente. (2025). *Colombian Technology Catalogue for power generation
-and storage technologies 2025*.
+Scenario directories are isolated. `--all-tables` includes sparse, annual
+all-source, and assumption tables; `--audit-workbook` produces values-only
+`Model_Default_2024_2055`, `Technology_Assumptions`, and `Methods_Provenance`
+sheets. Change authoritative inputs and rebuild to change results. The workbook
+is not an independent calculation model. Use a fresh export directory when
+switching export options; the builder does not delete previous exports.
 
-National Laboratory of the Rockies. (n.d.). *International Jobs and Economic
-Development Impacts (I-JEDI) model*. Retrieved July 13, 2026, from
-https://www.nlr.gov/analysis/jedi/international
+`python scripts/audit_productivity.py` separately reproduces evidence from the
+frozen WDI snapshot. Only its explicit `--fetch` option accesses the network.
+Neither operation changes the adopted productivity policy.
 
-National Laboratory of the Rockies. (n.d.). *Jobs and Economic Development
-Impact (JEDI) models*. Retrieved July 13, 2026, from
-https://www.nlr.gov/analysis/jedi
+## Data contracts and ownership
 
-QBIS. (2020). *Socio-economic impact study of offshore wind: Final technical
-report*. Danish Shipping, Wind Denmark, and Danish Energy.
+| Location | Role |
+| --- | --- |
+| `data/raw/*.xlsm`, `docs/sources/` | Preserved source workbooks and publications |
+| `data/curated/employment_factors_input.csv` | Manual factors, original reported values, and source notes |
+| `data/curated/catalogue_rows.csv` | Approved catalogue cell selections; no copied cost values |
+| `data/assumptions/employment_methodology.json` | Productivity eligibility, scenarios, workbook settings, fallback policy |
+| `src/colombia_employment_factors/data/` | Sole central dataset publication and provenance |
+| `data/processed/scenarios/` | Selected annual scenario outputs and provenance |
+| `data/audit/` | Generated catalogue ratios, frozen baseline, WDI snapshot and evidence |
+| `docs/archive/` | Historical presentation and chart workbook, not current calculations |
 
-QBIS. (2023). *Employment impacts of 40 GW offshore wind in France by 2050:
-Technical report*. Ministry of Foreign Affairs of Denmark.
+The central files retain their existing names and schemas:
 
-Ramboll & Danish Energy Agency. (2023). *Job creation in a new industry:
-Learnings from Denmark's offshore wind journey*.
+| File | Coverage and purpose |
+| --- | --- |
+| `employment_factors_with_2030_2050.csv` | Historical 2015/2022/2024 observations and sparse 2030/2050 projections |
+| `employment_factors_yearly_2024_2055.csv` | Annual factors by source, technology, factor type, job type, and unit |
+| `employment_factors_model_default_2024_2055.csv` | Annual selected defaults for 21 technologies, without additional productivity transfer |
+| `employment_factors_model_latam_productivity_2024_2055.csv` | Optional selective LATAM productivity transfer, ratio 0.32 |
+| `technology_assumptions_2024.csv` | Lifetimes and construction times with individual source years and exceptions |
 
-Rutovitz, J., Dominish, E., & Downes, J. (2015). *Calculating global energy
-sector jobs: 2015 methodology update*. Institute for Sustainable Futures,
-University of Technology Sydney.
+Factor keys are `Source`, `Technology`, `Factor_Type`, `Job_Type`, `Unit`, and
+`Year`; the calculation value is `Value_Numeric`. Original sparse `Value` can
+retain a source-reported quantity before normalization (notably QBIS FTE/GW).
+Legacy columns remain for compatibility. Values after 2050 are held constant
+through 2055. Unknown lifetimes/construction times remain missing.
 
-Rutovitz, J., Langdon, R., Briggs, C., Mey, F., Dominish, E., & Nagrath, K.
-(2025). Updated employment factors and occupational shares for the energy
-transition. *Renewable and Sustainable Energy Reviews, 212*, 115339.
-https://doi.org/10.1016/j.rser.2025.115339
+**Path migration:** former central `data/processed/<filename>` files now live
+only in package `data/`; prefer the retrieval API or request an explicit export.
+The former `data/raw/employment_factors_input.csv` is now the manual-only curated
+CSV. The separate JEDI manifest is embedded as `jedi_sources` in provenance.
+Scenario source tables and workbooks can be regenerated with the options above.
+The old extraction and presentation-generation scripts have been retired.
+
+Provenance records input hashes, output checksums, Git revision/dirty state,
+resolved source choices, solar transfer evidence, and scenario settings. A
+scenario's input hashes identify the shared sources needed to regenerate its
+omitted intermediate tables. Git metadata may differ across builds; numeric
+CSV results must reproduce from the same input content.
+Central provenance describes the unadjusted default at the top level and the
+optional adjusted table under `optional_productivity_model`, with checksums for both.
+
+See [methodology and references](docs/methodology.md) for scientific assumptions,
+source-selection rules and exceptions, and [productivity evidence](docs/PRODUCTIVITY_EVIDENCE.md)
+for the distinction between the optional 0.32 assumption and empirical diagnostics.

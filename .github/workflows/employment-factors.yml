@@ -10,13 +10,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: pip install -e '.[dev]'
+      - run: pip install -e '.[build,dev]'
       - run: python -m pytest -q
-      - run: python scripts/extract_jedi_factors.py
       - run: python scripts/audit_productivity.py
       - run: python scripts/build_employment_factors.py --require-solar-ratios --output-dir /tmp/employment-rebuild
       - name: Verify reproducible CSV outputs
         run: |
-          for name in employment_factors_with_2030_2050.csv employment_factors_yearly_2024_2055.csv employment_factors_model_default_2024_2055.csv technology_assumptions_2024.csv; do
-            cmp "data/processed/$name" "/tmp/employment-rebuild/$name"
+          for name in employment_factors_with_2030_2050.csv employment_factors_yearly_2024_2055.csv employment_factors_model_default_2024_2055.csv employment_factors_model_latam_productivity_2024_2055.csv technology_assumptions_2024.csv; do
+            cmp "src/colombia_employment_factors/data/$name" "/tmp/employment-rebuild/$name"
           done
