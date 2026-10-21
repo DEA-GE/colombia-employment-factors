@@ -16,7 +16,8 @@ Use the project's configured Python interpreter with the existing dependencies:
 ```sh
 python scripts/extract_jedi_factors.py --write
 python scripts/extract_jedi_factors.py
-python scripts/build_employment_factors.py
+python scripts/audit_productivity.py
+python scripts/build_employment_factors.py --require-solar-ratios
 python -m pytest -q
 ```
 
@@ -30,14 +31,18 @@ gives 10.742973760097033 direct construction-period FTE-years/MW, representing
 displayed scaling error. US monetary values remain 2010 dollars; construction
 year is 2024. I-JEDI uses 2024 money and 1,000 MW, normalised once to per MW. The 2024 factor anchor is a modelling convention: changing the currency year does not make all underlying technical and economic coefficients 2024 observations.
 
-## Rooftop transfer and its current input gap
+## Rooftop transfer from the supplied saved runs
 
-Policy lives in `data/assumptions/employment_methodology.json`. It expects a
-separate saved utility run at `data/raw/jedi-pv-model-utility-1mw.xlsm` (a proposed
-input path, not a claim that the file exists). The current workbook preserves
-residential results only; screenshots are too rounded to set six final ratios.
+Policy lives in `data/assumptions/employment_methodology.json`. The authoritative
+US inputs are `data/raw/jedi-pv-model.xlsm` (200 five-kW residential systems,
+1 MW DC total, fixed mount) and `data/raw/jedi-pv-model_utility_scale.xlsm`
+(one 100-MW DC utility system, single-axis tracking). Both are release
+PV05.20.21, United States, construction year 2024 and dollar year 2010. Each
+saved result is divided once by its own total MW before forming the ratios.
+Approved capacities are explicit in policy; unexpected capacities or inconsistent
+saved input/summary totals fail validation. The utility run is now available.
 
-Once that input is present and validated, derive for each employment phase p
+Derive for each employment phase p
 (Construction&Manufacturing or O&M) and category b (Direct, Indirect, Induced):
 
 ```
@@ -46,18 +51,30 @@ CO_rooftop[p,b,2024] = R[p,b,2024] * I_JEDI_CO_utility[p,b,2024]
 ```
 
 The dimensions are FTE-years/MW for construction-period labour and annual
-FTE/MW for O&M. No extra division by 1,000 is applied to the saved 1 MW US run.
+FTE/MW for O&M. Divide residential totals by 1 MW and utility totals by 100 MW;
+the kW-to-MW conversion applies to capacity, not again to the employment factor.
 The ratio transfer adopts the I-JEDI anchor capacity basis without an extra
 DC/AC multiplier; this is a documented assumption, not a verified equivalence
 of technology-specific inverter loading ratios. Residential portfolios do not
 establish commercial/industrial rooftop factors.
 
-In the meantime the exact published rooftop series is retained from
-`data/audit/baseline_model_default_23b7f592.csv`, whose bytes are checksum-locked.
-Its Source label and generated provenance explicitly say the utility run is
-pending. Fresh absolute US factors remain available as source series but are
-not silently substituted for the frozen model default. Use
-`--require-solar-ratios` to prohibit this fallback in a release check.
+The rebuilt model default selects the transferred Colombian rooftop series.
+The checksum-locked `data/audit/baseline_model_default_23b7f592.csv` remains as
+rollback evidence and a documented fallback if the utility input is absent.
+Use `--require-solar-ratios` to prohibit fallback in release checks; CI now does so.
+Absolute US factors remain available as source series.
+
+The shared 2010 dollar year is a user-approved convention for the relative
+comparison, not proof that all default costs are in 2010 prices. The workbooks
+record 2019 in `Multipliers!D2`; `Deflators!F7` depends on the dollar selector,
+and `Deflators!C45` documents projected inflation for 2021-2040. Changing only
+the construction-year label does not establish contemporary labour productivity.
+Both saved files have `ProjectData!B26=N` (view/edit project costs); their saved
+results are authoritative, but we do not claim every detailed cost is an untouched
+default. The audit records base-cost formulas, monetary convention, deflator,
+settings and file hashes. No native workbook is changed or recalculated.
+A 2024-dollar ratio sensitivity has not been run; it requires two separately
+recalculated copies and cannot be inferred by editing cached values.
 
 Keep simple source categories: US on-site labour/services -> Direct; supply
 chain -> Indirect; induced -> Induced. I-JEDI Direct reflects expenditures
@@ -70,10 +87,13 @@ one-year labour equivalents, not peak headcount or recurring annual jobs.
 
 ## Productivity policy
 
-The selected LATAM/OECD non-agricultural productivity ratio 0.32 is an approximate
-modelling assumption from the supplied project discussion. The complete input
-observations, regional membership, weights and agricultural adjustment have not
-been reproduced. Compute its inverse as 3.125; display approximately 3.1.
+The selected LATAM/OECD non-agricultural productivity ratio 0.32 is a
+user-approved high-level modelling assumption. The source audit in
+`docs/PRODUCTIVITY_EVIDENCE.md` verifies Rutovitz's published-table arithmetic
+and the OECD per-hour comparison, but does not reproduce 0.32. Archived 2023 WDI
+aggregates yield 0.369767 for the whole economy and an approximate non-agricultural
+ratio of 0.384924. These are diagnostics, not adopted replacements. Compute the
+adopted inverse as 3.125; display approximately 3.1.
 World Bank SL.GDP.PCAP.EM.KD is GDP per person employed in constant 2021 PPP
 dollars. OECD productivity per hour is a plausibility check, not the same series.
 LAC excluding high-income economies is a proxy for the intended LATAM region,

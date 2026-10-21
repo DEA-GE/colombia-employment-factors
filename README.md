@@ -1,6 +1,8 @@
 # Colombia Employment Factors
 
-See [Auditable methodology updates](docs/METHODOLOGY_UPDATES.md) for the approved rooftop transfer, selective productivity policy, current utility-input gap, and reproducible regeneration commands.
+See [Auditable methodology updates](docs/METHODOLOGY_UPDATES.md) for the rooftop transfer from the supplied 1 MW residential and 100 MW utility US-JEDI runs, selective productivity policy, and reproducible regeneration commands. The [productivity evidence audit](docs/PRODUCTIVITY_EVIDENCE.md) distinguishes the retained 0.32 modelling assumption from reproduced source comparisons.
+
+The [solar PV update](docs/SOLAR_PV_UPDATE.md) lists the six transferred factors, changes from the previous defaults, and guidance for model consumers.
 
 Model-agnostic employment factors and CAPEX/OPEX ratio methodology for Colombia's
 power sector.
