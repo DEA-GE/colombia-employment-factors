@@ -1,46 +1,119 @@
 {
   "schema_version": 1,
   "source_repository": "https://github.com/DEA-GE/colombia-employment-factors",
-  "source_revision": "e1dcd8328f197608c2b7dc3d5b9c29cd7d031324",
+  "source_revision": "f46e8b480f965e68bd4d5734e5e9ab708af593a7",
   "source_tree_dirty": true,
   "input_sha256": {
-    "data/assumptions/employment_methodology.json": "d3596aa77d6cf1f45cb0d29d4c0cad757341d41af12fec2c82e6568dcba212e0",
+    "data/assumptions/employment_methodology.json": "4c6cc4e48694c7bf86334894d2d8bf717b04798229f1d56ef2ce0a84d30bfe78",
     "data/audit/baseline_model_default_23b7f592.csv": "521506df050ce7ac7c59ac1c0e5bffc4805018c6266c254b607c3a8bc647ab1b",
     "data/audit/capex_opex_ratios_2024_2030_2050.csv": "ad59b84f728a9875c29cfad618abb91e538bd8293c1b6981b776d0c381eba1c9",
+    "data/audit/productivity_evidence.json": "e6963ba4378d28d58eb160612b86cf976ada4e318f9765cbb88e92c38bba360b",
+    "data/audit/productivity_wdi_2023.json": "7a5fddb5be20ed1188d0f03d05162a49c85394c69de8716ec18a3fa8ce87ddd7",
     "data/raw/01d-jedi-international-090324.xlsm": "cfacac952d9e28bf3c9a30e0d23ffc7dd113419bca0b1792d667255d5a6ea90b",
-    "data/raw/employment_factors_input.csv": "2ea06bc57a571b1c798c8c6cc59f405b16f15102662a906b68daabc3b48774c0",
+    "data/raw/employment_factors_input.csv": "314b3c718f2d19e9d3727816294980d326ffa1418e0aacd64b5cb180b1bfd034",
     "data/raw/jedi-pv-model.xlsm": "fd15be326cc4330bdcf12fc3c8a07f96beb221faf958d472da3ac5a34e4db433",
+    "data/raw/jedi-pv-model_utility_scale.xlsm": "79f0e228c81a36a51f445a6547c50b677de6ec8ad9b325548b2769dddde27ce7",
     "docs/sources/datos_cuantitativos_EN.xlsx": "226d0d6b5053dd103f8566f8bea9d8f783a879d53e931a9e6d0031e3f47b5306",
-    "scripts/build_employment_factors.py": "060bffdeb7fa0ae43dd72cbb4435f733a53a018888b04496194ba981f8d81e56",
-    "scripts/create_methodology_deck.py": "a73845c0b0f621bc17b8f7d2a6e3787805bddecc5277e4a51c6d3df892e8c328",
-    "scripts/extract_jedi_factors.py": "09bd7c6f3e9b1b64fbe618c4f2b07203e0f933575d4670fa02824ecb64f002df",
-    "src/colombia_employment_factors/__init__.py": "a299caf2f09ac65e2f6a8a6d0a2080d1360eda03c062f923908a66e0b92e7fe7",
-    "src/colombia_employment_factors/adapters/__init__.py": "0f61af7267a757cfcbc22e024638b1446344e2a5c123d3359c004051191df20f",
-    "src/colombia_employment_factors/adapters/osemosys.py": "68fa65c04fe76a339d749ee104eeed7d0d8cf3d3f9d4bcf78d10a57555a277f8",
-    "src/colombia_employment_factors/adjustments.py": "0f7cca6902fdf4a9b013bca9f3154bf5072c9a72b83540821696c9822b96c29b",
-    "src/colombia_employment_factors/data/__init__.py": "ea1eb65f070cf29dade6a24798e4f9280126fc26344617c28b648c8be624ba87",
-    "src/colombia_employment_factors/employment_factors.py": "a8d849540bf9bc239e45903e6cae96283130c9695ffec8ff1806942aec70f920",
-    "src/colombia_employment_factors/jedi.py": "ffeffcd7e07443e7478946dcf505df20b96ebc94398370ee72c50ea4e843bfe8",
-    "src/colombia_employment_factors/mappings.py": "53f889872487a6ce41678870b88b818e58c061f9a3a42f2bbb944c3969afd254",
-    "src/colombia_employment_factors/projections.py": "c7324ceba5ce779500b894a859af0fb7d61df0fe98dc47113c65197ff13195bf",
-    "src/colombia_employment_factors/technology_assumptions.py": "a62822a9b32b2d5d46b459ce5030601f9d5a8b2e762725daeb96e9a5defceb29",
-    "src/colombia_employment_factors/yearly.py": "0f0ac673376eeb530faeeacde3eaf8e59903b5ae3c12436d6455a196af1ba926"
+    "scripts/audit_productivity.py": "c18ebc0102c3b58572ce6b244a1c0a8152aeceb28806727b32a1001d791a3ae0",
+    "scripts/build_employment_factors.py": "646a54013756633a48f3f23298bcb30c3893b1d36c84926262f752f0106af5af",
+    "scripts/create_methodology_deck.py": "43bd3e2b793e1f86040f0c1f170a2fdf64ce307e30a31f8db490facfe5727046",
+    "scripts/extract_jedi_factors.py": "6b403ef98b28fc41d4d3a657e1297281bbb26ea86c10e9dc5dce3d0e661aaa6a",
+    "src/colombia_employment_factors/__init__.py": "f0531670881b8a323e062ee8462946f0984debd6c30e8e67071c376c6fd52ab3",
+    "src/colombia_employment_factors/adapters/__init__.py": "32085fcc116917ae68d6ec2bfb4e7cc84ea6a72dba2c564df409ad48c53aa7fd",
+    "src/colombia_employment_factors/adapters/osemosys.py": "fcbbc48fedab0bdfdad47103af5243c7d9d54eda7c911f1bb612e24ce1c4a948",
+    "src/colombia_employment_factors/adjustments.py": "00634efc178752ff846ecb4f42ed2f86e469399aebeccd62edc0f823a8503c09",
+    "src/colombia_employment_factors/data/__init__.py": "e243e86a8055865add2c5d80d09e9dcfdbd81d94ca5fa96acde9411755d0939f",
+    "src/colombia_employment_factors/employment_factors.py": "925f75e609a5a9399fd66493b7b9a6bd5ddb1fbd719a087e03434c3279971ac1",
+    "src/colombia_employment_factors/jedi.py": "d4fc5128ea1a71e67387cbc18f493f7f88288b4c52b8e0b323dfe9515a02e54e",
+    "src/colombia_employment_factors/mappings.py": "be12fb24563c446db7ed5b97704568c2fab0df81e1e0895b49058a581e1d1c0e",
+    "src/colombia_employment_factors/projections.py": "ee3a24fda79ab071a944cd92122e43bf4dda8df3d21e4a8b5a08f0704a4228a8",
+    "src/colombia_employment_factors/technology_assumptions.py": "0e14a83b8bb32d108d385b0e0f0eb479138c3d42f93e0858f944bb8473079766",
+    "src/colombia_employment_factors/yearly.py": "2109f574a42389a62bc041d1cc5a63dfae369afca2566b2d9b17db928f65cd3f"
   },
-  "source_content_sha256": "c131b1a06b8fffea5ceee6a343e0678a1fa3cdfb00a09e097340f1523d32a73b",
+  "source_content_sha256": "02a6013d44a44847dc0d8e82f44b16476b217e26c97dbe7864212e54d4208d80",
   "output_sha256": {
-    "employment_factors_with_2030_2050.csv": "e8c7ec070ec6d0371b321aeb131970111504bad7cacd93f8aaa89d4f2d2af1d1",
-    "employment_factors_yearly_2024_2055.csv": "487b5b71b2a555605ed9e564fa685aa0ca568aa34b303e1d4f5dafc7e9e88126",
-    "employment_factors_model_default_2024_2055.csv": "66e585173449609ab26d68e6aea3a15e98f1ff776f5ce6c59465796f3470bf48",
+    "employment_factors_with_2030_2050.csv": "84df439eeb54ba94b3d56be6222e739823f226e2cc94f89fbfe9a1205adc9d11",
+    "employment_factors_yearly_2024_2055.csv": "7e6e45616b8f41a033feb86114b15d2a3f83a3fd82608a3889785ae9e9ee20bf",
+    "employment_factors_model_default_2024_2055.csv": "2e8d27fa0be66d05e64d676b7ecb63eb0010b5c33fde861e4ba114e18bfb7525",
     "technology_assumptions_2024.csv": "a4250ff9214b911986e1841b05a580344887f4d52f8fed33fb3742ea9792dd05"
   },
   "scenario": "central",
   "productivity_ratio": 1.0,
   "employment_multiplier": 1.0,
   "productivity_transfer": "none",
+  "productivity_status": "User-approved high-level modelling assumption, not a reproduced 2023 non-agricultural estimate. Archived WDI diagnostic gives about 0.370 whole-economy and 0.385 after an approximate aggregate agriculture exclusion; OECD 0.33 is per hour with different membership and weighting. Retain 0.32 and existing screening scenarios; see docs/PRODUCTIVITY_EVIDENCE.md.",
+  "productivity_evidence": "data/audit/productivity_evidence.json",
   "solar_projection": "catalogue",
-  "solar_transfer_status": "pending utility run; published rooftop retained",
-  "solar_transfer_ready": false,
-  "solar_ratios": [],
+  "solar_transfer_status": "matched ratios",
+  "solar_transfer_ready": true,
+  "solar_ratios": [
+    {
+      "phase": "Construction&Manufacturing",
+      "category": "Direct",
+      "us_rooftop": 10.742973760097032,
+      "us_utility": 3.280896424460907,
+      "ratio": 3.274401983556137,
+      "colombia_utility_anchor": 9.969722439543649,
+      "colombia_rooftop": 32.644878931545854,
+      "unit": "job-yr/MW",
+      "year": 2024
+    },
+    {
+      "phase": "Construction&Manufacturing",
+      "category": "Indirect",
+      "us_rooftop": 13.884703727473902,
+      "us_utility": 2.4946135284701483,
+      "ratio": 5.565873658990722,
+      "colombia_utility_anchor": 6.363933800550597,
+      "colombia_rooftop": 35.42085150804528,
+      "unit": "job-yr/MW",
+      "year": 2024
+    },
+    {
+      "phase": "Construction&Manufacturing",
+      "category": "Induced",
+      "us_rooftop": 12.863980463979528,
+      "us_utility": 2.4436290555813014,
+      "ratio": 5.264293463280738,
+      "colombia_utility_anchor": 6.3661479443717,
+      "colombia_rooftop": 33.51327100983404,
+      "unit": "job-yr/MW",
+      "year": 2024
+    },
+    {
+      "phase": "O&M",
+      "category": "Direct",
+      "us_rooftop": 0.2959407171728926,
+      "us_utility": 0.1846343694382949,
+      "ratio": 1.6028473900781322,
+      "colombia_utility_anchor": 0.0964883540954474,
+      "colombia_rooftop": 0.1546561065348225,
+      "unit": "job/MW",
+      "year": 2024
+    },
+    {
+      "phase": "O&M",
+      "category": "Indirect",
+      "us_rooftop": 0.1357132328714756,
+      "us_utility": 0.0804148700428126,
+      "ratio": 1.6876633985632552,
+      "colombia_utility_anchor": 0.0663498414365252,
+      "colombia_rooftop": 0.11197619889289921,
+      "unit": "job/MW",
+      "year": 2024
+    },
+    {
+      "phase": "O&M",
+      "category": "Induced",
+      "us_rooftop": 0.1306084373040484,
+      "us_utility": 0.0792726830688355,
+      "ratio": 1.6475844168240916,
+      "colombia_utility_anchor": 0.0498206546549736,
+      "colombia_rooftop": 0.08208373424550915,
+      "unit": "job/MW",
+      "year": 2024
+    }
+  ],
   "jedi_sources": {
     "i_jedi": {
       "path": "data/raw/01d-jedi-international-090324.xlsm",
@@ -395,10 +468,24 @@
         "B18": 5,
         "B19": 200,
         "B20": 1000,
+        "B22": 2619.41159078718,
         "B24": 2010,
         "B26": "N"
       },
       "capacity_mw": 1.0,
+      "expected_capacity_mw": 1.0,
+      "capacity_basis": "MW DC; ProjectData!B18 (kW DC/system) * B19 (systems) / 1000",
+      "normalisation": "Saved total jobs divided once by actual total capacity_mw before forming ratios",
+      "monetary_evidence": {
+        "base_cost_per_kw_dc": 2619.41159078718,
+        "base_cost_formula": "=DefaultData!AJ62",
+        "dollar_year_cell": "ProjectData!B24",
+        "multiplier_reference_year": 2019,
+        "deflator_to_multiplier_year": 1.1713,
+        "deflator_formula": "=HLOOKUP($E$5,$D$11:$AK$53,$D$51)",
+        "deflator_note": "Updated November 2016.  Deflators for 2021-2040 assume average annual inflation rate derived from 2014-2020 GDP values.",
+        "interpretation": "Shared saved dollar-year convention for relative transfer; not verification of default cost vintage or 2024 labour productivity"
+      },
       "results": [
         {
           "phase": "Construction&Manufacturing",
@@ -457,8 +544,123 @@
       }
     },
     "us_utility": {
-      "path": "data/raw/jedi-pv-model-utility-1mw.xlsm",
-      "status": "missing; rounded screenshots are not authoritative inputs"
+      "path": "data/raw/jedi-pv-model_utility_scale.xlsm",
+      "sha256": "79f0e228c81a36a51f445a6547c50b677de6ec8ad9b325548b2769dddde27ce7",
+      "hidden_sheets": [
+        "Revision Notes",
+        "Household Exp",
+        "Multipliers"
+      ],
+      "named_ranges": [
+        "Detailed_Project_Data_Costs",
+        "Detailed_Wind_Plant_Project_Data_Costs",
+        "Location",
+        "Material",
+        "Other_Parameters",
+        "Print_Results",
+        "ProjectConstCostData",
+        "ProjectData",
+        "ProjectOandMData",
+        "Project_Cost_Data",
+        "Project_Data",
+        "Summary_Impacts",
+        "Summary_Results",
+        "SysApp",
+        "Tracking",
+        "Wind_Plant_Annual_OandM_Costs",
+        "Wind_Plant_Annual_Operating_and_Maintenance_Costs",
+        "YN",
+        "Year",
+        "Years"
+      ],
+      "external_links": [],
+      "contains_vba": true,
+      "calculation_id": 191028,
+      "cache_validation": "Saved caches only; input identities and capacity/result totals checked; not a full Excel recalculation",
+      "version": "Release Number: PV05.20.21",
+      "settings": {
+        "B12": "UNITED STATES",
+        "B14": 2024,
+        "B15": "Utility",
+        "B16": "Crystalline Silicon",
+        "B17": "Single Axis",
+        "B18": 100000,
+        "B19": 1,
+        "B20": 100000,
+        "B22": 1110,
+        "B24": 2010,
+        "B26": "N"
+      },
+      "capacity_mw": 100.0,
+      "expected_capacity_mw": 100.0,
+      "capacity_basis": "MW DC; ProjectData!B18 (kW DC/system) * B19 (systems) / 1000",
+      "normalisation": "Saved total jobs divided once by actual total capacity_mw before forming ratios",
+      "monetary_evidence": {
+        "base_cost_per_kw_dc": 1110,
+        "base_cost_formula": "=DefaultData!AJ62",
+        "dollar_year_cell": "ProjectData!B24",
+        "multiplier_reference_year": 2019,
+        "deflator_to_multiplier_year": 1.1713,
+        "deflator_formula": "=HLOOKUP($E$5,$D$11:$AK$53,$D$51)",
+        "deflator_note": "Updated November 2016.  Deflators for 2021-2040 assume average annual inflation rate derived from 2014-2020 GDP values.",
+        "interpretation": "Shared saved dollar-year convention for relative transfer; not verification of default cost vintage or 2024 labour productivity"
+      },
+      "results": [
+        {
+          "phase": "Construction&Manufacturing",
+          "category": "Direct",
+          "cell": "SummaryResults!B30",
+          "formula": "=Calculations!AH40",
+          "cached_jobs": 328.0896424460907,
+          "factor_per_mw": 3.280896424460907
+        },
+        {
+          "phase": "Construction&Manufacturing",
+          "category": "Indirect",
+          "cell": "SummaryResults!B38",
+          "formula": "=Calculations!AH48",
+          "cached_jobs": 249.46135284701484,
+          "factor_per_mw": 2.4946135284701483
+        },
+        {
+          "phase": "Construction&Manufacturing",
+          "category": "Induced",
+          "cell": "SummaryResults!B39",
+          "formula": "=Calculations!AH49",
+          "cached_jobs": 244.36290555813017,
+          "factor_per_mw": 2.443629055581302
+        },
+        {
+          "phase": "O&M",
+          "category": "Direct",
+          "cell": "SummaryResults!B46",
+          "formula": "=Calculations!AH54",
+          "cached_jobs": 18.463436943829493,
+          "factor_per_mw": 0.18463436943829492
+        },
+        {
+          "phase": "O&M",
+          "category": "Indirect",
+          "cell": "SummaryResults!B47",
+          "formula": "=Calculations!AH55",
+          "cached_jobs": 8.041487004281262,
+          "factor_per_mw": 0.08041487004281261
+        },
+        {
+          "phase": "O&M",
+          "category": "Induced",
+          "cell": "SummaryResults!B48",
+          "formula": "=Calculations!AH56",
+          "cached_jobs": 7.927268306883556,
+          "factor_per_mw": 0.07927268306883556
+        }
+      ],
+      "manufacturing_subtotal": 0.0,
+      "boundary_map": {
+        "on-site labour and services": "Direct",
+        "supply chain": "Indirect",
+        "induced": "Induced"
+      }
     }
   }
 }

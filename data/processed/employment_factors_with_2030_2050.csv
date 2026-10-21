@@ -318,30 +318,48 @@ Rutovitz 2025,Pumped hydro storage,O&M,Direct,job/MW,2050,0.07933333333333335,0.
 Rutovitz 2025,Rooftop solar PV,Construction,Direct,job-yr/MW,2024,4.19,4.19,Original,,,,,,2024,2024,4.19
 Rutovitz 2025,Rooftop solar PV,Construction,Direct,job-yr/MW,2030,2.8901567452567436,2.89015674526,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,CAPEX 2030/2024=0.6897748795362156,2024,2030,2.89015674526
 Rutovitz 2025,Rooftop solar PV,Construction,Direct,job-yr/MW,2050,1.940732294562883,1.94073229456,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,CAPEX 2050/2030=0.6714972458666703,2030,2050,1.94073229456
+I-JEDI Colombia + matched US-JEDI PV ratios,Rooftop solar PV,Construction&Manufacturing,Direct,job-yr/MW,2024,32.644878931545854,32.6448789315,Original,,,,,,2024,2024,32.6448789315
+I-JEDI Colombia + matched US-JEDI PV ratios,Rooftop solar PV,Construction&Manufacturing,Direct,job-yr/MW,2030,22.517617432481384,22.5176174325,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,CAPEX 2030/2024=0.6897748795362156,2024,2030,22.5176174325
+I-JEDI Colombia + matched US-JEDI PV ratios,Rooftop solar PV,Construction&Manufacturing,Direct,job-yr/MW,2050,15.120518089390572,15.1205180894,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,CAPEX 2050/2030=0.6714972458666703,2030,2050,15.1205180894
 JEDI-US,Rooftop solar PV,Construction&Manufacturing,Direct,job-yr/MW,2024,10.742973760097033,10.7429737601,Original,,,,,,2024,2024,10.7429737601
 JEDI-US,Rooftop solar PV,Construction&Manufacturing,Direct,job-yr/MW,2030,7.410233431231656,7.41023343123,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,CAPEX 2030/2024=0.6897748795362156,2024,2030,7.41023343123
 JEDI-US,Rooftop solar PV,Construction&Manufacturing,Direct,job-yr/MW,2050,4.975951340301182,4.9759513403,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,CAPEX 2050/2030=0.6714972458666703,2030,2050,4.9759513403
 Rutovitz 2025,Rooftop solar PV,Construction&Manufacturing,Direct,job-yr/MW,2024,7.050000000000001,7.05,Derived Construction&Manufacturing,,,,,Construction + Manufacturing; Rutovitz 2025 total manufacturing factor used without local-share scaling,2024,2024,7.05
 Rutovitz 2025,Rooftop solar PV,Construction&Manufacturing,Direct,job-yr/MW,2030,4.86291290073032,4.86291290073,Derived Construction&Manufacturing,,,Residential PV (rooftop),,Construction + Manufacturing; Rutovitz 2025 total manufacturing factor used without local-share scaling,2024,2030,4.86291290073
 Rutovitz 2025,Rooftop solar PV,Construction&Manufacturing,Direct,job-yr/MW,2050,3.2654326197299106,3.26543261973,Derived Construction&Manufacturing,,,Residential PV (rooftop),,Construction + Manufacturing; Rutovitz 2025 total manufacturing factor used without local-share scaling,2030,2050,3.26543261973
+I-JEDI Colombia + matched US-JEDI PV ratios,Rooftop solar PV,Construction&Manufacturing,Indirect,job-yr/MW,2024,35.42085150804528,35.420851508,Original,,,,,,2024,2024,35.420851508
+I-JEDI Colombia + matched US-JEDI PV ratios,Rooftop solar PV,Construction&Manufacturing,Indirect,job-yr/MW,2030,24.432413582032115,24.432413582,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,CAPEX 2030/2024=0.6897748795362156,2024,2030,24.432413582
+I-JEDI Colombia + matched US-JEDI PV ratios,Rooftop solar PV,Construction&Manufacturing,Indirect,job-yr/MW,2050,16.406298430209993,16.4062984302,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,CAPEX 2050/2030=0.6714972458666703,2030,2050,16.4062984302
 JEDI-US,Rooftop solar PV,Construction&Manufacturing,Indirect,job-yr/MW,2024,13.884703727473902,13.8847037275,Original,,,,,,2024,2024,13.8847037275
 JEDI-US,Rooftop solar PV,Construction&Manufacturing,Indirect,job-yr/MW,2030,9.577319841014354,9.57731984101,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,CAPEX 2030/2024=0.6897748795362156,2024,2030,9.57731984101
 JEDI-US,Rooftop solar PV,Construction&Manufacturing,Indirect,job-yr/MW,2050,6.431143896025355,6.43114389603,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,CAPEX 2050/2030=0.6714972458666703,2030,2050,6.43114389603
+I-JEDI Colombia + matched US-JEDI PV ratios,Rooftop solar PV,Construction&Manufacturing,Induced,job-yr/MW,2024,33.51327100983404,33.5132710098,Original,,,,,,2024,2024,33.5132710098
+I-JEDI Colombia + matched US-JEDI PV ratios,Rooftop solar PV,Construction&Manufacturing,Induced,job-yr/MW,2030,23.116612473672824,23.1166124737,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,CAPEX 2030/2024=0.6897748795362156,2024,2030,23.1166124737
+I-JEDI Colombia + matched US-JEDI PV ratios,Rooftop solar PV,Construction&Manufacturing,Induced,job-yr/MW,2050,15.522741609838416,15.5227416098,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,CAPEX 2050/2030=0.6714972458666703,2030,2050,15.5227416098
 JEDI-US,Rooftop solar PV,Construction&Manufacturing,Induced,job-yr/MW,2024,12.863980463979527,12.863980464,Original,,,,,,2024,2024,12.863980464
 JEDI-US,Rooftop solar PV,Construction&Manufacturing,Induced,job-yr/MW,2030,8.87325057489771,8.8732505749,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,CAPEX 2030/2024=0.6897748795362156,2024,2030,8.8732505749
 JEDI-US,Rooftop solar PV,Construction&Manufacturing,Induced,job-yr/MW,2050,5.958363322928661,5.95836332293,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,CAPEX 2050/2030=0.6714972458666703,2030,2050,5.95836332293
 Rutovitz 2025,Rooftop solar PV,Manufacturing,Direct,job-yr/MW,2024,2.86,2.86,Original,,,,,,2024,2024,2.86
 Rutovitz 2025,Rooftop solar PV,Manufacturing,Direct,job-yr/MW,2030,1.9727561554735766,1.97275615547,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,CAPEX 2030/2024=0.6897748795362156,2024,2030,1.97275615547
 Rutovitz 2025,Rooftop solar PV,Manufacturing,Direct,job-yr/MW,2050,1.3247003251670275,1.32470032517,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,CAPEX 2050/2030=0.6714972458666703,2030,2050,1.32470032517
+I-JEDI Colombia + matched US-JEDI PV ratios,Rooftop solar PV,O&M,Direct,job/MW,2024,0.1546561065348225,0.154656106535,Original,,,,,,2024,2024,0.154656106535
+I-JEDI Colombia + matched US-JEDI PV ratios,Rooftop solar PV,O&M,Direct,job/MW,2030,0.13282230325931815,0.132822303259,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,OPEX 2030/2024=0.8588235294117647,2024,2030,0.132822303259
+I-JEDI Colombia + matched US-JEDI PV ratios,Rooftop solar PV,O&M,Direct,job/MW,2050,0.11189824178695981,0.111898241787,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,OPEX 2050/2030=0.8424657534246576,2030,2050,0.111898241787
 JEDI-US,Rooftop solar PV,O&M,Direct,job/MW,2024,0.2959407171728926,0.295940717173,Original,,,,,,2024,2024,0.295940717173
 JEDI-US,Rooftop solar PV,O&M,Direct,job/MW,2030,0.25416085121907245,0.254160851219,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,OPEX 2030/2024=0.8588235294117647,2024,2030,0.254160851219
 JEDI-US,Rooftop solar PV,O&M,Direct,job/MW,2050,0.21412181301332817,0.214121813013,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,OPEX 2050/2030=0.8424657534246576,2030,2050,0.214121813013
 Rutovitz 2025,Rooftop solar PV,O&M,Direct,job/MW,2024,0.13,0.13,Original,,,,,,2024,2024,0.13
 Rutovitz 2025,Rooftop solar PV,O&M,Direct,job/MW,2030,0.1116470588235294,0.111647058824,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,OPEX 2030/2024=0.8588235294117647,2024,2030,0.111647058824
 Rutovitz 2025,Rooftop solar PV,O&M,Direct,job/MW,2050,0.09405882352941176,0.0940588235294,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,OPEX 2050/2030=0.8424657534246576,2030,2050,0.0940588235294
+I-JEDI Colombia + matched US-JEDI PV ratios,Rooftop solar PV,O&M,Indirect,job/MW,2024,0.11197619889289921,0.111976198893,Original,,,,,,2024,2024,0.111976198893
+I-JEDI Colombia + matched US-JEDI PV ratios,Rooftop solar PV,O&M,Indirect,job/MW,2030,0.09616779434331343,0.0961677943433,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,OPEX 2030/2024=0.8588235294117647,2024,2030,0.0961677943433
+I-JEDI Colombia + matched US-JEDI PV ratios,Rooftop solar PV,O&M,Indirect,job/MW,2050,0.08101807331662707,0.0810180733166,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,OPEX 2050/2030=0.8424657534246576,2030,2050,0.0810180733166
 JEDI-US,Rooftop solar PV,O&M,Indirect,job/MW,2024,0.1357132328714757,0.135713232871,Original,,,,,,2024,2024,0.135713232871
 JEDI-US,Rooftop solar PV,O&M,Indirect,job/MW,2030,0.1165537176425614,0.116553717643,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,OPEX 2030/2024=0.8588235294117647,2024,2030,0.116553717643
 JEDI-US,Rooftop solar PV,O&M,Indirect,job/MW,2050,0.09819251554818528,0.0981925155482,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,OPEX 2050/2030=0.8424657534246576,2030,2050,0.0981925155482
+I-JEDI Colombia + matched US-JEDI PV ratios,Rooftop solar PV,O&M,Induced,job/MW,2024,0.08208373424550915,0.0820837342455,Original,,,,,,2024,2024,0.0820837342455
+I-JEDI Colombia + matched US-JEDI PV ratios,Rooftop solar PV,O&M,Induced,job/MW,2030,0.0704954423520255,0.070495442352,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,OPEX 2030/2024=0.8588235294117647,2024,2030,0.070495442352
+I-JEDI Colombia + matched US-JEDI PV ratios,Rooftop solar PV,O&M,Induced,job/MW,2050,0.05938999595410367,0.0593899959541,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,OPEX 2050/2030=0.8424657534246576,2030,2050,0.0593899959541
 JEDI-US,Rooftop solar PV,O&M,Induced,job/MW,2024,0.13060843730404842,0.130608437304,Original,,,,,,2024,2024,0.130608437304
 JEDI-US,Rooftop solar PV,O&M,Induced,job/MW,2030,0.11216959909641802,0.112169599096,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,OPEX 2030/2024=0.8588235294117647,2024,2030,0.112169599096
 JEDI-US,Rooftop solar PV,O&M,Induced,job/MW,2050,0.09449904581410559,0.0944990458141,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,OPEX 2050/2030=0.8424657534246576,2030,2050,0.0944990458141
@@ -393,6 +411,9 @@ Rutovitz 2025,Utility-scale solar PV,Construction,Direct,job-yr/MW,2050,0.746593
 I-JEDI,Utility-scale solar PV,Construction&Manufacturing,Direct,job-yr/MW,2024,9.969722439543647,9.96972243954,Original,,,,,,2024,2024,9.96972243954
 I-JEDI,Utility-scale solar PV,Construction&Manufacturing,Direct,job-yr/MW,2030,6.880716992259675,6.88071699226,CAPEX/OPEX ratio projection,,,Utility scale PV(tracking),,CAPEX 2030/2024=0.6901613393937807,2024,2030,6.88071699226
 I-JEDI,Utility-scale solar PV,Construction&Manufacturing,Direct,job-yr/MW,2050,4.623184546100174,4.6231845461,CAPEX/OPEX ratio projection,,,Utility scale PV(tracking),,CAPEX 2050/2030=0.6719044761324922,2030,2050,4.6231845461
+JEDI-US,Utility-scale solar PV,Construction&Manufacturing,Direct,job-yr/MW,2024,3.280896424460907,3.28089642446,Original,,,,,,2024,2024,3.28089642446
+JEDI-US,Utility-scale solar PV,Construction&Manufacturing,Direct,job-yr/MW,2030,2.2643478707182054,2.26434787072,CAPEX/OPEX ratio projection,,,Utility scale PV(tracking),,CAPEX 2030/2024=0.6901613393937807,2024,2030,2.26434787072
+JEDI-US,Utility-scale solar PV,Construction&Manufacturing,Direct,job-yr/MW,2050,1.5214254698566398,1.52142546986,CAPEX/OPEX ratio projection,,,Utility scale PV(tracking),,CAPEX 2050/2030=0.6719044761324922,2030,2050,1.52142546986
 Rutovitz 2015,Utility-scale solar PV,Construction&Manufacturing,Direct,job-yr/MW,2015,16.35,16.35,Derived Construction&Manufacturing,,,,,Construction + Manufacturing * 0.5; renewable local manufacturing share from Rutovitz 2015 Table 17,2015,2015,16.35
 Rutovitz 2015,Utility-scale solar PV,Construction&Manufacturing,Direct,job-yr/MW,2030,9.646500000000001,9.6465,Derived Construction&Manufacturing,PV,0.5900000000000001,,,Construction + Manufacturing * 0.5; renewable local manufacturing share from Rutovitz 2015 Table 17,2015,2030,9.6465
 Rutovitz 2015,Utility-scale solar PV,Construction&Manufacturing,Direct,job-yr/MW,2050,6.481526529012086,6.48152652901,Derived Construction&Manufacturing,PV,,Utility scale PV(tracking),,Construction + Manufacturing * 0.5; renewable local manufacturing share from Rutovitz 2015 Table 17,2030,2050,6.48152652901
@@ -402,9 +423,15 @@ Rutovitz 2025,Utility-scale solar PV,Construction&Manufacturing,Direct,job-yr/MW
 I-JEDI,Utility-scale solar PV,Construction&Manufacturing,Indirect,job-yr/MW,2024,6.363933800550597,6.36393380055,Original,,,,,,2024,2024,6.36393380055
 I-JEDI,Utility-scale solar PV,Construction&Manufacturing,Indirect,job-yr/MW,2030,4.392141075601353,4.3921410756,CAPEX/OPEX ratio projection,,,Utility scale PV(tracking),,CAPEX 2030/2024=0.6901613393937807,2024,2030,4.3921410756
 I-JEDI,Utility-scale solar PV,Construction&Manufacturing,Indirect,job-yr/MW,2050,2.951099248501928,2.9510992485,CAPEX/OPEX ratio projection,,,Utility scale PV(tracking),,CAPEX 2050/2030=0.6719044761324922,2030,2050,2.9510992485
+JEDI-US,Utility-scale solar PV,Construction&Manufacturing,Indirect,job-yr/MW,2024,2.4946135284701483,2.49461352847,Original,,,,,,2024,2024,2.49461352847
+JEDI-US,Utility-scale solar PV,Construction&Manufacturing,Indirect,job-yr/MW,2030,1.7216858140788027,1.72168581408,CAPEX/OPEX ratio projection,,,Utility scale PV(tracking),,CAPEX 2030/2024=0.6901613393937807,2024,2030,1.72168581408
+JEDI-US,Utility-scale solar PV,Construction&Manufacturing,Indirect,job-yr/MW,2050,1.1568084049733611,1.15680840497,CAPEX/OPEX ratio projection,,,Utility scale PV(tracking),,CAPEX 2050/2030=0.6719044761324922,2030,2050,1.15680840497
 I-JEDI,Utility-scale solar PV,Construction&Manufacturing,Induced,job-yr/MW,2024,6.3661479443717,6.36614794437,Original,,,,,,2024,2024,6.36614794437
 I-JEDI,Utility-scale solar PV,Construction&Manufacturing,Induced,job-yr/MW,2030,4.393669192066536,4.39366919207,CAPEX/OPEX ratio projection,,,Utility scale PV(tracking),,CAPEX 2030/2024=0.6901613393937807,2024,2030,4.39366919207
 I-JEDI,Utility-scale solar PV,Construction&Manufacturing,Induced,job-yr/MW,2050,2.952125996794936,2.95212599679,CAPEX/OPEX ratio projection,,,Utility scale PV(tracking),,CAPEX 2050/2030=0.6719044761324922,2030,2050,2.95212599679
+JEDI-US,Utility-scale solar PV,Construction&Manufacturing,Induced,job-yr/MW,2024,2.443629055581302,2.44362905558,Original,,,,,,2024,2024,2.44362905558
+JEDI-US,Utility-scale solar PV,Construction&Manufacturing,Induced,job-yr/MW,2030,1.6864983019815503,1.68649830198,CAPEX/OPEX ratio projection,,,Utility scale PV(tracking),,CAPEX 2030/2024=0.6901613393937807,2024,2030,1.68649830198
+JEDI-US,Utility-scale solar PV,Construction&Manufacturing,Induced,job-yr/MW,2050,1.133165758091251,1.13316575809,CAPEX/OPEX ratio projection,,,Utility scale PV(tracking),,CAPEX 2050/2030=0.6719044761324922,2030,2050,1.13316575809
 Rutovitz 2015,Utility-scale solar PV,Manufacturing,Direct,job-yr/MW,2015,6.7,6.7,Original,,,,,,2015,2015,6.7
 Rutovitz 2015,Utility-scale solar PV,Manufacturing,Direct,job-yr/MW,2030,3.9530000000000007,3.953,Rutovitz Table 9 decline to 2030,PV,0.5900000000000001,,,Rutovitz Table 9 Latin America 2030,2015,2030,3.953
 Rutovitz 2015,Utility-scale solar PV,Manufacturing,Direct,job-yr/MW,2050,2.656038394151742,2.65603839415,CAPEX/OPEX ratio projection,PV,,Utility scale PV(tracking),,CAPEX 2050/2030=0.6719044761324922,2030,2050,2.65603839415
@@ -414,6 +441,9 @@ Rutovitz 2025,Utility-scale solar PV,Manufacturing,Direct,job-yr/MW,2050,1.42826
 I-JEDI,Utility-scale solar PV,O&M,Direct,job/MW,2024,0.09648835409544743,0.0964883540954,Original,,,,,,2024,2024,0.0964883540954
 I-JEDI,Utility-scale solar PV,O&M,Direct,job/MW,2030,0.08214549064882684,0.0821454906488,CAPEX/OPEX ratio projection,,,Utility scale PV(tracking),,OPEX 2030/2024=0.8513513513513513,2024,2030,0.0821454906488
 I-JEDI,Utility-scale solar PV,O&M,Direct,job/MW,2050,0.07041042055613729,0.0704104205561,CAPEX/OPEX ratio projection,,,Utility scale PV(tracking),,OPEX 2050/2030=0.8571428571428571,2030,2050,0.0704104205561
+JEDI-US,Utility-scale solar PV,O&M,Direct,job/MW,2024,0.18463436943829492,0.184634369438,Original,,,,,,2024,2024,0.184634369438
+JEDI-US,Utility-scale solar PV,O&M,Direct,job/MW,2030,0.157188719927197,0.157188719927,CAPEX/OPEX ratio projection,,,Utility scale PV(tracking),,OPEX 2030/2024=0.8513513513513513,2024,2030,0.157188719927
+JEDI-US,Utility-scale solar PV,O&M,Direct,job/MW,2050,0.134733188509026,0.134733188509,CAPEX/OPEX ratio projection,,,Utility scale PV(tracking),,OPEX 2050/2030=0.8571428571428571,2030,2050,0.134733188509
 Rutovitz 2015,Utility-scale solar PV,O&M,Direct,job/MW,2015,0.7,0.7,Original,,,,,,2015,2015,0.7
 Rutovitz 2015,Utility-scale solar PV,O&M,Direct,job/MW,2030,0.413,0.413,Rutovitz Table 9 decline to 2030,PV,0.5900000000000001,,,Rutovitz Table 9 Latin America 2030,2015,2030,0.413
 Rutovitz 2015,Utility-scale solar PV,O&M,Direct,job/MW,2050,0.354,0.354,CAPEX/OPEX ratio projection,PV,,Utility scale PV(tracking),,OPEX 2050/2030=0.8571428571428571,2030,2050,0.354
@@ -423,6 +453,12 @@ Rutovitz 2025,Utility-scale solar PV,O&M,Direct,job/MW,2050,0.0656756756756756,0
 I-JEDI,Utility-scale solar PV,O&M,Indirect,job/MW,2024,0.06634984143652523,0.0663498414365,Original,,,,,,2024,2024,0.0663498414365
 I-JEDI,Utility-scale solar PV,O&M,Indirect,job/MW,2030,0.05648702716893361,0.0564870271689,CAPEX/OPEX ratio projection,,,Utility scale PV(tracking),,OPEX 2030/2024=0.8513513513513513,2024,2030,0.0564870271689
 I-JEDI,Utility-scale solar PV,O&M,Indirect,job/MW,2050,0.04841745185908595,0.0484174518591,CAPEX/OPEX ratio projection,,,Utility scale PV(tracking),,OPEX 2050/2030=0.8571428571428571,2030,2050,0.0484174518591
+JEDI-US,Utility-scale solar PV,O&M,Indirect,job/MW,2024,0.08041487004281261,0.0804148700428,Original,,,,,,2024,2024,0.0804148700428
+JEDI-US,Utility-scale solar PV,O&M,Indirect,job/MW,2030,0.06846130827969181,0.0684613082797,CAPEX/OPEX ratio projection,,,Utility scale PV(tracking),,OPEX 2030/2024=0.8513513513513513,2024,2030,0.0684613082797
+JEDI-US,Utility-scale solar PV,O&M,Indirect,job/MW,2050,0.058681121382592974,0.0586811213826,CAPEX/OPEX ratio projection,,,Utility scale PV(tracking),,OPEX 2050/2030=0.8571428571428571,2030,2050,0.0586811213826
 I-JEDI,Utility-scale solar PV,O&M,Induced,job/MW,2024,0.049820654654973665,0.049820654655,Original,,,,,,2024,2024,0.049820654655
 I-JEDI,Utility-scale solar PV,O&M,Induced,job/MW,2030,0.042414881665720765,0.0424148816657,CAPEX/OPEX ratio projection,,,Utility scale PV(tracking),,OPEX 2030/2024=0.8513513513513513,2024,2030,0.0424148816657
 I-JEDI,Utility-scale solar PV,O&M,Induced,job/MW,2050,0.036355612856332084,0.0363556128563,CAPEX/OPEX ratio projection,,,Utility scale PV(tracking),,OPEX 2050/2030=0.8571428571428571,2030,2050,0.0363556128563
+JEDI-US,Utility-scale solar PV,O&M,Induced,job/MW,2024,0.07927268306883556,0.0792726830688,Original,,,,,,2024,2024,0.0792726830688
+JEDI-US,Utility-scale solar PV,O&M,Induced,job/MW,2030,0.06748890585590049,0.0674889058559,CAPEX/OPEX ratio projection,,,Utility scale PV(tracking),,OPEX 2030/2024=0.8513513513513513,2024,2030,0.0674889058559
+JEDI-US,Utility-scale solar PV,O&M,Induced,job/MW,2050,0.057847633590771844,0.0578476335908,CAPEX/OPEX ratio projection,,,Utility scale PV(tracking),,OPEX 2050/2030=0.8571428571428571,2030,2050,0.0578476335908
