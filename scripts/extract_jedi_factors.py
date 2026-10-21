@@ -26,7 +26,7 @@ def main():
     if args.write:
         serialized_manifest = json.dumps(manifest, indent=2, ensure_ascii=False) + "\n"
         refreshed.to_csv(path, index=False, float_format="%.17g", lineterminator="\n")
-        (ROOT / "data/audit/jedi_source_manifest.json").write_text(serialized_manifest, encoding="utf-8")
+        (ROOT / "data/audit/jedi_source_manifest.json").write_text(serialized_manifest, encoding="utf-8", newline="\n")
     else:
         keys = ["Source", "Technology", "Factor_Type", "Job_Type", "Year"]
         actual = original.merge(extracted[keys], on=keys, how="inner").sort_values(keys)

@@ -8,7 +8,7 @@ from colombia_employment_factors.adjustments import (
     apply_productivity_adjustments, derive_rooftop, load_policy,
     retain_published_rooftop, validate_factors,
 )
-from colombia_employment_factors.jedi import extract_jedi_sources, refresh_curated_sources, sha256
+from colombia_employment_factors.jedi import extract_jedi_sources, extract_us_jedi, refresh_curated_sources, sha256
 from colombia_employment_factors.projections import project_employment_factors
 from colombia_employment_factors.yearly import build_yearly_employment_factors
 
@@ -28,6 +28,32 @@ def test_original_workbook_caches_and_capacity_normalisation():
     assert roof.Value_Numeric.iloc[0] == pytest.approx(10.742973760097033)
     anchor = frame[(frame.Source == "I-JEDI") & (frame.Technology == "Utility-scale solar PV") & (frame.Factor_Type == "O&M") & (frame.Job_Type == "Direct")]
     assert anchor.Value_Numeric.iloc[0] == pytest.approx(96.48835409544742 / 1000)
+    utility = manifest["us_utility"]
+    assert utility["capacity_mw"] == 100
+    assert utility["settings"]["B18"] == 100000
+    assert utility["settings"]["B19"] == 1
+    assert utility["settings"]["B24"] == 2010
+    for result in utility["results"]:
+        assert result["factor_per_mw"] == pytest.approx(result["cached_jobs"] / 100)
+    # Prevent dividing by total jobs (or by MW twice) when capacities differ.
+    _, ratios = derive_rooftop(frame)
+    for result, roof_result, ratio in zip(utility["results"], manifest["us_residential"]["results"], ratios):
+        expected_ratio = roof_result["cached_jobs"] / (result["cached_jobs"] / 100)
+        assert ratio["ratio"] == pytest.approx(expected_ratio)
+        assert ratio["colombia_rooftop"] == pytest.approx(expected_ratio * ratio["colombia_utility_anchor"])
+
+
+def test_utility_capacity_must_match_approved_policy():
+    with pytest.raises(ValueError, match="approved 1 MW"):
+        extract_us_jedi(ROOT / policy()["jedi_workbooks"]["us_utility"], ROOT, "Utility", expected_capacity_mw=1)
+
+
+def test_missing_utility_still_has_documented_fallback():
+    p = policy()
+    p["jedi_workbooks"]["us_utility"] = "data/raw/nonexistent-test-utility.xlsm"
+    frame, manifest = extract_jedi_sources(ROOT, p)
+    assert "settings" not in manifest["us_utility"]
+    assert not ((frame.Source == "JEDI-US") & (frame.Technology == "Utility-scale solar PV")).any()
 
 
 def test_curated_source_refresh_preserves_unrelated_rows_and_is_idempotent():

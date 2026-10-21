@@ -143,3 +143,9 @@ French QBIS 2023,Offshore wind (fixed),O&M,Direct,job/MW,2022,0.1056,0.1056
 French QBIS 2023,Offshore wind (floating),Construction&Manufacturing,Direct,job-yr/MW,2022,14468,14.468
 French QBIS 2023,Offshore wind (floating),O&M,Direct,job/MW,2022,0.2416,0.24160000000000001
 Notes,Offshore wind (fixed/floating),,,,2022,"QBIS 2023 Figures 2.3-2.4 and Tables 2.1-2.2 report direct FTE/GW for 1 GW fixed and floating OWF models in 2022. Construction&Manufacturing is treated as cumulative direct job-years excluding O&M and decommissioning: fixed 131+2666+2608+996=6401 FTE/GW = 6.401 job-yr/MW; floating 208+4210+8348+1702=14468 FTE/GW = 14.468 job-yr/MW. O&M is reported over 25 years and annualized: fixed 2640/1000/25=0.1056 job/MW; floating 6041/1000/25=0.2416 job/MW. QBIS 2023 Chapter 3 separately adds indirect FTE using an input-output model, so Figures 2.3-2.4 and Tables 2.1-2.2 are direct jobs only.",
+JEDI-US,Utility-scale solar PV,Construction&Manufacturing,Direct,job-yr/MW,2024,3.280896424460907,3.2808964244609071
+JEDI-US,Utility-scale solar PV,Construction&Manufacturing,Indirect,job-yr/MW,2024,2.4946135284701483,2.4946135284701483
+JEDI-US,Utility-scale solar PV,Construction&Manufacturing,Induced,job-yr/MW,2024,2.443629055581302,2.4436290555813018
+JEDI-US,Utility-scale solar PV,O&M,Direct,job/MW,2024,0.18463436943829492,0.18463436943829492
+JEDI-US,Utility-scale solar PV,O&M,Indirect,job/MW,2024,0.08041487004281261,0.080414870042812614
+JEDI-US,Utility-scale solar PV,O&M,Induced,job/MW,2024,0.07927268306883556,0.079272683068835559

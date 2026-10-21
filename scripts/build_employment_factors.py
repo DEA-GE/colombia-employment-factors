@@ -663,6 +663,7 @@ def main() -> None:
             shutil.copyfile(destination / name, PACKAGE_DATA_OUTPUT.parent / name)
     input_paths = sorted(set([*ROOT.glob("src/**/*.py"), *ROOT.glob("scripts/*.py"), policy_path,
         RAW_INPUT, CAPEX_OPEX_RATIO_INPUT, TECHNOLOGY_CATALOGUE_SOURCE, baseline_path,
+        ROOT / policy["productivity_evidence"], ROOT / "data/audit/productivity_wdi_2023.json",
         *[ROOT / p for p in policy["jedi_workbooks"].values() if (ROOT / p).exists()]]))
     input_hashes = {p.relative_to(ROOT).as_posix(): sha256(p) for p in input_paths}
     revision = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
@@ -673,10 +674,12 @@ def main() -> None:
         "scenario": args.scenario, "productivity_ratio": policy["productivity_ratios"][args.scenario] if args.productivity_transfer == "selective" else 1.0,
         "employment_multiplier": 1 / policy["productivity_ratios"][args.scenario] if args.productivity_transfer == "selective" else 1.0,
         "productivity_transfer": args.productivity_transfer,
+        "productivity_status": policy["productivity_status"],
+        "productivity_evidence": policy["productivity_evidence"],
         "solar_projection": args.solar_projection, "solar_transfer_status": "matched ratios" if solar_available else "pending utility run; published rooftop retained",
         "solar_transfer_ready": solar_available, "solar_ratios": solar_ratios, "jedi_sources": source_manifest}
     manifest_path = destination / "employment_factor_provenance.json"
-    manifest_path.write_text(json.dumps(provenance, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    manifest_path.write_text(json.dumps(provenance, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
     if default_build:
         shutil.copyfile(manifest_path, PACKAGE_DATA_OUTPUT.parent / manifest_path.name)
     audit_path = AUDIT_OUTPUT if default_build else destination / AUDIT_OUTPUT.name

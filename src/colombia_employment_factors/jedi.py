@@ -92,7 +92,7 @@ def extract_i_jedi(path: Path, root: Path) -> tuple[pd.DataFrame, dict]:
         formulas.close()
 
 
-def extract_us_jedi(path: Path, root: Path, configuration: str) -> tuple[pd.DataFrame, dict]:
+def extract_us_jedi(path: Path, root: Path, configuration: str, *, expected_capacity_mw: float) -> tuple[pd.DataFrame, dict]:
     values = openpyxl.load_workbook(path, read_only=True, data_only=True, keep_links=False)
     formulas = openpyxl.load_workbook(path, read_only=True, data_only=False, keep_links=False)
     try:
@@ -100,7 +100,7 @@ def extract_us_jedi(path: Path, root: Path, configuration: str) -> tuple[pd.Data
         version = values["About JEDI"]["A6"].value
         if "PV05.20.21" not in str(version):
             raise ValueError("Unsupported US-JEDI release; review the extraction cell map")
-        settings = {c: inputs[c].value for c in ["B12", "B14", "B15", "B16", "B17", "B18", "B19", "B20", "B24", "B26"]}
+        settings = {c: inputs[c].value for c in ["B12", "B14", "B15", "B16", "B17", "B18", "B19", "B20", "B22", "B24", "B26"]}
         if settings["B12"] != "UNITED STATES" or settings["B14"] != 2024 or settings["B15"] != configuration:
             raise ValueError(f"Expected US / 2024 / {configuration} configuration: {path.name}")
         capacity_kw = _number(settings["B20"], "ProjectData!B20", positive=True)
@@ -108,9 +108,10 @@ def extract_us_jedi(path: Path, root: Path, configuration: str) -> tuple[pd.Data
         if not math.isclose(capacity_kw, calculated, rel_tol=1e-12):
             raise ValueError("Stale US-JEDI capacity cache: total differs from system size × system count")
         capacity_mw = capacity_kw / 1000
-        if not math.isclose(capacity_mw, 1.0, rel_tol=1e-12):
-            raise ValueError("Expected the approved 1 MW US-JEDI run; review configuration rather than silently rescaling")
-        for cell, expected in [("C6", capacity_kw), ("C7", configuration), ("C12", settings["B24"])]:
+        expected_capacity_mw = _number(expected_capacity_mw, "approved US-JEDI capacity", positive=True)
+        if not math.isclose(capacity_mw, expected_capacity_mw, rel_tol=1e-12):
+            raise ValueError(f"Expected the approved {expected_capacity_mw:g} MW US-JEDI {configuration} run; review configuration rather than silently rescaling")
+        for cell, expected in [("C3", settings["B14"]), ("C6", capacity_kw), ("C7", configuration), ("C12", settings["B24"])]:
             if results[cell].value != expected:
                 raise ValueError(f"Inconsistent US-JEDI summary cache: {cell}")
         technology = "Rooftop solar PV" if configuration == "Residential" else "Utility-scale solar PV"
@@ -127,7 +128,20 @@ def extract_us_jedi(path: Path, root: Path, configuration: str) -> tuple[pd.Data
                     "factor_per_mw": count / capacity_mw})
         return pd.DataFrame(rows, columns=SOURCE_COLUMNS), {
             **_metadata(path, formulas, root), "version": version, "settings": settings,
-            "capacity_mw": capacity_mw, "results": references,
+            "capacity_mw": capacity_mw, "expected_capacity_mw": expected_capacity_mw,
+            "capacity_basis": "MW DC; ProjectData!B18 (kW DC/system) * B19 (systems) / 1000",
+            "normalisation": "Saved total jobs divided once by actual total capacity_mw before forming ratios",
+            "monetary_evidence": {
+                "base_cost_per_kw_dc": settings["B22"],
+                "base_cost_formula": _formula(formulas["ProjectData"]["B22"]),
+                "dollar_year_cell": "ProjectData!B24",
+                "multiplier_reference_year": values["Multipliers"]["D2"].value,
+                "deflator_to_multiplier_year": values["Deflators"]["F7"].value,
+                "deflator_formula": _formula(formulas["Deflators"]["F7"]),
+                "deflator_note": values["Deflators"]["C45"].value,
+                "interpretation": "Shared saved dollar-year convention for relative transfer; not verification of default cost vintage or 2024 labour productivity",
+            },
+            "results": references,
             "manufacturing_subtotal": _number(results["B32"].value, "SummaryResults!B32"),
             "boundary_map": {"on-site labour and services": "Direct", "supply chain": "Indirect", "induced": "Induced"},
         }
@@ -141,11 +155,12 @@ def extract_jedi_sources(root: Path, policy: dict) -> tuple[pd.DataFrame, dict]:
     frames, manifest = [], {}
     frame, manifest["i_jedi"] = extract_i_jedi(root / files["i_jedi"], root)
     frames.append(frame)
-    frame, manifest["us_residential"] = extract_us_jedi(root / files["us_residential"], root, "Residential")
+    capacities = policy["us_jedi_expected_capacity_mw"]
+    frame, manifest["us_residential"] = extract_us_jedi(root / files["us_residential"], root, "Residential", expected_capacity_mw=capacities["Residential"])
     frames.append(frame)
     utility = root / files["us_utility"]
     if utility.exists():
-        frame, manifest["us_utility"] = extract_us_jedi(utility, root, "Utility")
+        frame, manifest["us_utility"] = extract_us_jedi(utility, root, "Utility", expected_capacity_mw=capacities["Utility"])
         residential = manifest["us_residential"]
         if any(manifest["us_utility"]["settings"][c] != residential["settings"][c] for c in ["B12", "B14", "B24"]):
             raise ValueError("US rooftop/utility runs have unmatched geography or year settings")

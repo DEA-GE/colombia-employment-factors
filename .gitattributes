@@ -2,6 +2,8 @@
 data/raw/*.csv text eol=lf
 data/raw/*.xlsm -text
 data/processed/**/*.csv text eol=lf
+data/processed/**/*.json text eol=lf
+data/audit/*.json text eol=lf
 src/colombia_employment_factors/data/*.csv text eol=lf
 src/colombia_employment_factors/data/*.json text eol=lf
 # Preserve the exact historical byte sequence used by the frozen-baseline hash.

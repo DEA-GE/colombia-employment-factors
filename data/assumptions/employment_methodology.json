@@ -2,14 +2,17 @@
   "schema_version": 1,
   "reference_year": 2024,
   "productivity_ratios": {"low": 0.33, "central": 0.32, "high": 0.30},
-  "productivity_status": "Approximate modelling assumption; exact observations, weights and agricultural adjustment have not been reproduced. Scenarios are screening assumptions, not confidence limits.",
-  "productivity_measure": "LATAM/OECD non-agricultural GDP per person employed; LAC excluding high-income economies is the proposed regional proxy, not a Colombia estimate. OECD per-hour comparisons are only plausibility checks.",
+  "productivity_status": "User-approved high-level modelling assumption, not a reproduced 2023 non-agricultural estimate. Archived WDI diagnostic gives about 0.370 whole-economy and 0.385 after an approximate aggregate agriculture exclusion; OECD 0.33 is per hour with different membership and weighting. Retain 0.32 and existing screening scenarios; see docs/PRODUCTIVITY_EVIDENCE.md.",
+  "productivity_evidence": "data/audit/productivity_evidence.json",
+  "productivity_measure": "Intended proxy: LATAM/OECD non-agricultural GDP per person employed. The adopted 0.32 is an assumption. The WDI audit uses LAC excluding high-income economies, not Colombia; OECD per-hour comparisons are only plausibility checks.",
   "productivity_time_convention": "Apply the fixed ratio once to eligible yearly factors for 2024-2055; no additional calendar-year GDP growth or manufacturing multiplier.",
   "jedi_workbooks": {
     "i_jedi": "data/raw/01d-jedi-international-090324.xlsm",
     "us_residential": "data/raw/jedi-pv-model.xlsm",
-    "us_utility": "data/raw/jedi-pv-model-utility-1mw.xlsm"
+    "us_utility": "data/raw/jedi-pv-model_utility_scale.xlsm"
   },
+  "us_jedi_expected_capacity_mw": {"Residential": 1, "Utility": 100},
+  "us_jedi_money_convention": "Use the two user-supplied saved runs with their shared 2010 dollar-year setting. This is a relative-transfer convention, not a verified vintage for default costs. No 2024-dollar sensitivity run has been supplied or recalculated.",
   "missing_utility_policy": "retain_published_baseline",
   "published_baseline": "data/audit/baseline_model_default_23b7f592.csv",
   "published_baseline_sha256": "521506df050ce7ac7c59ac1c0e5bffc4805018c6266c254b607c3a8bc647ab1b",

@@ -352,10 +352,24 @@
       "B18": 5,
       "B19": 200,
       "B20": 1000,
+      "B22": 2619.41159078718,
       "B24": 2010,
       "B26": "N"
     },
     "capacity_mw": 1.0,
+    "expected_capacity_mw": 1.0,
+    "capacity_basis": "MW DC; ProjectData!B18 (kW DC/system) * B19 (systems) / 1000",
+    "normalisation": "Saved total jobs divided once by actual total capacity_mw before forming ratios",
+    "monetary_evidence": {
+      "base_cost_per_kw_dc": 2619.41159078718,
+      "base_cost_formula": "=DefaultData!AJ62",
+      "dollar_year_cell": "ProjectData!B24",
+      "multiplier_reference_year": 2019,
+      "deflator_to_multiplier_year": 1.1713,
+      "deflator_formula": "=HLOOKUP($E$5,$D$11:$AK$53,$D$51)",
+      "deflator_note": "Updated November 2016.  Deflators for 2021-2040 assume average annual inflation rate derived from 2014-2020 GDP values.",
+      "interpretation": "Shared saved dollar-year convention for relative transfer; not verification of default cost vintage or 2024 labour productivity"
+    },
     "results": [
       {
         "phase": "Construction&Manufacturing",
@@ -414,7 +428,122 @@
     }
   },
   "us_utility": {
-    "path": "data/raw/jedi-pv-model-utility-1mw.xlsm",
-    "status": "missing; rounded screenshots are not authoritative inputs"
+    "path": "data/raw/jedi-pv-model_utility_scale.xlsm",
+    "sha256": "79f0e228c81a36a51f445a6547c50b677de6ec8ad9b325548b2769dddde27ce7",
+    "hidden_sheets": [
+      "Revision Notes",
+      "Household Exp",
+      "Multipliers"
+    ],
+    "named_ranges": [
+      "Detailed_Project_Data_Costs",
+      "Detailed_Wind_Plant_Project_Data_Costs",
+      "Location",
+      "Material",
+      "Other_Parameters",
+      "Print_Results",
+      "ProjectConstCostData",
+      "ProjectData",
+      "ProjectOandMData",
+      "Project_Cost_Data",
+      "Project_Data",
+      "Summary_Impacts",
+      "Summary_Results",
+      "SysApp",
+      "Tracking",
+      "Wind_Plant_Annual_OandM_Costs",
+      "Wind_Plant_Annual_Operating_and_Maintenance_Costs",
+      "YN",
+      "Year",
+      "Years"
+    ],
+    "external_links": [],
+    "contains_vba": true,
+    "calculation_id": 191028,
+    "cache_validation": "Saved caches only; input identities and capacity/result totals checked; not a full Excel recalculation",
+    "version": "Release Number: PV05.20.21",
+    "settings": {
+      "B12": "UNITED STATES",
+      "B14": 2024,
+      "B15": "Utility",
+      "B16": "Crystalline Silicon",
+      "B17": "Single Axis",
+      "B18": 100000,
+      "B19": 1,
+      "B20": 100000,
+      "B22": 1110,
+      "B24": 2010,
+      "B26": "N"
+    },
+    "capacity_mw": 100.0,
+    "expected_capacity_mw": 100.0,
+    "capacity_basis": "MW DC; ProjectData!B18 (kW DC/system) * B19 (systems) / 1000",
+    "normalisation": "Saved total jobs divided once by actual total capacity_mw before forming ratios",
+    "monetary_evidence": {
+      "base_cost_per_kw_dc": 1110,
+      "base_cost_formula": "=DefaultData!AJ62",
+      "dollar_year_cell": "ProjectData!B24",
+      "multiplier_reference_year": 2019,
+      "deflator_to_multiplier_year": 1.1713,
+      "deflator_formula": "=HLOOKUP($E$5,$D$11:$AK$53,$D$51)",
+      "deflator_note": "Updated November 2016.  Deflators for 2021-2040 assume average annual inflation rate derived from 2014-2020 GDP values.",
+      "interpretation": "Shared saved dollar-year convention for relative transfer; not verification of default cost vintage or 2024 labour productivity"
+    },
+    "results": [
+      {
+        "phase": "Construction&Manufacturing",
+        "category": "Direct",
+        "cell": "SummaryResults!B30",
+        "formula": "=Calculations!AH40",
+        "cached_jobs": 328.0896424460907,
+        "factor_per_mw": 3.280896424460907
+      },
+      {
+        "phase": "Construction&Manufacturing",
+        "category": "Indirect",
+        "cell": "SummaryResults!B38",
+        "formula": "=Calculations!AH48",
+        "cached_jobs": 249.46135284701484,
+        "factor_per_mw": 2.4946135284701483
+      },
+      {
+        "phase": "Construction&Manufacturing",
+        "category": "Induced",
+        "cell": "SummaryResults!B39",
+        "formula": "=Calculations!AH49",
+        "cached_jobs": 244.36290555813017,
+        "factor_per_mw": 2.443629055581302
+      },
+      {
+        "phase": "O&M",
+        "category": "Direct",
+        "cell": "SummaryResults!B46",
+        "formula": "=Calculations!AH54",
+        "cached_jobs": 18.463436943829493,
+        "factor_per_mw": 0.18463436943829492
+      },
+      {
+        "phase": "O&M",
+        "category": "Indirect",
+        "cell": "SummaryResults!B47",
+        "formula": "=Calculations!AH55",
+        "cached_jobs": 8.041487004281262,
+        "factor_per_mw": 0.08041487004281261
+      },
+      {
+        "phase": "O&M",
+        "category": "Induced",
+        "cell": "SummaryResults!B48",
+        "formula": "=Calculations!AH56",
+        "cached_jobs": 7.927268306883556,
+        "factor_per_mw": 0.07927268306883556
+      }
+    ],
+    "manufacturing_subtotal": 0.0,
+    "boundary_map": {
+      "on-site labour and services": "Direct",
+      "supply chain": "Indirect",
+      "induced": "Induced"
+    }
   }
 }
