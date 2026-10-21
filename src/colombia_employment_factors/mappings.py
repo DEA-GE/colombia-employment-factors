@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-import csv
-from pathlib import Path
+import json
+from importlib import resources
 
 RUTOVITZ_DECLINE_FACTORS = {
     "Coal power": ("Coal", 0.0),
@@ -32,25 +32,6 @@ RUTOVITZ_2015_RENEWABLE_LOCAL_MANUFACTURING_TECHS = {
     "Rooftop solar PV",
     "Solar thermal (CSP)",
     "Utility-scale solar PV",
-}
-
-TECH_CATALOGUE_MAPPINGS = {
-    "Solar PV": ("Solar PV", 0.20, "capacity_ratio"),
-    "Onshore wind": ("Wind onshore", 0.05, "capacity_ratio"),
-    "Offshore wind": ("Wind offshore", 0.15, "capacity_ratio"),
-    "Hydro (large)": ("Hydro", 0.01, "capacity_ratio"),
-    "Hydro (small)": ("Hydro", 0.01, "capacity_ratio"),
-    "Biomass power": ("Bioenergy", 0.05, "capacity_ratio"),
-    "Geothermal power": ("Geothermal", 0.05, "capacity_ratio"),
-    "Battery storage (grid)": ("Battery storage", 0.10, "capacity_ratio"),
-    "Pumped hydro storage": ("Hydro", 0.01, "capacity_ratio"),
-    "Coal power": ("Coal", None, "capex_ratio"),
-    "Gas CCGT/OCGT": ("Natural Gas", None, "capex_ratio"),
-    "Oil and diesel": ("Natural Gas", None, "capex_ratio_proxy"),
-    "Nuclear": ("Nuclear (Large Reactor)", None, "capex_ratio"),
-    "Solar thermal/CSP": ("CSP", None, "capacity_ratio"),
-    "Ocean": ("Ocean", None, "unmapped"),
-    "Battery storage (distributed)": ("Battery storage", 0.10, "capacity_ratio"),
 }
 
 CAPEX_OPEX_TECH_MAPPINGS = {
@@ -194,27 +175,19 @@ def _packaged_default_sources() -> dict[str, str]:
     """Keep the public default selector aligned with the actual packaged table.
 
     Builders use BASE_SOURCE_BY_TECHNOLOGY before applying the explicit policy;
-    readers use the resolved, published source labels, including pending status.
+    readers use resolved source labels recorded in generated provenance.
     """
-    path = Path(__file__).with_name("data") / "employment_factors_model_default_2024_2055.csv"
-    if not path.exists():  # bootstrap before the first generated-data build
+    path = resources.files("colombia_employment_factors.data").joinpath("employment_factor_provenance.json")
+    if not path.is_file():
         return dict(BASE_SOURCE_BY_TECHNOLOGY)
-    selected = {}
-    with path.open(encoding="utf-8", newline="") as handle:
-        for row in csv.DictReader(handle):
-            technology, source = row["Technology"], row["Source"]
-            if technology in selected and selected[technology] != source:
-                raise ValueError(f"Multiple packaged default sources for {technology}")
-            selected[technology] = source
-    return selected
-
+    return json.loads(path.read_text(encoding="utf-8"))["default_sources"]
 
 DEFAULT_SOURCE_BY_TECHNOLOGY = _packaged_default_sources()
 
 DEFAULT_SOURCE_NOTES = {
     "Transmission (single circuit)": (
-        "Fallback to JEDI-US because the raw table has no Rutovitz 2025 row "
-        "for this specific transmission technology."
+        "JEDI-US retained as the established default; a Rutovitz 2025 construction row exists "
+        "with a different unit and category coverage. Source choice requires separate review."
     ),
 }
 
@@ -238,46 +211,11 @@ RUTOVITZ_2015_CONSTRUCTION_TIME_MAPPINGS = {
     "Solar thermal (CSP)": "Solar thermal",
 }
 
-CAPACITY_RATIOS = {
-    2030: {
-        "Solar PV": 2.4,
-        "Wind onshore": 1.7,
-        "Wind offshore": 3.0,
-        "Hydro": 1.1,
-        "Bioenergy": 1.3,
-        "CSP": 2.4,
-        "Geothermal": 1.8,
-        "Battery storage": 6.5,
-    },
-    2050: {
-        "Solar PV": 6.5,
-        "Wind onshore": 2.9,
-        "Wind offshore": 8.8,
-        "Hydro": 1.4,
-        "Bioenergy": 2.2,
-        "CSP": 12.3,
-        "Geothermal": 4.2,
-        "Battery storage": 27.7,
-    },
-}
-
-# Approximate CAPEX ratios inferred from catalogue datasheets or fallback
-# assumptions where values were not available in extracted text.
-CAPEX_RATIOS = {
-    2030: {
-        "Coal": 0.95,
-        "Natural Gas": 0.94,
-        "Nuclear (Large Reactor)": 0.90,
-        "Oil proxy": 0.94,
-    },
-    2050: {
-        "Coal": 0.90,
-        "Natural Gas": 0.88,
-        "Nuclear (Large Reactor)": 0.85,
-        "Oil proxy": 0.88,
-    },
-}
-
-PROJECTION_YEARS = (2030, 2050)
-PROJECTED_FACTOR_TYPES = ("Construction", "Manufacturing", "Construction&Manufacturing")
 RUTOVITZ_PROJECTED_FACTOR_TYPES = ("Construction", "Manufacturing", "O&M")
+
+
+def manufacturing_share(source: str, technology: str) -> float:
+    """Existing regional manufacturing share, independent of productivity transfer."""
+    if source == "Rutovitz 2015" and technology in RUTOVITZ_2015_RENEWABLE_LOCAL_MANUFACTURING_TECHS:
+        return RUTOVITZ_2015_RENEWABLE_LOCAL_MANUFACTURING_SHARE
+    return 1.0

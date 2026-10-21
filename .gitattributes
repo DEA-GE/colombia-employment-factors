@@ -1,5 +1,6 @@
 # Stable generated-data checksums on Windows and Linux.
-data/raw/*.csv text eol=lf
+data/curated/*.csv text eol=lf
+data/audit/capex_opex_ratios_2024_2030_2050.csv text eol=lf
 data/raw/*.xlsm -text
 data/processed/**/*.csv text eol=lf
 data/processed/**/*.json text eol=lf

@@ -13,12 +13,11 @@ authors = [
   { name = "UPME-SubDemanda collaborators" }
 ]
 dependencies = [
-  "pandas>=2.2",
-  "numpy>=1.26",
-  "openpyxl>=3.1"
+  "pandas>=2.2"
 ]
 
 [project.optional-dependencies]
+build = ["openpyxl>=3.1"]
 dev = [
   "pytest>=8"
 ]

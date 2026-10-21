@@ -6,8 +6,7 @@ import pandas as pd
 
 from colombia_employment_factors.mappings import (
     CAPEX_OPEX_TECH_MAPPINGS,
-    RUTOVITZ_2015_RENEWABLE_LOCAL_MANUFACTURING_SHARE,
-    RUTOVITZ_2015_RENEWABLE_LOCAL_MANUFACTURING_TECHS,
+    manufacturing_share,
     RUTOVITZ_DECLINE_FACTORS,
     RUTOVITZ_PROJECTED_FACTOR_TYPES,
 )
@@ -275,12 +274,6 @@ def project_employment_factors(
     ).reset_index(drop=True)
 
 
-def _rutovitz_2015_manufacturing_share(technology: str) -> float:
-    if technology in RUTOVITZ_2015_RENEWABLE_LOCAL_MANUFACTURING_TECHS:
-        return RUTOVITZ_2015_RENEWABLE_LOCAL_MANUFACTURING_SHARE
-    return 1.0
-
-
 def _combined_row(construction: pd.Series, manufacturing: pd.Series, manufacturing_share: float) -> dict:
     value = _numeric_value(construction) + manufacturing_share * _numeric_value(manufacturing)
     if construction["Source"] == "Rutovitz 2015":
@@ -332,11 +325,7 @@ def add_construction_manufacturing_rows(projected_factors: pd.DataFrame) -> pd.D
             continue
         construction = factors["Construction"]
         manufacturing = factors["Manufacturing"]
-        share = (
-            _rutovitz_2015_manufacturing_share(construction["Technology"])
-            if construction["Source"] == "Rutovitz 2015"
-            else 1.0
-        )
+        share = manufacturing_share(construction["Source"], construction["Technology"])
         rows.append(_combined_row(construction, manufacturing, share))
 
     if not rows:

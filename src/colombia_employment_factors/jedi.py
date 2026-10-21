@@ -106,7 +106,7 @@ def extract_us_jedi(path: Path, root: Path, configuration: str, *, expected_capa
         capacity_kw = _number(settings["B20"], "ProjectData!B20", positive=True)
         calculated = _number(settings["B18"], "ProjectData!B18", positive=True) * _number(settings["B19"], "ProjectData!B19", positive=True)
         if not math.isclose(capacity_kw, calculated, rel_tol=1e-12):
-            raise ValueError("Stale US-JEDI capacity cache: total differs from system size × system count")
+            raise ValueError("Stale US-JEDI capacity cache: total differs from system size times system count")
         capacity_mw = capacity_kw / 1000
         expected_capacity_mw = _number(expected_capacity_mw, "approved US-JEDI capacity", positive=True)
         if not math.isclose(capacity_mw, expected_capacity_mw, rel_tol=1e-12):
@@ -170,28 +170,9 @@ def extract_jedi_sources(root: Path, policy: dict) -> tuple[pd.DataFrame, dict]:
     return pd.concat(frames, ignore_index=True), manifest
 
 
-def refresh_curated_sources(source: pd.DataFrame, extracted: pd.DataFrame) -> pd.DataFrame:
-    """Replace only extracted source keys, leaving unrelated rows and notes intact."""
+def combine_curated_sources(curated: pd.DataFrame, extracted: pd.DataFrame) -> pd.DataFrame:
+    """Combine manual records with workbook-owned factors without persisting copies."""
     keys = ["Source", "Technology", "Factor_Type", "Job_Type", "Year"]
-    if extracted.duplicated(keys).any():
-        raise ValueError("Duplicate extracted JEDI source keys")
-    result = source.copy()
-    corrected_notes = {
-        "Coal power": "Construction 11.2 and O&M 0.14 are OECD factors in Rutovitz 2015 Table 1 p.5, not already-LATAM factors. Eligible labour phases are adjusted separately by the methodology policy. Fuel data are unchanged and outside this update.",
-        "Hydro (large)": "Rutovitz construction 7.4 is OECD Table 1 p.5; O&M 0.6 is LATAM Table 2 p.8. Only construction is eligible for the productivity proxy. Manufacturing localisation remains separately documented.",
-        "Rooftop solar PV": "Original US-JEDI values refreshed from the saved 1 MW residential portfolio. Model default uses six matched US residential/utility ratios anchored to I-JEDI Colombia when a full-precision utility run is available; otherwise the frozen published rooftop series is explicitly retained. No unsupported I-JEDI rooftop module is assumed.",
-    }
-    for technology, note in corrected_notes.items():
-        result.loc[result["Source"].eq("Notes") & result["Technology"].eq(technology), "Value"] = note
-    for record in extracted.to_dict("records"):
-        mask = pd.Series(True, index=result.index)
-        for key in keys:
-            mask &= result[key].eq(record[key])
-        if mask.sum() > 1:
-            raise ValueError(f"Duplicate curated source key: {record}")
-        if mask.any():
-            for column in ["Value", "Value_Numeric"]:
-                result.loc[mask, column] = str(record[column]) if column == "Value" else record[column]
-        else:
-            result = pd.concat([result, pd.DataFrame([record])], ignore_index=True)
-    return result
+    if extracted.duplicated(keys).any() or not curated.merge(extracted, on=keys).empty:
+        raise ValueError("Overlapping manual and workbook factor keys")
+    return pd.concat([curated, extracted], ignore_index=True)

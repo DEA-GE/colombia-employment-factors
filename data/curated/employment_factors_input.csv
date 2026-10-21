@@ -37,12 +37,6 @@ Rutovitz 2015,Biomass power,Construction,Direct,job-yr/MW,2015,14,14
 Rutovitz 2015,Biomass power,Manufacturing,Direct,job-yr/MW,2015,2.9,2.8999999999999999
 Rutovitz 2015,Biomass power,O&M,Direct,job/MW,2015,1.5,1.5
 Rutovitz 2015,Biomass power,Fuel,Fuel,job/PJ,2015,81.1 jobs/PJ,81.09999999999998
-I-JEDI,Biomass power,Construction&Manufacturing,Direct,job-yr/MW,2024,22.523383007570818,22.523383007570818
-I-JEDI,Biomass power,O&M,Direct,job/MW,2024,2.4057262409808637,2.4057262409808637
-I-JEDI,Biomass power,Construction&Manufacturing,Indirect,job-yr/MW,2024,12.50640853409918,12.50640853409918
-I-JEDI,Biomass power,O&M,Indirect,job/MW,2024,1.4765622121350275,1.4765622121350275
-I-JEDI,Biomass power,Construction&Manufacturing,Induced,job-yr/MW,2024,16.496621350160673,16.496621350160673
-I-JEDI,Biomass power,O&M,Induced,job/MW,2024,1.6717407837004143,1.6717407837004143
 Notes,Biomass power,,,,2024,"Biomass: Rutovitz 2015 uses OECD construction/O&M but LA-specific fuel supply (81.1 jobs/PJ from Brazilian ABIB). I-JEDI Colombia provides 22.5 construct and 2.4 O&M for 1,000 MW project.",
 Rutovitz 2015,Hydro (large),Construction,Direct,job-yr/MW,2015,7.4,7.4000000000000004
 Rutovitz 2015,Hydro (large),Manufacturing,Direct,job-yr/MW,2015,3.5,3.5
@@ -58,12 +52,6 @@ Rutovitz 2015,Onshore wind,O&M,Direct,job/MW,2015,0.6,0.59999999999999964
 Rutovitz 2025,Onshore wind,Construction,Direct,job-yr/MW,2024,2.65,2.6499999999999999
 Rutovitz 2025,Onshore wind,Manufacturing,Direct,job-yr/MW,2024,1.54,1.54
 Rutovitz 2025,Onshore wind,O&M,Direct,job/MW,2024,0.21,0.20999999999999991
-I-JEDI,Onshore wind,Construction&Manufacturing,Direct,job-yr/MW,2024,7.246650074770079,7.2466500747700788
-I-JEDI,Onshore wind,O&M,Direct,job/MW,2024,0.030000000000000006,0.030000000000000006
-I-JEDI,Onshore wind,Construction&Manufacturing,Indirect,job-yr/MW,2024,5.2203566126732825,5.2203566126732825
-I-JEDI,Onshore wind,O&M,Indirect,job/MW,2024,0.042726252283993967,0.042726252283993967
-I-JEDI,Onshore wind,Construction&Manufacturing,Induced,job-yr/MW,2024,4.044333565748306,4.0443335657483059
-I-JEDI,Onshore wind,O&M,Induced,job/MW,2024,0.044780915310608994,0.044780915310608994
 Notes,Onshore wind,,,,2024,"Wind onshore: Rutovitz 2015 LA-specific 6.7 construct, 0.6 O&M from Brazil study (Simas & Pacca 2015). Rutovitz 2025 Australia 2.65 construct; rescale to LA by ~3.4 factor â†’ ~9.0 construct estimate. I-JEDI Colombia 7.25 construct aligns better with LA context.",
 Rutovitz 2015,Offshore wind (fixed),Construction,Direct,job-yr/MW,2015,8,8
 Rutovitz 2015,Offshore wind (fixed),Manufacturing,Direct,job-yr/MW,2015,15.6,15.6
@@ -78,23 +66,11 @@ Rutovitz 2015,Utility-scale solar PV,O&M,Direct,job/MW,2015,0.7,0.69999999999999
 Rutovitz 2025,Utility-scale solar PV,Construction,Direct,job-yr/MW,2024,1.61,1.6100000000000001
 Rutovitz 2025,Utility-scale solar PV,Manufacturing,Direct,job-yr/MW,2024,3.08,3.0800000000000001
 Rutovitz 2025,Utility-scale solar PV,O&M,Direct,job/MW,2024,0.09,0.0899999999999999
-I-JEDI,Utility-scale solar PV,Construction&Manufacturing,Direct,job-yr/MW,2024,9.969722439543647,9.9697224395436468
-I-JEDI,Utility-scale solar PV,O&M,Direct,job/MW,2024,0.09648835409544743,0.096488354095447426
-I-JEDI,Utility-scale solar PV,Construction&Manufacturing,Indirect,job-yr/MW,2024,6.363933800550597,6.3639338005505968
-I-JEDI,Utility-scale solar PV,O&M,Indirect,job/MW,2024,0.06634984143652523,0.066349841436525225
-I-JEDI,Utility-scale solar PV,Construction&Manufacturing,Induced,job-yr/MW,2024,6.3661479443717,6.3661479443716997
-I-JEDI,Utility-scale solar PV,O&M,Induced,job/MW,2024,0.049820654654973665,0.049820654654973665
 Notes,Utility-scale solar PV,,,,2024,"Solar PV (utility): Rutovitz 2015 uses OECD 13 construct, 0.7 O&M; no LA-specific. Rutovitz 2025 Australia 1.61 construct â†’ rescale by ~3â€“3.5 for LA â†’ ~5.5 construct (reflects larger modern plants). I-JEDI Colombia 9.97 for 1,000 MW is higher, suggesting finer labour intensity accounting.",
 Rutovitz 2025,Rooftop solar PV,Construction,Direct,job-yr/MW,2024,4.19,4.1900000000000004
 Rutovitz 2025,Rooftop solar PV,Manufacturing,Direct,job-yr/MW,2024,2.86,2.8599999999999999
 Rutovitz 2025,Rooftop solar PV,O&M,Direct,job/MW,2024,0.13,0.13
-JEDI-US,Rooftop solar PV,Construction&Manufacturing,Direct,job-yr/MW,2024,10.742973760097033,10.742973760097033
-JEDI-US,Rooftop solar PV,O&M,Direct,job/MW,2024,0.2959407171728926,0.29594071717289261
-JEDI-US,Rooftop solar PV,Construction&Manufacturing,Indirect,job-yr/MW,2024,13.884703727473902,13.884703727473902
-JEDI-US,Rooftop solar PV,O&M,Indirect,job/MW,2024,0.1357132328714757,0.13571323287147569
-JEDI-US,Rooftop solar PV,Construction&Manufacturing,Induced,job-yr/MW,2024,12.863980463979527,12.863980463979527
-JEDI-US,Rooftop solar PV,O&M,Induced,job/MW,2024,0.13060843730404842,0.13060843730404842
-Notes,Rooftop solar PV,,,,2024,Original US-JEDI values refreshed from the saved 1 MW residential portfolio. Model default uses six matched US residential/utility ratios anchored to I-JEDI Colombia when a full-precision utility run is available; otherwise the frozen published rooftop series is explicitly retained. No unsupported I-JEDI rooftop module is assumed.,
+Notes,Rooftop solar PV,,,,2024,Model default uses Rutovitz 2025 direct construction 4.19/1.61 and O&M 0.13/0.09 ratios anchored to I-JEDI Colombia utility factors. Construction-only ratio is a proxy for the combined direct phase. Indirect and induced retain matched US-JEDI residential/utility ratios. Missing utility input retains the documented frozen fallback. No additional productivity multiplier applies to these PV factors.,
 Rutovitz 2015,Solar thermal (CSP),Construction,Direct,job-yr/MW,2015,8,8
 Rutovitz 2015,Solar thermal (CSP),Manufacturing,Direct,job-yr/MW,2015,4,4
 Rutovitz 2015,Solar thermal (CSP),O&M,Direct,job/MW,2015,0.6,0.59999999999999964
@@ -102,12 +78,6 @@ Notes,Solar thermal (CSP),,,,2024,"Solar thermal (CSP): Rutovitz 2015 OECD 8 con
 Rutovitz 2015,Geothermal,Construction,Direct,job-yr/MW,2015,6.8,6.7999999999999998
 Rutovitz 2015,Geothermal,Manufacturing,Direct,job-yr/MW,2015,3.9,3.8999999999999999
 Rutovitz 2015,Geothermal,O&M,Direct,job/MW,2015,0.4,0.40000000000000002
-I-JEDI,Geothermal,Construction&Manufacturing,Direct,job-yr/MW,2024,5.087281238062234,5.0872812380622339
-I-JEDI,Geothermal,O&M,Direct,job/MW,2024,0.008006364212731315,0.0080063642127313154
-I-JEDI,Geothermal,Construction&Manufacturing,Indirect,job-yr/MW,2024,3.4025072325720216,3.4025072325720216
-I-JEDI,Geothermal,O&M,Indirect,job/MW,2024,0.009977730975325182,0.0099777309753251824
-I-JEDI,Geothermal,Construction&Manufacturing,Induced,job-yr/MW,2024,5.506769980445039,5.5067699804450392
-I-JEDI,Geothermal,O&M,Induced,job/MW,2024,0.029051127710696973,0.029051127710696973
 Notes,Geothermal,,,,2024,"Geothermal: Rutovitz 2015 OECD 6.8 construct, 0.4 O&M; no LA-specific. Not updated in Rutovitz 2025. Limited geothermal potential in Colombia; I-JEDI may have estimates via custom region.",
 Rutovitz 2015,Ocean,Construction,Direct,job-yr/MW,2015,10.2,10.199999999999999
 Rutovitz 2015,Ocean,Manufacturing,Direct,job-yr/MW,2015,10.2,10.199999999999999
@@ -143,9 +113,3 @@ French QBIS 2023,Offshore wind (fixed),O&M,Direct,job/MW,2022,0.1056,0.1056
 French QBIS 2023,Offshore wind (floating),Construction&Manufacturing,Direct,job-yr/MW,2022,14468,14.468
 French QBIS 2023,Offshore wind (floating),O&M,Direct,job/MW,2022,0.2416,0.24160000000000001
 Notes,Offshore wind (fixed/floating),,,,2022,"QBIS 2023 Figures 2.3-2.4 and Tables 2.1-2.2 report direct FTE/GW for 1 GW fixed and floating OWF models in 2022. Construction&Manufacturing is treated as cumulative direct job-years excluding O&M and decommissioning: fixed 131+2666+2608+996=6401 FTE/GW = 6.401 job-yr/MW; floating 208+4210+8348+1702=14468 FTE/GW = 14.468 job-yr/MW. O&M is reported over 25 years and annualized: fixed 2640/1000/25=0.1056 job/MW; floating 6041/1000/25=0.2416 job/MW. QBIS 2023 Chapter 3 separately adds indirect FTE using an input-output model, so Figures 2.3-2.4 and Tables 2.1-2.2 are direct jobs only.",
-JEDI-US,Utility-scale solar PV,Construction&Manufacturing,Direct,job-yr/MW,2024,3.280896424460907,3.2808964244609071
-JEDI-US,Utility-scale solar PV,Construction&Manufacturing,Indirect,job-yr/MW,2024,2.4946135284701483,2.4946135284701483
-JEDI-US,Utility-scale solar PV,Construction&Manufacturing,Induced,job-yr/MW,2024,2.443629055581302,2.4436290555813018
-JEDI-US,Utility-scale solar PV,O&M,Direct,job/MW,2024,0.18463436943829492,0.18463436943829492
-JEDI-US,Utility-scale solar PV,O&M,Indirect,job/MW,2024,0.08041487004281261,0.080414870042812614
-JEDI-US,Utility-scale solar PV,O&M,Induced,job/MW,2024,0.07927268306883556,0.079272683068835559
