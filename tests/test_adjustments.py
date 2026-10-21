@@ -4,11 +4,11 @@ import pandas as pd
 import pytest
 
 from colombia_employment_factors.adjustments import (
-    LEGACY_ROOFTOP_SOURCE, PRODUCTIVITY_SUFFIX, ROOFTOP_SOURCE,
+    LEGACY_ROOFTOP_SOURCE, PRODUCTIVITY_SUFFIX, ROOFTOP_SOURCE, RUTOVITZ_ROOFTOP_SOURCE,
     apply_productivity_adjustments, derive_rooftop, load_policy,
     retain_published_rooftop, validate_factors,
 )
-from colombia_employment_factors.jedi import extract_jedi_sources, extract_us_jedi, refresh_curated_sources, sha256
+from colombia_employment_factors.jedi import combine_curated_sources, extract_jedi_sources, extract_us_jedi, sha256
 from colombia_employment_factors.projections import project_employment_factors
 from colombia_employment_factors.yearly import build_yearly_employment_factors
 
@@ -56,12 +56,19 @@ def test_missing_utility_still_has_documented_fallback():
     assert not ((frame.Source == "JEDI-US") & (frame.Technology == "Utility-scale solar PV")).any()
 
 
-def test_curated_source_refresh_preserves_unrelated_rows_and_is_idempotent():
-    source = pd.read_csv(ROOT / "data/raw/employment_factors_input.csv")
+def test_workbook_factors_combine_with_manual_inputs_without_overlap():
+    source = pd.read_csv(ROOT / "data/curated/employment_factors_input.csv")
     extracted, _ = extract_jedi_sources(ROOT, policy())
-    updated = refresh_curated_sources(source, extracted)
-    pd.testing.assert_frame_equal(updated, refresh_curated_sources(updated, extracted))
-    pd.testing.assert_frame_equal(source[source.Source == "Rutovitz 2015"], updated[updated.Source == "Rutovitz 2015"])
+    updated = combine_curated_sources(source, extracted)
+    assert len(updated) == len(source) + len(extracted) == 150
+    # Combining extracted numeric values with original source text promotes Value to object.
+    pd.testing.assert_frame_equal(
+        source[source.Source == "Rutovitz 2015"],
+        updated[updated.Source == "Rutovitz 2015"],
+        check_dtype=False,
+    )
+    with pytest.raises(ValueError, match="Overlapping"):
+        combine_curated_sources(updated, extracted)
 
 
 def solar_fixture():
@@ -81,6 +88,49 @@ def test_six_independent_ratios_and_colombian_anchor():
     assert list(derived.Value_Numeric) == pytest.approx([30, 60, 90, .15, .30, .45])
     with pytest.raises(ValueError, match="already applied"):
         derive_rooftop(output)
+
+
+def rutovitz_solar_fixture():
+    rows = []
+    for phase, roof, utility in [("Construction", 4.19, 1.61), ("Manufacturing", 2.86, 3.08), ("O&M", .13, .09)]:
+        for tech, value in [("Rooftop solar PV", roof), ("Utility-scale solar PV", utility)]:
+            rows.append(dict(Source="Rutovitz 2025", Technology=tech, Factor_Type=phase,
+                Job_Type="Direct", Unit="job/MW" if phase == "O&M" else "job-yr/MW",
+                Year=2024, Value=value, Value_Numeric=value))
+    return pd.concat([solar_fixture(), pd.DataFrame(rows)], ignore_index=True)
+
+
+def test_rutovitz_direct_ratios_preserve_us_indirect_and_induced():
+    source = rutovitz_solar_fixture()
+    output, audit = derive_rooftop(source, "rutovitz-direct")
+    derived = output[output.Source == RUTOVITZ_ROOFTOP_SOURCE]
+    assert derived.Value_Numeric.tolist() == pytest.approx([10 * 4.19/1.61, 60, 90, .1 * .13/.09, .30, .45])
+    assert [a["ratio_source"] for a in audit] == ["Rutovitz 2025", "JEDI-US", "JEDI-US"] * 2
+    assert audit[0]["ratio_phase"] == "Construction"
+    assert "Construction-only" in audit[0]["boundary_assumption"]
+    assert audit[3]["ratio_phase"] == "O&M"
+    # Manufacturing estimates must not contribute to the construction ratio.
+    source.loc[source.Factor_Type == "Manufacturing", "Value_Numeric"] *= 100
+    changed, _ = derive_rooftop(source, "rutovitz-direct")
+    pd.testing.assert_frame_equal(derived, changed[changed.Source == RUTOVITZ_ROOFTOP_SOURCE])
+    with pytest.raises(ValueError, match="already applied"):
+        derive_rooftop(output, "rutovitz-direct")
+
+
+@pytest.mark.parametrize("failure", ["missing", "zero", "duplicate", "units", "nan"])
+def test_rutovitz_transfer_rejects_invalid_evidence(failure):
+    source = rutovitz_solar_fixture()
+    index = source.index[(source.Source == "Rutovitz 2025") & (source.Technology == "Utility-scale solar PV") & (source.Factor_Type == "Construction")][0]
+    if failure == "missing":
+        source = source.drop(index=index)
+    elif failure == "duplicate":
+        source = pd.concat([source, source.loc[[index]]], ignore_index=True)
+    elif failure == "units":
+        source.loc[index, "Unit"] = "job-yr/GW"
+    else:
+        source.loc[index, "Value_Numeric"] = 0 if failure == "zero" else float("nan")
+    with pytest.raises(ValueError):
+        derive_rooftop(source, "rutovitz-direct")
 
 
 @pytest.mark.parametrize("failure", ["missing", "zero", "duplicate", "units", "nan"])
@@ -148,21 +198,22 @@ def test_model_validation_rejects_duplicate_source_variants():
         validate_factors(source, model=True)
 
 
-def test_rooftop_anchor_is_reproduced_then_uses_its_own_temporal_mapping():
-    source, _ = derive_rooftop(solar_fixture())
+@pytest.mark.parametrize("method,source_name,anchor", [("us-jedi", ROOFTOP_SOURCE, 30), ("rutovitz-direct", RUTOVITZ_ROOFTOP_SOURCE, 10 * 4.19/1.61)])
+def test_rooftop_anchor_is_reproduced_then_uses_its_own_temporal_mapping(method, source_name, anchor):
+    source, _ = derive_rooftop(rutovitz_solar_fixture(), method)
     ratios = pd.DataFrame([
         dict(technology_name=name, capex_ratio_2030_over_2024=capex, capex_ratio_2050_over_2030=1,
              opex_ratio_2030_over_2024=opex, opex_ratio_2050_over_2030=1)
         for name, capex, opex in [("Utility scale PV(tracking)", .5, .9), ("Residential PV (rooftop)", .8, 1.1)]
     ])
     yearly = build_yearly_employment_factors(project_employment_factors(source, ratios))
-    roof = yearly[(yearly.Source == ROOFTOP_SOURCE) & (yearly.Factor_Type == "Construction&Manufacturing") & (yearly.Job_Type == "Direct")].set_index("Year")
-    assert roof.loc[2024, "Value_Numeric"] == 30
-    assert roof.loc[2030, "Value_Numeric"] == pytest.approx(24)
-    assert roof.loc[2055, "Value_Numeric"] == pytest.approx(24)
+    roof = yearly[(yearly.Source == source_name) & (yearly.Factor_Type == "Construction&Manufacturing") & (yearly.Job_Type == "Direct")].set_index("Year")
+    assert roof.loc[2024, "Value_Numeric"] == pytest.approx(anchor)
+    assert roof.loc[2030, "Value_Numeric"] == pytest.approx(anchor * .8)
+    assert roof.loc[2055, "Value_Numeric"] == pytest.approx(anchor * .8)
     # Relative ratios are not forced constant after independently justified mappings.
     utility = yearly[(yearly.Source == "I-JEDI") & (yearly.Factor_Type == "Construction&Manufacturing") & (yearly.Job_Type == "Direct")].set_index("Year")
-    assert roof.loc[2030, "Value_Numeric"] / utility.loc[2030, "Value_Numeric"] == pytest.approx(4.8)
+    assert roof.loc[2030, "Value_Numeric"] / utility.loc[2030, "Value_Numeric"] == pytest.approx(anchor * .8 / 5)
 
 
 def test_duplicate_source_year_is_not_silently_interpolated_away():
