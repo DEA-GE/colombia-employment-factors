@@ -1,0 +1,149 @@
+{
+  "retrieved_at_utc": "2026-10-21T03:56:34.008015+00:00",
+  "series": [
+    {
+      "url": "https://api.worldbank.org/v2/country/LAC;OED/indicator/SL.GDP.PCAP.EM.KD?date=2023&format=json&per_page=100&source=2",
+      "response_sha256": "00170dea67c5c9412f9fdcccc14d5f0fdadf2dfe65cddbd9b3b9bad0c28a625b",
+      "response": [
+        {
+          "page": 1,
+          "pages": 1,
+          "per_page": 100,
+          "total": 2,
+          "sourceid": "2",
+          "lastupdated": "2026-10-08"
+        },
+        [
+          {
+            "indicator": {
+              "id": "SL.GDP.PCAP.EM.KD",
+              "value": "GDP per person employed (constant 2021 PPP $)"
+            },
+            "country": {
+              "id": "XJ",
+              "value": "Latin America & Caribbean (excluding high income)"
+            },
+            "countryiso3code": "LAC",
+            "date": "2023",
+            "value": 40959.8226228277,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          },
+          {
+            "indicator": {
+              "id": "SL.GDP.PCAP.EM.KD",
+              "value": "GDP per person employed (constant 2021 PPP $)"
+            },
+            "country": {
+              "id": "OE",
+              "value": "OECD members"
+            },
+            "countryiso3code": "OED",
+            "date": "2023",
+            "value": 110772.08491172,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          }
+        ]
+      ]
+    },
+    {
+      "url": "https://api.worldbank.org/v2/country/LAC;OED/indicator/NV.AGR.TOTL.ZS?date=2023&format=json&per_page=100&source=2",
+      "response_sha256": "5564c9098ed23b193fb4a9e5f7037b1aef1a8435fd29ac76fe696ebd0ff8c6dd",
+      "response": [
+        {
+          "page": 1,
+          "pages": 1,
+          "per_page": 100,
+          "total": 2,
+          "sourceid": "2",
+          "lastupdated": "2026-10-08"
+        },
+        [
+          {
+            "indicator": {
+              "id": "NV.AGR.TOTL.ZS",
+              "value": "Agriculture, forestry, and fishing, value added (% of GDP)"
+            },
+            "country": {
+              "id": "XJ",
+              "value": "Latin America & Caribbean (excluding high income)"
+            },
+            "countryiso3code": "LAC",
+            "date": "2023",
+            "value": 7.05227462957829,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 1
+          },
+          {
+            "indicator": {
+              "id": "NV.AGR.TOTL.ZS",
+              "value": "Agriculture, forestry, and fishing, value added (% of GDP)"
+            },
+            "country": {
+              "id": "OE",
+              "value": "OECD members"
+            },
+            "countryiso3code": "OED",
+            "date": "2023",
+            "value": 1.43715582717115,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 1
+          }
+        ]
+      ]
+    },
+    {
+      "url": "https://api.worldbank.org/v2/country/LAC;OED/indicator/SL.AGR.EMPL.ZS?date=2023&format=json&per_page=100&source=2",
+      "response_sha256": "72ae5fe66a5ce39fa2dff06a7393158309b69d82a270f68525446071d1457174",
+      "response": [
+        {
+          "page": 1,
+          "pages": 1,
+          "per_page": 100,
+          "total": 2,
+          "sourceid": "2",
+          "lastupdated": "2026-10-08"
+        },
+        [
+          {
+            "indicator": {
+              "id": "SL.AGR.EMPL.ZS",
+              "value": "Employment in agriculture (% of total employment) (modeled ILO estimate)"
+            },
+            "country": {
+              "id": "XJ",
+              "value": "Latin America & Caribbean (excluding high income)"
+            },
+            "countryiso3code": "LAC",
+            "date": "2023",
+            "value": 13.4637880148254,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          },
+          {
+            "indicator": {
+              "id": "SL.AGR.EMPL.ZS",
+              "value": "Employment in agriculture (% of total employment) (modeled ILO estimate)"
+            },
+            "country": {
+              "id": "OE",
+              "value": "OECD members"
+            },
+            "countryiso3code": "OED",
+            "date": "2023",
+            "value": 4.47450971101247,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          }
+        ]
+      ]
+    }
+  ]
+}

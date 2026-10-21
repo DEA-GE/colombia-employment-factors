@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "snapshot_path": "data/audit/productivity_wdi_2023.json",
+  "snapshot_sha256": "7a5fddb5be20ed1188d0f03d05162a49c85394c69de8716ec18a3fa8ce87ddd7",
+  "retrieved_at_utc": "2026-10-21T03:56:34.008015+00:00",
+  "rutovitz_2015": {
+    "source": "docs/sources/Rutovitzetal2015Calculatingglobalenergysectorjobsmethodology.pdf",
+    "source_sha256": "bfdc36c8c9a3d0e419b92e4b32b1f21d688b24a506e520a0839945145502d2d1",
+    "table_8_printed_page": 17,
+    "latam_nonag_gdp_per_worker_2005_ppp": 55200,
+    "oecd_nonag_gdp_per_worker_2005_ppp": 187600,
+    "ratio_from_published_levels": 0.2942430703624733,
+    "inverse_from_published_levels": 3.398550724637681,
+    "table_8_displayed_ratio": 0.29,
+    "table_6_2015_multiplier": 3.4,
+    "status": "Published-table arithmetic verified; original KILM/IEA observations and agricultural adjustment not reconstructed"
+  },
+  "oecd_leo_2024": {
+    "url": "https://www.oecd.org/en/publications/latin-american-economic-outlook-2024_c437947f-en/full-report/overview_b80bea0f.html",
+    "figure": 1,
+    "observation_year": 2023,
+    "reported_ratio": 0.33,
+    "measure": "Whole-economy productivity per hour; simple averages of 16 LAC economies and 38 OECD members; underlying source The Conference Board (2024)",
+    "lac_members": [
+      "Argentina",
+      "Bolivia",
+      "Brazil",
+      "Chile",
+      "Colombia",
+      "Costa Rica",
+      "Dominican Republic",
+      "Ecuador",
+      "Guatemala",
+      "Jamaica",
+      "Mexico",
+      "Paraguay",
+      "Peru",
+      "Trinidad and Tobago",
+      "Uruguay",
+      "Venezuela"
+    ],
+    "status": "Plausibility comparison only; not non-agricultural per-worker evidence for 0.32"
+  },
+  "wdi_diagnostic": {
+    "observation_year": 2023,
+    "groups": {
+      "LAC": {
+        "gdp_per_worker_2021_ppp": 40959.8226228277,
+        "agriculture_gdp_percent": 7.05227462957829,
+        "agriculture_employment_percent": 13.4637880148254,
+        "nonag_correction": 1.0740905250896067,
+        "nonag_productivity_proxy": 43994.55738853015
+      },
+      "OED": {
+        "gdp_per_worker_2021_ppp": 110772.08491172,
+        "agriculture_gdp_percent": 1.43715582717115,
+        "agriculture_employment_percent": 4.47450971101247,
+        "nonag_correction": 1.0317962658412176,
+        "nonag_productivity_proxy": 114294.22357135898
+      }
+    },
+    "whole_economy_ratio": 0.36976664884000965,
+    "aggregate_nonag_proxy_ratio": 0.38492371717335644,
+    "aggregate_nonag_proxy_inverse": 2.597917341501808,
+    "formula": "P_nonag = P_all * (1 - agriculture_GDP_share) / (1 - agriculture_employment_share); ratio = P_nonag_LAC / P_nonag_OED",
+    "aggregation": "Published WDI aggregates, not simple country averages. Membership and underlying country weights are inherited from this WDI release, not independently reconstructed. Indicator coverage/weights can differ; multiplying aggregate shares by PPP productivity is a diagnostic approximation, not a harmonised country-level sector PPP estimate."
+  },
+  "adopted_ratios": {
+    "low": 0.33,
+    "central": 0.32,
+    "high": 0.3
+  },
+  "adopted_central_inverse": 3.125,
+  "conclusion": "0.32 retained as an explicit user-approved high-level modelling assumption, not an empirically reproduced 2023 non-agricultural estimate. Current WDI diagnostic and OECD per-hour evidence must not be relabelled as its derivation. Revised data do not reconstruct the unknown original chat data vintage."
+}
