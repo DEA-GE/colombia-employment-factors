@@ -147,7 +147,7 @@ The central files retain their existing names and schemas:
 | --- | --- |
 | `employment_factors_with_2030_2050.csv` | Historical 2015/2022/2024 observations and sparse 2030/2050 projections |
 | `employment_factors_yearly_2024_2055.csv` | Annual factors by source, technology, factor type, job type, and unit |
-| `employment_factors_model_default_2024_2055.csv` | Annual selected defaults for 21 technologies, without additional productivity transfer |
+| `employment_factors_model_default_2024_2055.csv` | Annual selected defaults for 22 technologies, including distinct SMR proxies, without additional productivity transfer |
 | `employment_factors_model_latam_productivity_2024_2055.csv` | Optional selective LATAM productivity transfer, ratio 0.32 |
 | `technology_assumptions_2024.csv` | Lifetimes and construction times with individual source years and exceptions |
 

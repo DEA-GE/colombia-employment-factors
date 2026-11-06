@@ -113,3 +113,12 @@ French QBIS 2023,Offshore wind (fixed),O&M,Direct,job/MW,2022,0.1056,0.1056
 French QBIS 2023,Offshore wind (floating),Construction&Manufacturing,Direct,job-yr/MW,2022,14468,14.468
 French QBIS 2023,Offshore wind (floating),O&M,Direct,job/MW,2022,0.2416,0.24160000000000001
 Notes,Offshore wind (fixed/floating),,,,2022,"QBIS 2023 Figures 2.3-2.4 and Tables 2.1-2.2 report direct FTE/GW for 1 GW fixed and floating OWF models in 2022. Construction&Manufacturing is treated as cumulative direct job-years excluding O&M and decommissioning: fixed 131+2666+2608+996=6401 FTE/GW = 6.401 job-yr/MW; floating 208+4210+8348+1702=14468 FTE/GW = 14.468 job-yr/MW. O&M is reported over 25 years and annualized: fixed 2640/1000/25=0.1056 job/MW; floating 6041/1000/25=0.2416 job/MW. QBIS 2023 Chapter 3 separately adds indirect FTE using an input-output model, so Figures 2.3-2.4 and Tables 2.1-2.2 are direct jobs only.",
+
+ESMAP 2023 + Rutovitz 2025 (MW-scale PCH calibrated),Hydro (small),Construction,Direct,job-yr/MW,2024,7.36,7.36
+ESMAP 2023 + Rutovitz 2025 (MW-scale PCH calibrated),Hydro (small),Manufacturing,Direct,job-yr/MW,2024,2.30,2.30
+ESMAP 2023 + Rutovitz 2025 (MW-scale PCH calibrated),Hydro (small),O&M,Direct,job/MW,2024,0.8,0.8
+Notes,Hydro (small),,,,2024,"MW-scale calibrated source: Rutovitz 2025 Table 3 C=7.36 and total M=2.30; O&M=0.8 is analyst-selected using ESMAP 2023 Rusumo evidence (about 50 forecast workers/80 MW), not an ESMAP published coefficient. No additional productivity transfer. Provisional O&M sensitivity 0.3/0.8/1.5; base only executable. See docs/methodology.md.",
+Rutovitz 2015 (SMR proxy),SMR,Construction,Direct,job-yr/MW,2024,11.8,11.8
+Rutovitz 2015 (SMR proxy),SMR,Manufacturing,Direct,job-yr/MW,2024,1.3,1.3
+Rutovitz 2015 (SMR proxy),SMR,O&M,Direct,job/MW,2024,0.6,0.6
+Notes,SMR,,,,2024,"Rutovitz Dominish and Downes 2015 Table 1 p.5 OECD conventional nuclear coefficients used as unvalidated SMR proxies. Original publication year 2015; adopted model base year 2024. Constant 2024-2055; no extra productivity transfer. Employment timing from Colombian Technology Catalogue Nuclear SMR 2030: 40-year lifetime and 8-year construction. See docs/methodology.md.",

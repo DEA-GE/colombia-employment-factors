@@ -9,11 +9,13 @@ from colombia_employment_factors.mappings import (
     manufacturing_share,
     RUTOVITZ_DECLINE_FACTORS,
     RUTOVITZ_PROJECTED_FACTOR_TYPES,
+    PCH_SOURCE,
+    SMR_SOURCE,
 )
 
 RATIO_PROJECTED_FACTOR_TYPES = ("Construction", "Manufacturing", "Construction&Manufacturing", "O&M")
 QBIS_RATIO_BASE_SOURCES = ("Danish QBIS 2020", "French QBIS 2023")
-COMBINED_FACTOR_SOURCES = ("Rutovitz 2015", "Rutovitz 2025")
+COMBINED_FACTOR_SOURCES = ("Rutovitz 2015", "Rutovitz 2025", PCH_SOURCE, SMR_SOURCE)
 
 
 def _numeric_value(row: pd.Series) -> float:
@@ -186,6 +188,14 @@ def _projected_ratio_rows(
     if technology not in CAPEX_OPEX_TECH_MAPPINGS:
         return []
 
+    if technology == "SMR" and row["Source"] == SMR_SOURCE:
+        return [
+            _projected_row(row, value, year, "Constant SMR proxy",
+                           projection_input="Conventional nuclear proxy; no SMR-specific learning or cost scaling",
+                           base_year=2024)
+            for year in (2030, 2050)
+        ]
+
     mapped_tech, ratio_2030, mapping_type_2030 = _ratio_value(
         technology, factor_type, "2030_2024", ratios_by_technology
     )
@@ -283,8 +293,10 @@ def _combined_row(construction: pd.Series, manufacturing: pd.Series, manufacturi
             if manufacturing_share != 1.0
             else "Construction + Manufacturing; full regional manufacturing assumed by Rutovitz 2015 method"
         )
-    else:
+    elif construction["Source"] == "Rutovitz 2025":
         note = "Construction + Manufacturing; Rutovitz 2025 total manufacturing factor used without local-share scaling"
+    else:
+        note = "Construction + Manufacturing; full regional manufacturing boundary retained; proxy/calibration, see docs/methodology.md"
 
     return {
         **construction.to_dict(),
@@ -298,7 +310,7 @@ def _combined_row(construction: pd.Series, manufacturing: pd.Series, manufacturi
 
 
 def add_construction_manufacturing_rows(projected_factors: pd.DataFrame) -> pd.DataFrame:
-    """Add derived C&M rows for Rutovitz sources where C and M are separate."""
+    """Add C&M once for supported sources with separate C and M observations."""
     df = projected_factors.copy()
     if df.empty:
         return df

@@ -65,8 +65,11 @@ def read_catalogue(path: Path, selections_path: Path) -> tuple[pd.DataFrame, pd.
                 for number, row in enumerate(rows, 1):
                     if row[1] == label:
                         current, future = _number(row[2]), _number(row[3])
-                        metrics[f"{metric}_years"] = current if current is not None else future
-                        metrics[f"{metric}_source_year"] = 2024 if current is not None else 2030
+                        # Explicit project decision: use the 2030 SMR datasheet,
+                        # even though the workbook also contains 2024 values.
+                        use_2030 = selection["technology_name"] == "Nuclear SMR" or current is None
+                        metrics[f"{metric}_years"] = future if use_2030 else current
+                        metrics[f"{metric}_source_year"] = 2030 if use_2030 else 2024
                         metrics[f"{metric}_row_number"] = number
             technologies[selection["technology_name"]] = metrics
     finally:
@@ -88,9 +91,13 @@ def build_technology_assumptions(catalogue_rows: dict[str, dict]) -> pd.DataFram
         construction_time_source_year = catalogue_row.get("construction_time_source_year")
         source = "Colombian Technology Catalogue"
 
-        if lifetime_source_year == 2030:
+        if technology == "SMR":
+            if lifetime_years is None or construction_time_years is None:
+                raise ValueError("2030 Nuclear SMR lifetime and construction time are required")
+            notes.append("Explicit 2030 SMR selection: lifetime D10, construction time D11; employment allocation only.")
+        elif lifetime_source_year == 2030:
             notes.append("2024 catalogue lifetime unavailable; 2030 catalogue value used.")
-        if construction_time_source_year == 2030:
+        if construction_time_source_year == 2030 and technology != "SMR":
             notes.append("2024 catalogue construction time unavailable; 2030 catalogue value used.")
 
         rutovitz_mapping = RUTOVITZ_2015_CONSTRUCTION_TIME_MAPPINGS.get(technology)

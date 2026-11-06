@@ -60,7 +60,7 @@ def test_workbook_factors_combine_with_manual_inputs_without_overlap():
     source = pd.read_csv(ROOT / "data/curated/employment_factors_input.csv")
     extracted, _ = extract_jedi_sources(ROOT, policy())
     updated = combine_curated_sources(source, extracted)
-    assert len(updated) == len(source) + len(extracted) == 150
+    assert len(updated) == len(source) + len(extracted)
     # Combining extracted numeric values with original source text promotes Value to object.
     pd.testing.assert_frame_equal(
         source[source.Source == "Rutovitz 2015"],

@@ -5,6 +5,9 @@ from __future__ import annotations
 import json
 from importlib import resources
 
+PCH_SOURCE = "ESMAP 2023 + Rutovitz 2025 (MW-scale PCH calibrated)"
+SMR_SOURCE = "Rutovitz 2015 (SMR proxy)"
+
 RUTOVITZ_DECLINE_FACTORS = {
     "Coal power": ("Coal", 0.0),
     "Gas CCGT/OCGT": ("Gas", 0.05),
@@ -79,6 +82,11 @@ CAPEX_OPEX_TECH_MAPPINGS = {
         "Nuclear PWR",
         "direct",
         "Use CAPEX/OPEX ratios from the mapped Technology Catalogue row.",
+    ),
+    "SMR": (
+        "Nuclear SMR",
+        "direct",
+        "Employment timing uses the 2030 SMR datasheet; employment factors remain constant.",
     ),
     "Offshore wind": (
         "Wind Offshore fixed bottom",
@@ -155,8 +163,9 @@ BASE_SOURCE_BY_TECHNOLOGY = {
     "Gas CCGT/OCGT": "Rutovitz 2015",
     "Geothermal": "I-JEDI",
     "Hydro (large)": "Rutovitz 2015",
-    "Hydro (small)": "Rutovitz 2015",
+    "Hydro (small)": PCH_SOURCE,
     "Nuclear": "Rutovitz 2015",
+    "SMR": SMR_SOURCE,
     "Ocean": "Rutovitz 2015",
     "Offshore wind (fixed)": "French QBIS 2023",
     "Offshore wind (floating)": "French QBIS 2023",
@@ -185,6 +194,8 @@ def _packaged_default_sources() -> dict[str, str]:
 DEFAULT_SOURCE_BY_TECHNOLOGY = _packaged_default_sources()
 
 DEFAULT_SOURCE_NOTES = {
+    "Hydro (small)": "MW-scale PCH calibration, not a micro/mini-hydro observation; see docs/methodology.md.",
+    "SMR": "Conventional nuclear OECD coefficients used as unvalidated SMR proxies; constant through 2055.",
     "Transmission (single circuit)": (
         "JEDI-US retained as the established default; a Rutovitz 2025 construction row exists "
         "with a different unit and category coverage. Source choice requires separate review."
