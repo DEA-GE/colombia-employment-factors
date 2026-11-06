@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -162,6 +163,15 @@ def main() -> None:
         }
     manifest_path = destination / "employment_factor_provenance.json"
     manifest_path.write_text(json.dumps(provenance, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
+    if default_build:
+        # Maintain the existing compact source-refresh publication from the same
+        # canonical calculation, rather than hand-copying a stale model table.
+        refresh = ROOT / "data/processed/scenarios/source-refresh"
+        refresh.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(destination / MODEL_FILE, refresh / MODEL_FILE)
+        refresh_provenance = {key: value for key, value in provenance.items() if key != "optional_productivity_model"}
+        refresh_provenance["output_sha256"] = {MODEL_FILE: provenance["output_sha256"][MODEL_FILE]}
+        (refresh / manifest_path.name).write_text(json.dumps(refresh_provenance, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
     if args.audit_workbook:
         audit_path = (ROOT / "data/audit" if default_build else destination) / "employment_factor_audit.xlsx"
         write_audit_workbook(model_output, technology_assumptions, capex_opex_ratios,
