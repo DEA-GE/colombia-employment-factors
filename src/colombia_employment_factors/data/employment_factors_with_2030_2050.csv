@@ -170,15 +170,27 @@ Rutovitz 2015,Hydro (large),Manufacturing,Direct,job-yr/MW,2050,3.72594052163277
 Rutovitz 2015,Hydro (large),O&M,Direct,job/MW,2015,0.6,0.6,Original,,,,,,2015,2015,0.6
 Rutovitz 2015,Hydro (large),O&M,Direct,job/MW,2030,0.6419999999999997,0.642,Rutovitz Table 9 decline to 2030,Hydro-large,1.07,,,Rutovitz Table 9 Latin America 2030,2015,2030,0.642
 Rutovitz 2015,Hydro (large),O&M,Direct,job/MW,2050,0.6384918032786882,0.638491803279,CAPEX/OPEX ratio projection,Hydro-large,,Large Hydro reservoir,,OPEX 2050/2030=0.994535519125683,2030,2050,0.638491803279
+ESMAP 2023 + Rutovitz 2025 (MW-scale PCH calibrated),Hydro (small),Construction,Direct,job-yr/MW,2024,7.36,7.36,Original,,,,,,2024,2024,7.36
+ESMAP 2023 + Rutovitz 2025 (MW-scale PCH calibrated),Hydro (small),Construction,Direct,job-yr/MW,2030,7.346820851704707,7.3468208517,CAPEX/OPEX ratio projection,,,Small RoR hydro power,,CAPEX 2030/2024=0.998209354851183,2024,2030,7.3468208517
+ESMAP 2023 + Rutovitz 2025 (MW-scale PCH calibrated),Hydro (small),Construction,Direct,job-yr/MW,2050,7.309430578516197,7.30943057852,CAPEX/OPEX ratio projection,,,Small RoR hydro power,,CAPEX 2050/2030=0.9949106866843181,2030,2050,7.30943057852
 Rutovitz 2015,Hydro (small),Construction,Direct,job-yr/MW,2015,15.8,15.8,Original,,,,,,2015,2015,15.8
 Rutovitz 2015,Hydro (small),Construction,Direct,job-yr/MW,2030,16.906000000000002,16.906,Rutovitz Table 9 decline to 2030,Hydro-small,1.07,,,Rutovitz Table 9 Latin America 2030,2015,2030,16.906
 Rutovitz 2015,Hydro (small),Construction,Direct,job-yr/MW,2050,16.819960069085084,16.8199600691,CAPEX/OPEX ratio projection,Hydro-small,,Small RoR hydro power,,CAPEX 2050/2030=0.9949106866843181,2030,2050,16.8199600691
+ESMAP 2023 + Rutovitz 2025 (MW-scale PCH calibrated),Hydro (small),Construction&Manufacturing,Direct,job-yr/MW,2024,9.66,9.66,Derived Construction&Manufacturing,,,,,"Construction + Manufacturing; full regional manufacturing boundary retained; proxy/calibration, see docs/methodology.md",2024,2024,9.66
+ESMAP 2023 + Rutovitz 2025 (MW-scale PCH calibrated),Hydro (small),Construction&Manufacturing,Direct,job-yr/MW,2030,9.642702367862427,9.64270236786,Derived Construction&Manufacturing,,,Small RoR hydro power,,"Construction + Manufacturing; full regional manufacturing boundary retained; proxy/calibration, see docs/methodology.md",2024,2030,9.64270236786
+ESMAP 2023 + Rutovitz 2025 (MW-scale PCH calibrated),Hydro (small),Construction&Manufacturing,Direct,job-yr/MW,2050,9.593627634302507,9.5936276343,Derived Construction&Manufacturing,,,Small RoR hydro power,,"Construction + Manufacturing; full regional manufacturing boundary retained; proxy/calibration, see docs/methodology.md",2030,2050,9.5936276343
 Rutovitz 2015,Hydro (small),Construction&Manufacturing,Direct,job-yr/MW,2015,26.700000000000003,26.7,Derived Construction&Manufacturing,,,,,Construction + Manufacturing; full regional manufacturing assumed by Rutovitz 2015 method,2015,2015,26.7
 Rutovitz 2015,Hydro (small),Construction&Manufacturing,Direct,job-yr/MW,2030,28.569000000000003,28.569,Derived Construction&Manufacturing,Hydro-small,1.07,,,Construction + Manufacturing; full regional manufacturing assumed by Rutovitz 2015 method,2015,2030,28.569
 Rutovitz 2015,Hydro (small),Construction&Manufacturing,Direct,job-yr/MW,2050,28.423603407884286,28.4236034079,Derived Construction&Manufacturing,Hydro-small,,Small RoR hydro power,,Construction + Manufacturing; full regional manufacturing assumed by Rutovitz 2015 method,2030,2050,28.4236034079
+ESMAP 2023 + Rutovitz 2025 (MW-scale PCH calibrated),Hydro (small),Manufacturing,Direct,job-yr/MW,2024,2.30,2.3,Original,,,,,,2024,2024,2.3
+ESMAP 2023 + Rutovitz 2025 (MW-scale PCH calibrated),Hydro (small),Manufacturing,Direct,job-yr/MW,2030,2.2958815161577206,2.29588151616,CAPEX/OPEX ratio projection,,,Small RoR hydro power,,CAPEX 2030/2024=0.998209354851183,2024,2030,2.29588151616
+ESMAP 2023 + Rutovitz 2025 (MW-scale PCH calibrated),Hydro (small),Manufacturing,Direct,job-yr/MW,2050,2.2841970557863114,2.28419705579,CAPEX/OPEX ratio projection,,,Small RoR hydro power,,CAPEX 2050/2030=0.9949106866843181,2030,2050,2.28419705579
 Rutovitz 2015,Hydro (small),Manufacturing,Direct,job-yr/MW,2015,10.9,10.9,Original,,,,,,2015,2015,10.9
 Rutovitz 2015,Hydro (small),Manufacturing,Direct,job-yr/MW,2030,11.663,11.663,Rutovitz Table 9 decline to 2030,Hydro-small,1.07,,,Rutovitz Table 9 Latin America 2030,2015,2030,11.663
 Rutovitz 2015,Hydro (small),Manufacturing,Direct,job-yr/MW,2050,11.603643338799202,11.6036433388,CAPEX/OPEX ratio projection,Hydro-small,,Small RoR hydro power,,CAPEX 2050/2030=0.9949106866843181,2030,2050,11.6036433388
+ESMAP 2023 + Rutovitz 2025 (MW-scale PCH calibrated),Hydro (small),O&M,Direct,job/MW,2024,0.8,0.8,Original,,,,,,2024,2024,0.8
+ESMAP 2023 + Rutovitz 2025 (MW-scale PCH calibrated),Hydro (small),O&M,Direct,job/MW,2030,0.7987969924812031,0.798796992481,CAPEX/OPEX ratio projection,,,Small RoR hydro power,,OPEX 2030/2024=0.9984962406015038,2024,2030,0.798796992481
+ESMAP 2023 + Rutovitz 2025 (MW-scale PCH calibrated),Hydro (small),O&M,Direct,job/MW,2050,0.7939849624060151,0.793984962406,CAPEX/OPEX ratio projection,,,Small RoR hydro power,,OPEX 2050/2030=0.9939759036144579,2030,2050,0.793984962406
 Rutovitz 2015,Hydro (small),O&M,Direct,job/MW,2015,4.9,4.9,Original,,,,,,2015,2015,4.9
 Rutovitz 2015,Hydro (small),O&M,Direct,job/MW,2030,5.243,5.243,Rutovitz Table 9 decline to 2030,Hydro-small,1.07,,,Rutovitz Table 9 Latin America 2030,2015,2030,5.243
 Rutovitz 2015,Hydro (small),O&M,Direct,job/MW,2050,5.2114156626506025,5.21141566265,CAPEX/OPEX ratio projection,Hydro-small,,Small RoR hydro power,,OPEX 2050/2030=0.9939759036144579,2030,2050,5.21141566265
@@ -363,6 +375,18 @@ I-JEDI Colombia + Rutovitz 2025 direct / US-JEDI indirect-induced PV ratios,Roof
 JEDI-US,Rooftop solar PV,O&M,Induced,job/MW,2024,0.13060843730404842,0.130608437304,Original,,,,,,2024,2024,0.130608437304
 JEDI-US,Rooftop solar PV,O&M,Induced,job/MW,2030,0.11216959909641805,0.112169599096,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,OPEX 2030/2024=0.8588235294117647,2024,2030,0.112169599096
 JEDI-US,Rooftop solar PV,O&M,Induced,job/MW,2050,0.09449904581410562,0.0944990458141,CAPEX/OPEX ratio projection,,,Residential PV (rooftop),,OPEX 2050/2030=0.8424657534246576,2030,2050,0.0944990458141
+Rutovitz 2015 (SMR proxy),SMR,Construction,Direct,job-yr/MW,2024,11.8,11.8,Original,,,,,,2024,2024,11.8
+Rutovitz 2015 (SMR proxy),SMR,Construction,Direct,job-yr/MW,2030,11.8,11.8,Constant SMR proxy,,,,,Conventional nuclear proxy; no SMR-specific learning or cost scaling,2024,2030,11.8
+Rutovitz 2015 (SMR proxy),SMR,Construction,Direct,job-yr/MW,2050,11.8,11.8,Constant SMR proxy,,,,,Conventional nuclear proxy; no SMR-specific learning or cost scaling,2024,2050,11.8
+Rutovitz 2015 (SMR proxy),SMR,Construction&Manufacturing,Direct,job-yr/MW,2024,13.100000000000001,13.1,Derived Construction&Manufacturing,,,,,"Construction + Manufacturing; full regional manufacturing boundary retained; proxy/calibration, see docs/methodology.md",2024,2024,13.1
+Rutovitz 2015 (SMR proxy),SMR,Construction&Manufacturing,Direct,job-yr/MW,2030,13.100000000000001,13.1,Derived Construction&Manufacturing,,,,,"Construction + Manufacturing; full regional manufacturing boundary retained; proxy/calibration, see docs/methodology.md",2024,2030,13.1
+Rutovitz 2015 (SMR proxy),SMR,Construction&Manufacturing,Direct,job-yr/MW,2050,13.100000000000001,13.1,Derived Construction&Manufacturing,,,,,"Construction + Manufacturing; full regional manufacturing boundary retained; proxy/calibration, see docs/methodology.md",2024,2050,13.1
+Rutovitz 2015 (SMR proxy),SMR,Manufacturing,Direct,job-yr/MW,2024,1.3,1.3,Original,,,,,,2024,2024,1.3
+Rutovitz 2015 (SMR proxy),SMR,Manufacturing,Direct,job-yr/MW,2030,1.3,1.3,Constant SMR proxy,,,,,Conventional nuclear proxy; no SMR-specific learning or cost scaling,2024,2030,1.3
+Rutovitz 2015 (SMR proxy),SMR,Manufacturing,Direct,job-yr/MW,2050,1.3,1.3,Constant SMR proxy,,,,,Conventional nuclear proxy; no SMR-specific learning or cost scaling,2024,2050,1.3
+Rutovitz 2015 (SMR proxy),SMR,O&M,Direct,job/MW,2024,0.6,0.6,Original,,,,,,2024,2024,0.6
+Rutovitz 2015 (SMR proxy),SMR,O&M,Direct,job/MW,2030,0.6,0.6,Constant SMR proxy,,,,,Conventional nuclear proxy; no SMR-specific learning or cost scaling,2024,2030,0.6
+Rutovitz 2015 (SMR proxy),SMR,O&M,Direct,job/MW,2050,0.6,0.6,Constant SMR proxy,,,,,Conventional nuclear proxy; no SMR-specific learning or cost scaling,2024,2050,0.6
 Rutovitz 2015,Solar thermal (CSP),Construction,Direct,job-yr/MW,2015,8,8,Original,,,,,,2015,2015,8
 Rutovitz 2015,Solar thermal (CSP),Construction,Direct,job-yr/MW,2030,7.04,7.04,Rutovitz Table 9 decline to 2030,Solar thermal power,0.88,,,Rutovitz Table 9 Latin America 2030,2015,2030,7.04
 Rutovitz 2015,Solar thermal (CSP),Construction,Direct,job-yr/MW,2050,7.04,7.04,Constant projection for unmapped catalogue ratio,Solar thermal power,,,,No catalogue ratio mapping; value held constant,2030,2050,7.04

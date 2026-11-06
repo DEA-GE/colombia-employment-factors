@@ -1,0 +1,38 @@
+{
+  "baseline_revision": "6c1676e82c87f61ef091f533183e887d04569eda",
+  "checks": {
+    "src/colombia_employment_factors/data/employment_factors_model_default_2024_2055.csv": {
+      "unrelated_rows_identical": 2624,
+      "wind_rows_identical": 320
+    },
+    "src/colombia_employment_factors/data/employment_factors_model_latam_productivity_2024_2055.csv": {
+      "unrelated_rows_identical": 2624,
+      "wind_rows_identical": 320
+    },
+    "src/colombia_employment_factors/data/employment_factors_with_2030_2050.csv": {
+      "unrelated_rows_identical": 451,
+      "wind_rows_identical": 84
+    },
+    "src/colombia_employment_factors/data/employment_factors_yearly_2024_2055.csv": {
+      "unrelated_rows_identical": 6048,
+      "wind_rows_identical": 1024
+    },
+    "src/colombia_employment_factors/data/technology_assumptions_2024.csv": {
+      "unrelated_rows_identical": 20,
+      "wind_rows_identical": 3
+    },
+    "data/processed/scenarios/high-catalogue-selective/employment_factors_model_default_2024_2055.csv": {
+      "unrelated_rows_identical": 2624,
+      "wind_rows_identical": 320
+    },
+    "data/processed/scenarios/low-catalogue-selective/employment_factors_model_default_2024_2055.csv": {
+      "unrelated_rows_identical": 2624,
+      "wind_rows_identical": 320
+    },
+    "data/processed/scenarios/source-refresh/employment_factors_model_default_2024_2055.csv": {
+      "unrelated_rows_identical": 2624,
+      "wind_rows_identical": 320
+    }
+  },
+  "reproducible_csv_files": 5
+}
